@@ -2,6 +2,8 @@
 
 use Symfony\Component\Dotenv\Dotenv;
 
+date_default_timezone_set("Europe/Paris");
+
 require dirname(__DIR__).'/vendor/autoload.php';
 
 // Load cached env vars if the .env.local.php file exists
