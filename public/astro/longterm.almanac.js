@@ -20437,11 +20437,11 @@ function gatherOutput() {
 	let outForm = {};
 
 	let sun = {};
-	sun.SunGHA = GHASun;
-	sun.SunRA = RASun;
-	sun.SunDEC = DECSun;
-	sun.SunSD = SDSun;
-	sun.SunHP = HPSun;
+	sun.GHA = GHASun;
+	sun.RA = RASun;
+	sun.DEC = DECSun;
+	sun.SD = SDSun;
+	sun.HP = HPSun;
 	outForm.sun = sun;
 
 	outForm.EOT = EoT;
@@ -20466,7 +20466,7 @@ function gatherOutput() {
 	venus.SD = SDVenus;
 	venus.HP = HPVenus;
 	venus.illum = illumVenus;
-	outForm.nevus = venus;
+	outForm.venus = venus;
 
 	let mars = {};
 	mars.GHA = GHAMars;
