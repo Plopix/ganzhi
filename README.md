@@ -23,6 +23,17 @@ Also that's a PWA, there is a Service Worker file (sw.js), you could then have w
 
 Use `brew`
 
+```bash
+$ [all_proxy=http://your.proxy.com:80] brew update
+$ [all_proxy=http://your.proxy.com:80] brew upgrade php
+$ php -v
+```
+If `upgrade` pretends that `php is not installed`, use instead:
+```bash
+$ [all_proxy=http://your.proxy.com:80] brew install php
+$ php -v
+```
+
 #### Linux
 
 Use `apt-get` or any package manager.
