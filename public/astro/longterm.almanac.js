@@ -17,6 +17,7 @@ if (Math.toDegrees === undefined) {
 }
 
 let Utils = require('./utils.js');
+
 let Earth = require('./earth.js');
 let Venus = require('./venus.js');
 let Mars = require('./mars.js');
@@ -29,7 +30,7 @@ let eps0, eps, deltaPsi, deltaEps;
 let Le, Be, Re;
 let kappa, pi0, e;
 let lambdaSun, RASun, DECSun, GHASun, SDSun, HPSun, EoT, EoE, EoEout, Lsun_true, Lsun_prime;
-let dES, dayFraction;
+let dES, dayFraction, GHAAmean;
 let RAVenus, DECVenus, GHAVenus, SDVenus, HPVenus;
 let RAMars, DECMars, GHAMars, SDMars, HPMars;
 let RAJupiter, DECJupiter, GHAJupiter, SDJupiter, HPJupiter;
@@ -150,7 +151,7 @@ function outHA(x) {
 	if (GHAsec < 10) {
 		GHAsec = "0" + GHAsec;
 	}
-	return " " + GHAdeg + "°" + " " + GHAmin + "'" + " " + GHAsec + "''";
+	return GHAdeg + "°" + " " + GHAmin + "'" + " " + GHAsec + "''";
 }
 
 // Output Right Ascension
@@ -180,7 +181,7 @@ function outRA(x) {
 	if (RAsec < 10) {
 		RAsec = "0" + RAsec;
 	}
-	return " " + RAh + "h" + " " + RAmin + "m" + " " + RAsec + "s";
+	return RAh + "h" + " " + RAmin + "m" + " " + RAsec + "s";
 }
 
 // Output Obliquity of Ecliptic
@@ -204,7 +205,7 @@ function outECL(x) {
 	if (ECLsec < 10) {
 		ECLsec = "0" + ECLsec;
 	}
-	return " " + ECLdeg + "°" + " " + ECLmin + "'" + " " + ECLsec + "''";
+	return ECLdeg + "°" + " " + ECLmin + "'" + " " + ECLsec + "''";
 }
 
 // Output Sidereal Time
@@ -222,7 +223,7 @@ function outSideralTime(x) {
 	} else if (100 * GMSTs - Math.floor(100 * GMSTs) === 0) {
 		GMSTs += "0";
 	}
-	return " " + GMSTh + "h" + " " + GMSTm + "m" + " " + GMSTs + "s";
+	return GMSTh + "h" + " " + GMSTm + "m" + " " + GMSTs + "s";
 }
 
 // Output Declination
@@ -260,7 +261,7 @@ function outDec(x) {
 	if (DECsec < 10) {
 		DECsec = "0" + DECsec;
 	}
-	return " " + name + "   " + DECdeg + "°" + " " + DECmin + "'" + " " + DECsec + "''";
+	return name + "   " + DECdeg + "°" + " " + DECmin + "'" + " " + DECsec + "''";
 }
 
 // Output SD and HP
@@ -269,7 +270,7 @@ function outSdHp(x) {
 	if (x - Math.floor(x) === 0) {
 		x += ".0";
 	}
-	return " " + x + "''";
+	return x + "''";
 }
 
 // Astronomical functions
@@ -460,7 +461,7 @@ function calculateAberration() {
 // GHA Aries, GAST, GMST, equation of the equinoxes
 function calculateAries() {
 	// Mean GHA Aries
-	let GHAAmean = Utils.norm360Deg(280.46061837 + 360.98564736629 * (JD - 2451545) + 0.000387933 * T2 - T3 / 38710000);
+	GHAAmean = Utils.norm360Deg(280.46061837 + 360.98564736629 * (JD - 2451545) + 0.000387933 * T2 - T3 / 38710000);
 
 	// GMST
 	SidTm = outSideralTime(GHAAmean);
@@ -474,7 +475,7 @@ function calculateAries() {
 	// Equation of the equinoxes
 	EoE = 240 * deltaPsi * Utils.cosd(eps);
 	EoEout = Math.round(1000 * EoE) / 1000;
-	EoEout = " " + EoEout + "s";
+	// EoEout = " " + EoEout + "s";
 }
 
 // Calculations for the Sun
@@ -1141,25 +1142,25 @@ function calculateWeekDay() {
 	JD0h += 1.5;
 	let res = JD0h - 7 * Math.floor(JD0h / 7);
 	if (res === 0) {
-		DoW = " SUN";
+		DoW = "SUN";
 	}
 	if (res === 1) {
-		DoW = " MON";
+		DoW = "MON";
 	}
 	if (res === 2) {
-		DoW = " TUE";
+		DoW = "TUE";
 	}
 	if (res === 3) {
-		DoW = " WED";
+		DoW = "WED";
 	}
 	if (res === 4) {
-		DoW = " THU";
+		DoW = "THU";
 	}
 	if (res === 5) {
-		DoW = " FRI";
+		DoW = "FRI";
 	}
 	if (res === 6) {
-		DoW = " SAT";
+		DoW = "SAT";
 	}
 }
 
@@ -1241,16 +1242,31 @@ function gatherOutput() {
 	}
 
 	// Lunar Distance of Sun
-	LDist = outHA(LDist);
+	let fmtLDist = outHA(LDist);
 
 	let outForm = {};
 
 	let sun = {};
-	sun.GHA = GHASun;
-	sun.RA = RASun;
-	sun.DEC = DECSun;
-	sun.SD = SDSun;
-	sun.HP = HPSun;
+	sun.GHA = {
+		raw: GHASun,
+		fmt: fmtGHASun
+ 	};
+	sun.RA = {
+		raw: RASun,
+		fmt: fmtRASun
+	};
+	sun.DEC = {
+		raw: DECSun,
+		fmt: fmtDECSun
+	};
+	sun.SD = {
+		raw: SDSun,
+		fmt: fmtSDSun
+	};
+	sun.HP = {
+		raw: HPSun,
+		fmt: fmtHPSun
+	};
 	outForm.sun = sun;
 
 	outForm.EOT = EoT;
@@ -1310,17 +1326,32 @@ function gatherOutput() {
 	polaris.DEC = DECPol;
 	outForm.polaris = polaris;
 
-	outForm.SidTmean = SidTm;
-	outForm.SidTapp = SidTa;
+	outForm.sidTmean = {
+		raw: GHAAmean,
+		fmt: SidTm
+	};
+	outForm.sidTapp = {
+		raw: GHAAtrue,
+		fmt: SidTa
+	};
 	outForm.EoEquin = EoEout;
-	outForm.dpsi =  Math.round(3600000 * deltaPsi) / 1000 + "''";
-	outForm.deps = Math.round(3600000 * deltaEps) / 1000 + "''";
-	outForm.obliq = OoE;
-	outForm.trueobliq = tOoE;
-	outForm.JulianDay = Math.round(1000000 * JD) / 1000000;
-	outForm.JulianEphemDay = Math.round(1000000 * JDE) / 1000000;
-	outForm.LunarDist = LDist;
-	outForm.DayOfWeek = DoW;
+	outForm.dPsi =  Math.round(3600000 * deltaPsi) / 1000; // + "''";
+	outForm.dEps = Math.round(3600000 * deltaEps) / 1000;  // + "''";
+	outForm.obliq = {
+		raw: eps0,
+		fmt: OoE
+	};
+	outForm.trueObliq = {
+		raw: eps,
+		fmt: tOoE
+	};
+	outForm.julianDay = Math.round(1000000 * JD) / 1000000;
+	outForm.julianEphemDay = Math.round(1000000 * JDE) / 1000000;
+	outForm.lunarDist = {
+		raw: LDist,
+		fmt: fmtLDist
+	};
+	outForm.dayOfWeek = DoW;
 
 	return outForm;
 }
