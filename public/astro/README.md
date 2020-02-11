@@ -219,13 +219,14 @@ For each body, it gives:
 `Polaris` obviously does not have semi-diameter, horizontal parallax, nor illumination.
 
 In addition for the `Moon`, there is also the phase (raw in degrees, and formatted for display).
+
 Values are in degrees, from `0` to `360`
 - `0` and `360`: New Moon
 - `90`: First quarter
 - `180`: Full Moon
 - `270`: Last Quarter
 
-There is also the Equation of Time (`EoT`), raw in **minutes**, and formatted in minutes and seconds.
+There is also the Equation of Time (`EoT`), raw in decimal **minutes**, and formatted in minutes and seconds.
 
 And also some extra data, related to time, equation of equinoxes, and other goodies.
 
