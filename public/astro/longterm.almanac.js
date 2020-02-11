@@ -3,6 +3,7 @@
  * @author OliverLD
  * Adapted in ES6 from Henning Umland's original code.
  * https://www.celnav.de/
+ * http://www.titulosnauticos.net/astro/
  *
  * DeltaT can be found at http://maia.usno.navy.mil/ (will be back to life in 2020)
  */
@@ -19,7 +20,7 @@ if (Math.toDegrees === undefined) {
 	};
 }
 
-let Utils = require('./utils.js');
+let Utils   = require('./utils.js');
 
 let Earth   = require('./earth.js');
 let Venus   = require('./venus.js');
