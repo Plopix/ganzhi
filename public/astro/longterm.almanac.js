@@ -3,6 +3,8 @@
  * @author OliverLD
  * Adapted in ES6 from Henning Umland's original code.
  * https://www.celnav.de/
+ *
+ * DeltaT can be found at http://maia.usno.navy.mil/ (will be back to life in 2020)
  */
 
 if (Math.toRadians === undefined) {
