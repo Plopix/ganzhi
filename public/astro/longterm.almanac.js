@@ -1294,11 +1294,26 @@ function gatherOutput() {
 	};
 
 	let moon = {};
-	moon.GHA = GHAMoon;
-	moon.RA = RAMoon;
-	moon.DEC = DECMoon;
-	moon.SD = SDMoon;
-	moon.HP = HPMoon;
+	moon.GHA = {
+		raw: GHAMoon,
+		fmt: fmtGHAMoon
+	};
+	moon.RA = {
+		raw: RAMoon,
+		fmt: fmtRAMoon
+	};
+	moon.DEC = {
+		raw: DECMoon,
+		fmt: fmtDECMoon
+	};
+	moon.SD = {
+		raw: SDMoon,
+		fmt: fmtSDMoon
+	};
+	moon.HP = {
+		raw: HPMoon,
+		fmt: fmtHPMoon
+	};
 	moon.illum = illumMoon;
 	moon.phase = {
 		phase: moonPhase,
@@ -1307,45 +1322,111 @@ function gatherOutput() {
 	outForm.moon = moon;
 
 	let venus = {};
-	venus.GHA = GHAVenus;
-	venus.RA = RAVenus;
-	venus.DEC = DECVenus;
-	venus.SD = SDVenus;
-	venus.HP = HPVenus;
+	venus.GHA = {
+		raw: GHAVenus,
+		fmt: fmtGHAVenus
+	};
+	venus.RA = {
+		raw: RAVenus,
+		fmt: fmtRAVenus
+	};
+	venus.DEC = {
+		raw: DECVenus,
+		fmt: fmtDECVenus
+	};
+	venus.SD = {
+		raw: SDVenus,
+		fmt: fmtSDVenus
+	};
+	venus.HP = {
+		raw: HPVenus,
+		fmt: fmtHPVenus
+	};
 	venus.illum = illumVenus;
 	outForm.venus = venus;
 
 	let mars = {};
-	mars.GHA = GHAMars;
-	mars.RA = RAMars;
-	mars.DEC = DECMars;
-	mars.SD = SDMars;
-	mars.MarsHP = HPMars;
-	mars.HP = illumMars;
+	mars.GHA = {
+		raw: GHAMars,
+		fmt: fmtGHAMars
+	};
+	mars.RA = {
+		raw: RAMars,
+		fmt: fmtRAMars
+	};
+	mars.DEC = {
+		raw: DECMars,
+		fmt: fmtDECMars
+	};
+	mars.SD = {
+		raw: SDMars,
+		fmt: fmtSDMars
+	};
+	mars.HP = {
+		raw: HPMars,
+		fmt: fmtHPMars
+	};
+	mars.illum = illumMars;
 	outForm.mars = mars;
 
 	let jupiter = {};
-	jupiter.GHA = GHAJupiter;
-	jupiter.RA = RAJupiter;
-	jupiter.DEC = DECJupiter;
-	jupiter.SD = SDJupiter;
+	jupiter.GHA = {
+		raw: GHAJupiter,
+		fmt: fmtGHAJupiter
+	};
+	jupiter.RA = {
+		raw: RAJupiter,
+		fmt: fmtRAJupiter
+	};
+	jupiter.DEC = {
+		raw: DECJupiter,
+		fmt: fmtDECJupiter
+	};
+	jupiter.SD = {
+		raw: SDJupiter,
+		fmt: fmtSDJupiter
+	};
 	jupiter.HP = HPJupiter;
 	jupiter.illum = illumJupiter;
 	outForm.jupiter = jupiter;
 
 	let saturn = {};
-	saturn.GHA = GHASaturn;
-	saturn.RA = RASaturn;
-	saturn.DEC = DECSaturn;
-	saturn.SD = SDSaturn;
-	saturn.HP = HPSaturn;
+	saturn.GHA = {
+		raw: GHASaturn,
+		fmt: fmtGHASaturn
+	};
+	saturn.RA = {
+		raw: RASaturn,
+		fmt: fmtRASaturn
+	};
+	saturn.DEC = {
+		raw: DECSaturn,
+		fmt: fmtDECSaturn
+	};
+	saturn.SD = {
+		raw: SDSaturn,
+		fmt: fmtSDSaturn
+	};
+	saturn.HP = {
+		raw: HPSaturn,
+		fmt: fmtHPSaturn
+	};
 	saturn.illum = illumSaturn;
 	outForm.saturn = saturn;
 
 	let polaris = {};
-	polaris.GHA = GHAPol;
-	polaris.RA = RAPol;
-	polaris.DEC = DECPol;
+	polaris.GHA = {
+		raw: GHAPol,
+		fmt: fmtGHAPolaris
+	};
+	polaris.RA = {
+		raw: RAPol,
+		fmt: fmtRAPolaris
+	};
+	polaris.DEC = {
+		raw: DECPol,
+		fmt: fmtDECPolaris
+	};
 	outForm.polaris = polaris;
 
 	outForm.sidTmean = {
@@ -1378,55 +1459,5 @@ function gatherOutput() {
 	return outForm;
 }
 
-function sampleMain(userDataObject) {
-	let year = userDataObject.utcyear;
-	let	month = userDataObject.utcmonth;
-	if (month < 1 || month > 12) {
-		throw new Error("Month out of range! Restart calculation.");
-	}
-	let day = userDataObject.utcday;
-	if (day < 1 || day > 31) {
-		throw new Error("Day out of range! Restart calculation.");
-	}
-	let leap = isLeapYear(year);
-	if (month === 2 && day > 28 && !leap) {
-		throw new Error("February has only 28 days! Restart calculation.");
-	}
-	if (month === 2 && day > 29 && leap) {
-		throw new Error("February has only 29 days in a leap year! Restart calculation.");
-	}
-	if (month === 4 && day > 30) {
-		throw new Error("April has only 30 days! Restart calculation.");
-	}
-	if (month === 6 && day > 30) {
-		throw new Error("June has only 30 days! Restart calculation.");
-	}
-	if (month === 9 && day > 30) {
-		throw new Error("September has only 30 days! Restart calculation.");
-	}
-	if (month === 11 && day > 30) {
-		throw new Error("November has only 30 days! Restart calculation.");
-	}
-	let hour = userDataObject.utchour;
-	let minute = userDataObject.utcminute;
-	let second = userDataObject.utcsecond;
-
-	let delta_t = userDataObject.deltaT;
-
-	return calculate(year, month, day, hour, minute, second, delta_t);
-}
-
-let now = new Date();
-let sampleData = {
-	utcyear: now.getUTCFullYear(),
-	utcmonth: now.getUTCMonth() + 1, // Zero based
-	utcday: now.getUTCDate(),
-	utchour: now.getUTCHours(),
-	utcminute: now.getUTCMinutes(),
-	utcsecond: now.getUTCSeconds(),
-	deltaT: 69.01
-};
-
-let testResult = sampleMain(sampleData);
-console.log("Calculation done %d-%d-%d %d:%d:%d UTC :", sampleData.utcyear, sampleData.utcmonth, sampleData.utcday, sampleData.utchour, sampleData.utcminute, sampleData.utcsecond);
-console.log("Result:\n", testResult);
+exports.calculate = calculate;
+exports.isLeapYear = isLeapYear;
