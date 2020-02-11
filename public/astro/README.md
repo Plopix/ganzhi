@@ -1,5 +1,6 @@
 # JS Celestial Almanac
 - Ported in ES6 from [Henning Umland](https://www.celnav.de/)'s code.
+- See the original web page [here](file:///Users/olediour/oliv/long.term.almanac/new.code/longterm.almanac.html), for reference.
 
 ### Test it from NodeJS
 From `node-js`, run the script named `sample.main.js`:
@@ -85,7 +86,7 @@ For each body, it gives:
 - the Declination (`DEC`), raw and formatted
 - the Semi-Diameter (`SD`), raw and formatted
 - the Horizontal Parallax (`HP`), raw and formatted
-- the illumination (`illum`) in %, except for the Sun 
+- the illumination (`illum`) in %, except for the `Sun` 
 
 `Polaris` obviously does not have semi-diameter, horizontal parallax, nor illumination.
 
