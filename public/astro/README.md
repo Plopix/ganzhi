@@ -71,22 +71,25 @@ $
 As you would see, it returns the celestial configuration for the current UTC date.
 
 It returns data for the following bodies:
- - Sun
- - Moon
- - Venus
- - Mars
- - Jupiter
- - Saturn
+ - `Sun`
+ - `Moon`
+ - `Venus`
+ - `Mars`
+ - `Jupiter`
+ - `Saturn`
+ - `Polaris`
  
 For each body, it gives:
-- the Greenwich Hour Angle (GHA), raw and formatted
-- the Right Ascension (RA), raw and formatted
-- the Declination (DEC), raw and formatted
-- the Semi-Diameter (SD), raw and formatted
-- the Horizontal Parallax (HP), raw and formatted
-- the illumination (illum) in %, except for the Sun 
+- the Greenwich Hour Angle (`GHA`), raw and formatted
+- the Right Ascension (`RA`), raw and formatted
+- the Declination (`DEC`), raw and formatted
+- the Semi-Diameter (`SD`), raw and formatted
+- the Horizontal Parallax (`HP`), raw and formatted
+- the illumination (`illum`) in %, except for the Sun 
 
-In addition for the Moon, there is also the phase (raw, and formatted).
+`Polaris` obviously does not have semi-diameter, horizontal parallax, nor illumination.
+
+In addition for the `Moon`, there is also the phase (raw, and formatted).
 Values are in degrees, from `0` to `360`
 - `0` and `360`: New Moon
 - `90`: First quarter
