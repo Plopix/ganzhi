@@ -2,6 +2,7 @@
 /**
  * @author OliverLD
  * Adapted in ES6 from Henning Umland's original code.
+ * https://www.celnav.de/
  */
 
 if (Math.toRadians === undefined) {
@@ -26,13 +27,13 @@ let Saturn  = require('./saturn.js');
 
 // Global Variables
 let T, T2, T3, T4, T5, TE, TE2, TE3, TE4, TE5, Tau, Tau2, Tau3, Tau4, Tau5, deltaT,
-	eps0, eps, deltaPsi, deltaEps, Le, Be, Re, kappa, pi0, e, lambdaSun, RASun, DECSun, 
-	GHASun, SDSun, HPSun, EoT, EoE, EoEout, Lsun_true, Lsun_prime, dES, dayFraction, GHAAmean,
-	RAVenus, DECVenus, GHAVenus, SDVenus, HPVenus, RAMars, DECMars, GHAMars, SDMars, HPMars, 
-	RAJupiter, DECJupiter, GHAJupiter, SDJupiter, HPJupiter, RASaturn, DECSaturn, GHASaturn, SDSaturn, HPSaturn,
-	RAMoon, DECMoon, GHAMoon, SDMoon, HPMoon, RAPol, DECPol, GHAPol, OoE, tOoE, LDist,
-	JD0h, JD, JDE, lambdaMapp, SidTm, GHAAtrue, SidTa,
-	moonPhaseAngle = 0, moonPhase = "", DoW = "", illumMoon, illumVenus, illumMars, illumJupiter, illumSaturn;
+		eps0, eps, deltaPsi, deltaEps, Le, Be, Re, kappa, pi0, e, lambdaSun, RASun, DECSun,
+		GHASun, SDSun, HPSun, EoT, fmtEoT, EoE, EoEout, Lsun_true, Lsun_prime, dES, dayFraction, GHAAmean,
+		RAVenus, DECVenus, GHAVenus, SDVenus, HPVenus, RAMars, DECMars, GHAMars, SDMars, HPMars,
+		RAJupiter, DECJupiter, GHAJupiter, SDJupiter, HPJupiter, RASaturn, DECSaturn, GHASaturn, SDSaturn, HPSaturn,
+		RAMoon, DECMoon, GHAMoon, SDMoon, HPMoon, RAPol, DECPol, GHAPol, OoE, tOoE, LDist,
+		JD0h, JD, JDE, lambdaMapp, SidTm, GHAAtrue, SidTa,
+		moonPhaseAngle = 0, moonPhase = "", DoW = "", illumMoon, illumVenus, illumMars, illumJupiter, illumSaturn;
 
 // Main function
 function calculate(year, month, day, hour, minute, second, delta_t) {
@@ -66,7 +67,10 @@ function isLeapYear(year) {
 	return ly;
 }
 
-// Input data conversion and reworking
+/**
+ * Input data conversion and reworking
+ * All data are UTC data (except detlaT)
+ */
 function calculateJulianDate(year, month, day, hour, minute, second, delta_t) {
 
 	dayFraction = (hour + minute / 60 + second / 3600) / 24;
@@ -175,6 +179,28 @@ function outRA(x) {
 		RAsec = "0" + RAsec;
 	}
 	return RAh + "h" + " " + RAmin + "m" + " " + RAsec + "s";
+}
+
+// Equation of Time
+function outEoT(x) {
+	let sign = "";
+	if (x < 0) {
+		sign = "-";
+	} else {
+		sign = "+";
+	}
+	let EoT = Math.abs(x);
+	let EOTmin = Math.floor(EoT);
+	let EOTsec = Math.round(600 * (EoT - EOTmin)) / 10;
+	if (EOTsec - Math.floor(EOTsec) === 0) {
+		EOTsec += ".0";
+	}
+	if (EOTmin === 0) {
+		EoT = " " + sign + " " + EOTsec + "s";
+	} else {
+		EoT = " " + sign + " " + EOTmin + "m " + EOTsec + "s";
+	}
+	return EoT;
 }
 
 // Output Obliquity of Ecliptic
@@ -844,7 +870,7 @@ function calculateMoon() {
 
 	// Periodic terms for the moon:
 
-	//Longitude and distance
+	// Longitude and distance
 	let ld = [
 		"0 0 1 0 6288774 -20905355 ",
 		"2 0-1 0 1274027  -3699111 ",
@@ -971,7 +997,7 @@ function calculateMoon() {
 		"2-2 0 1     107 "
 	];
 
-	//Reading periodic terms
+	// Reading periodic terms
 	let fD, fD2, fM, fM2, fMm, fMm2, fF, fF2, coeffs, coeffs2, coeffc, f, f2, sumL = 0, sumR = 0, sumB = 0, x = 0;
 
 	while (x < lat.length) {
@@ -1219,23 +1245,7 @@ function gatherOutput() {
 	tOoE = outECL(eps);
 
 	// Equation of time
-	let sign = "";
-	if (EoT < 0) {
-		sign = "-";
-	} else {
-		sign = "+";
-	}
-	EoT = Math.abs(EoT);
-	let EOTmin = Math.floor(EoT);
-	let EOTsec = Math.round(600 * (EoT - EOTmin)) / 10;
-	if (EOTsec - Math.floor(EOTsec) === 0) {
-		EOTsec += ".0";
-	}
-	if (EOTmin === 0) {
-		EoT = " " + sign + " " + EOTsec + "s";
-	} else {
-		EoT = " " + sign + " " + EOTmin + "m " + EOTsec + "s";
-	}
+	fmtEoT = outEoT(EoT);
 
 	// Lunar Distance of Sun
 	let fmtLDist = outHA(LDist);
@@ -1265,7 +1275,10 @@ function gatherOutput() {
 	};
 	outForm.sun = sun;
 
-	outForm.EOT = EoT;
+	outForm.EOT = {
+		raw: EoT,
+		fmt: fmtEoT
+	};
 
 	let moon = {};
 	moon.GHA = GHAMoon;
@@ -1390,15 +1403,17 @@ function sampleMain(userDataObject) {
 	return calculate(year, month, day, hour, minute, second, delta_t);
 }
 
+let now = new Date();
 let sampleData = {
-	utcyear: 2020,
-	utcmonth: 2,
-	utcday: 10,
-	utchour: 13,
-	utcminute: 58,
-	utcsecond: 0,
+	utcyear: now.getUTCFullYear(),
+	utcmonth: now.getUTCMonth() + 1, // Zero based
+	utcday: now.getUTCDate(),
+	utchour: now.getUTCHours(),
+	utcminute: now.getUTCMinutes(),
+	utcsecond: now.getUTCSeconds(),
 	deltaT: 69.01
 };
 
 let testResult = sampleMain(sampleData);
+console.log("Calculation done %d-%d-%d %d:%d:%d UTC :", sampleData.utcyear, sampleData.utcmonth, sampleData.utcday, sampleData.utchour, sampleData.utcminute, sampleData.utcsecond);
 console.log("Result:\n", testResult);
