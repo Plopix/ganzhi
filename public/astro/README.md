@@ -209,21 +209,25 @@ It returns data for the following bodies:
  - `Polaris`
  
 For each body, it gives:
-- the Greenwich Hour Angle (`GHA`), raw and formatted
-- the Right Ascension (`RA`), raw and formatted
-- the Declination (`DEC`), raw and formatted
-- the Semi-Diameter (`SD`), raw and formatted
-- the Horizontal Parallax (`HP`), raw and formatted
+- the Greenwich Hour Angle (`GHA`), raw in decimal degrees and formatted in **degrees**, minutes, and seconds.
+- the Right Ascension (`RA`), raw in decimal degrees and formatted in **hours**, minutes and second
+- the Declination (`DEC`), raw in decimal degrees and formatted in degrees, minutes and seconds (N or S)
+- the Semi-Diameter (`SD`), raw in **seconds** of arc and formatted the same way
+- the Horizontal Parallax (`HP`), raw in **seconds** of arc and formatted the same way
 - the illumination (`illum`) in %, except for the `Sun` 
 
 `Polaris` obviously does not have semi-diameter, horizontal parallax, nor illumination.
 
-In addition for the `Moon`, there is also the phase (raw, and formatted).
+In addition for the `Moon`, there is also the phase (raw in degrees, and formatted for display).
 Values are in degrees, from `0` to `360`
 - `0` and `360`: New Moon
 - `90`: First quarter
 - `180`: Full Moon
 - `270`: Last Quarter
+
+There is also the Equation of Time (`EoT`), raw in **minutes**, and formatted in minutes and seconds.
+
+And also some extra data, related to time, equation of equinoxes, and other goodies.
 
 ## How to use it
 As shown in `sample.main.js`, you need to import `longterm.almanac.js` from a `require` statement, and then 
