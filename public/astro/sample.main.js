@@ -53,4 +53,4 @@ let sampleData = {
 
 let testResult = sampleMain(sampleData);
 console.log("Calculation done %d-%d-%d %d:%d:%d UTC :", sampleData.utcyear, sampleData.utcmonth, sampleData.utcday, sampleData.utchour, sampleData.utcminute, sampleData.utcsecond);
-console.log("Result:\n", testResult);
+console.log("Result:\n", JSON.stringify(testResult, null, 2));
