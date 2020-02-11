@@ -10,7 +10,7 @@ From `node-js`, run the script named `sample.main.js`:
    Result:
 ```
 ```json   
-    {
+{
   "sun": {
     "GHA": {
       "raw": 104.34312607934919,
@@ -194,7 +194,6 @@ From `node-js`, run the script named `sample.main.js`:
   },
   "dayOfWeek": "TUE"
 }
-$
 ```
 
 As you would see, it returns the celestial configuration for the current UTC date.
