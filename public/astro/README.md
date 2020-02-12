@@ -243,7 +243,7 @@ There is also the Equation of Time (`EoT`), raw in signed decimal **minutes**, a
 And also some extra data, related to time, equation of equinoxes, and other goodies.
 
 ## How to use it
-As shown in the _module_ `app.js`, you need to import `longterm.almanac.js` (from an `import` statement), and then 
+As shown in the _module_ `app.js` (loaded from `index.html`), you need to import `longterm.almanac.js` (from an `import` statement), and then 
 invoke the `calculate` function to get the `JSON` object featured above.
 
 > Note: DeltaT is to be provided at runtime. It can be obtained from [here](http://maia.usno.navy.mil/).
