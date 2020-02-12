@@ -2,7 +2,7 @@
   "name": "celestial-computer",
   "private": false,
   "version": "0.5.0",
-  "description": "Celestail Data Computer",
+  "description": "Celestial Data Computer",
   "main": "longterm.almanac.js",
   "scripts": {
     "build": "webpack --env dev && webpack --env build"
@@ -12,12 +12,11 @@
     "url": "https://github.com/Plopix/ganzhi.git"
   },
   "keywords": [
-    "world map",
-    "display",
-    "globe",
-		"mercator",
-		"anaximandre",
-    "webcomp"
+    "celestail",
+    "astro",
+    "starts",
+		"planet",
+		"ES6 module"
   ],
   "XXdependencies": {
     "utilities": "latest"
