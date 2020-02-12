@@ -1,8 +1,9 @@
-"use strict";
+import * as CelestialComputer from './longterm.almanac.js';
+// import * as CelestialComputer from './lib/celestial-computer.min.js';
 
-let CelestialComputer = require('./longterm.almanac.js');
+// let CelestialComputer = require('./longterm.almanac.js');
 
-function sampleMain(userDataObject) {
+export function sampleMain(userDataObject) {
 	let year = userDataObject.utcyear;
 	let	month = userDataObject.utcmonth;
 	if (month < 1 || month > 12) {
@@ -40,17 +41,4 @@ function sampleMain(userDataObject) {
 	return CelestialComputer.calculate(year, month, day, hour, minute, second, delta_t);
 }
 
-let now = new Date();
-let sampleData = {
-	utcyear: now.getUTCFullYear(),
-	utcmonth: now.getUTCMonth() + 1, // Zero based
-	utcday: now.getUTCDate(),
-	utchour: now.getUTCHours(),
-	utcminute: now.getUTCMinutes(),
-	utcsecond: now.getUTCSeconds(),
-	deltaT: 69.01
-};
-
-let testResult = sampleMain(sampleData);
-console.log("Calculation done %d-%d-%d %d:%d:%d UTC :", sampleData.utcyear, sampleData.utcmonth, sampleData.utcday, sampleData.utchour, sampleData.utcminute, sampleData.utcsecond);
-console.log("Result:\n", JSON.stringify(testResult, null, 2));
+window.sampleMain = sampleMain;

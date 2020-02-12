@@ -1,11 +1,11 @@
-let Utils = require('./utils.js');
+import * as  Utils from './utils.js';
 
 /**
  * VENUS
  */
 
 // Heliocentric longitude of Venus
-function lVenus(x) {
+export function lVenus(x) {
 	let L0 = 0;
 	L0 += 3.17614666774;
 	L0 += 0.01353968419 * Utils.cost(5.59313319619 + 10213.28554621100 * x);
@@ -698,7 +698,7 @@ function lVenus(x) {
 }
 
 // Heliocentric latitude of Venus
-function bVenus(x) {
+export function bVenus(x) {
 	let B0 = 0;
 	B0 += 0.05923638472 * Utils.cost(0.26702775813 + 10213.28554621100 * x);
 	B0 += 0.00040107978 * Utils.cost(1.14737178106 + 20426.57109242200 * x);
@@ -1146,7 +1146,7 @@ function bVenus(x) {
 }
 
 // Distance Venus-Sun [AU]
-function rVenus(x) {
+export function rVenus(x) {
 	let R0 = 0;
 	R0 += 0.72334820905;
 	R0 += 0.00489824185 * Utils.cost(4.02151832268 + 10213.28554621100 * x);
@@ -1752,6 +1752,8 @@ function rVenus(x) {
 	return (R0 + R1 * x + R2 * x2 + R3 * x3 + R4 * x4 + R5 * x5);
 }
 
+/*
 exports.lVenus = lVenus;
 exports.bVenus = bVenus;
 exports.rVenus = rVenus;
+*/

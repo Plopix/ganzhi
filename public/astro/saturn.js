@@ -1,11 +1,11 @@
-let Utils = require('./utils.js');
+import * as  Utils from './utils.js';
 
 /**
  * SATURN
  */
 
 // Heliocentric longitude of Saturn
-function lSaturn(x) {
+export function lSaturn(x) {
 	let L0 = 0;
 	L0 += 0.87401354029;
 	L0 += 0.11107659780 * Utils.cost(3.96205090194 + 213.29909543800 * x);
@@ -2385,7 +2385,7 @@ function lSaturn(x) {
 }
 
 // Heliocentric latitude of Saturn
-function bSaturn(x) {
+export function bSaturn(x) {
 	let B0 = 0;
 	B0 += 0.04330678040 * Utils.cost(3.60284428399 + 213.29909543800 * x);
 	B0 += 0.00240348303 * Utils.cost(2.85238489390 + 426.59819087600 * x);
@@ -3373,7 +3373,7 @@ function bSaturn(x) {
 }
 
 // Distance Saturn-Sun [AU]
-function rSaturn(x) {
+export function rSaturn(x) {
 	let R0 = 0;
 	R0 += 9.55758135801;
 	R0 += 0.52921382465 * Utils.cost(2.39226219733 + 213.29909543800 * x);
@@ -5829,6 +5829,8 @@ function rSaturn(x) {
 	return (R0 + R1 * x + R2 * x2 + R3 * x3 + R4 * x4 + R5 * x5);
 }
 
+/*
 exports.lSaturn = lSaturn;
 exports.bSaturn = bSaturn;
 exports.rSaturn = rSaturn;
+*/

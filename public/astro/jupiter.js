@@ -1,11 +1,11 @@
-let Utils = require('./utils.js');
+import * as  Utils from './utils.js';
 
 /**
  * JUPITER
  */
 
 // Heliocentric longitude of Jupiter
-function lJupiter(x) {
+export function lJupiter(x) {
 	let L0 = 0;
 	L0 += 0.59954691495;
 	L0 += 0.09695898711 * Utils.cost(5.06191793105 + 529.69096509460 * x);
@@ -1511,7 +1511,7 @@ function lJupiter(x) {
 }
 
 // Heliocentric latitude of Jupiter
-function bJupiter(x) {
+export function bJupiter(x) {
 	let B0 = 0;
 	B0 += 0.02268615703 * Utils.cost(3.55852606718 + 529.69096509460 * x);
 	B0 += 0.00109971634 * Utils.cost(3.90809347389 + 1059.38193018920 * x);
@@ -2063,7 +2063,7 @@ function bJupiter(x) {
 }
 
 // Distance Jupiter-Sun [AU]
-function rJupiter(x) {
+export function rJupiter(x) {
 	let R0 = 0;
 	R0 += 5.20887429471;
 	R0 += 0.25209327020 * Utils.cost(3.49108640015 + 529.69096509460 * x);
@@ -3553,7 +3553,8 @@ function rJupiter(x) {
 	return (R0 + R1 * x + R2 * x2 + R3 * x3 + R4 * x4 + R5 * x5);
 }
 
+/*
 exports.lJupiter = lJupiter;
 exports.bJupiter = bJupiter;
 exports.rJupiter = rJupiter;
-
+*/

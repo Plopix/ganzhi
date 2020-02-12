@@ -1,11 +1,11 @@
-let Utils = require('./utils.js');
+import * as  Utils from './utils.js';
 
 /**
  * MARS
  */
 
 // Heliocentric longitude of Mars
-function lMars(x) {
+export function lMars(x) {
 	let L0 = 0;
 	L0 += 6.20347711583;
 	L0 += 0.18656368100 * Utils.cost(5.05037100303 + 3340.61242669980 * x);
@@ -2420,7 +2420,7 @@ function lMars(x) {
 }
 
 // Heliocentric latitude of Mars
-function bMars(x) {
+export function bMars(x) {
 	let B0 = 0;
 	B0 += 0.03197134986 * Utils.cost(3.76832042432 + 3340.61242669980 * x);
 	B0 += 0.00298033234 * Utils.cost(4.10616996243 + 6681.22485339960 * x);
@@ -3357,7 +3357,7 @@ function bMars(x) {
 }
 
 // Distance Mars-Sun [AU]
-function rMars(x) {
+export function rMars(x) {
 	let R0 = 0;
 	R0 += 1.53033488276;
 	R0 += 0.14184953153 * Utils.cost(3.47971283519 + 3340.61242669980 * x);
@@ -5553,6 +5553,8 @@ function rMars(x) {
 	return (R0 + R1 * x + R2 * x2 + R3 * x3 + R4 * x4 + R5 * x5);
 }
 
+/*
 exports.lMars = lMars;
 exports.bMars = bMars;
 exports.rMars = rMars;
+*/

@@ -4,10 +4,10 @@
  * EARTH
  */
 
-let Utils = require('./utils.js');
+import * as  Utils from './utils.js';
 
 // Heliocentric longitude of Earth
-function lEarth(x) {
+export function lEarth(x) {
 	let L0 = 0;
 	L0 += 1.75347045673;
 	L0 += 0.03341656456 * Utils.cost(4.66925680417 + 6283.07584999140 * x);
@@ -1109,7 +1109,7 @@ function lEarth(x) {
 }
 
 // Heliocentric latitude of Earth
-function bEarth(x) {
+export function bEarth(x) {
 	let B0 = 0;
 	B0 += 0.00000279620 * Utils.cost(3.19870156017 + 84334.66158130829 * x);
 	B0 += 0.00000101643 * Utils.cost(5.42248619256 + 5507.55323866740 * x);
@@ -1476,7 +1476,7 @@ function bEarth(x) {
 }
 
 // Heliocentric distance of Earth
-function rEarth(x) {
+export function rEarth(x) {
 	let R0 = 0;
 	R0 += 1.00013988799;
 	R0 += 0.01670699626 * Utils.cost(3.09846350771 + 6283.07584999140 * x);
@@ -2494,6 +2494,8 @@ function rEarth(x) {
 	return (R0 + R1 * x + R2 * x2 + R3 * x3 + R4 * x4 + R5 * x5);
 }
 
+/*
 exports.lEarth = lEarth;
 exports.bEarth = bEarth;
 exports.rEarth = rEarth;
+*/

@@ -20,13 +20,13 @@ if (Math.toDegrees === undefined) {
 	};
 }
 
-let Utils   = require('./utils.js');
+import * as  Utils from './utils.js';
 
-let Earth   = require('./earth.js');
-let Venus   = require('./venus.js');
-let Mars    = require('./mars.js');
-let Jupiter = require('./jupiter.js');
-let Saturn  = require('./saturn.js');
+import * as Earth from './earth.js';
+import * as Venus from './venus.js';
+import * as Mars from './mars.js';
+import * as Jupiter from './jupiter.js';
+import * as Saturn from './saturn.js';
 
 // Global Variables
 let T, T2, T3, T4, T5, TE, TE2, TE3, TE4, TE5, Tau, Tau2, Tau3, Tau4, Tau5, deltaT,
@@ -48,7 +48,7 @@ let T, T2, T3, T4, T5, TE, TE2, TE3, TE4, TE5, Tau, Tau2, Tau3, Tau4, Tau5, delt
  * @param second Number, UTC second
  * @param delta_t Number, DeltaT
  */
-function calculate(year, month, day, hour, minute, second, delta_t) {
+export function calculate(year, month, day, hour, minute, second, delta_t) {
 	calculateJulianDate(year, month, day, hour, minute, second, delta_t);
 	calculateNutation();
 	calculateAberration();
@@ -65,7 +65,7 @@ function calculate(year, month, day, hour, minute, second, delta_t) {
 	return gatherOutput();
 }
 
-function isLeapYear(year) {
+export function isLeapYear(year) {
 	let ly = false;
 	if (year / 4 - Math.floor(year / 4) === 0) {
 		ly = true;
@@ -1460,5 +1460,7 @@ function gatherOutput() {
 	return outForm;
 }
 
+/*
 exports.calculate = calculate;
 exports.isLeapYear = isLeapYear;
+*/
