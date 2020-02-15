@@ -56,10 +56,12 @@ export default function Ganzhi({year}) {
                 return <span key={index} className={"position position-" + indexPosition}>{computedValue}</span>;
             })}
         </div>
-        <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} className="buttons-group-options">
-            <ToggleButton variant="outline-dark" value={"servants"}>Serviteurs</ToggleButton>
-            <ToggleButton variant="outline-dark" value={"hours"}>Méridiens</ToggleButton>
-            <ToggleButton variant="outline-dark" value={"zangfu"}>Zangfu</ToggleButton>
-        </ToggleButtonGroup>
+        <div className="button-group-container">
+            <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} className="buttons-group-options">
+                <ToggleButton variant="outline-dark" value={"servants"}>Serviteurs</ToggleButton>
+                <ToggleButton variant="outline-dark" value={"hours"}>Méridiens</ToggleButton>
+                <ToggleButton variant="outline-dark" value={"zangfu"}>Zangfu</ToggleButton>
+            </ToggleButtonGroup>
+        </div>
     </div>
 }

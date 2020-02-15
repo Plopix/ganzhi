@@ -49,3 +49,20 @@ buildassets-prod: ## Build Assets for prod
 .PHONY: clean
 clean: ## Clean cache
 	@cd $(APP_DIR) && rm -rf var/cache/*
+
+.PHONY: deploy
+deploy:
+	@rsync -avzCc --delete \
+			--exclude="vendor/" \
+			--exclude="var/" \
+			--exclude=".composer/" \
+			--exclude="node_modules/" \
+			--exclude="public/build/" \
+			--exclude=".env.local" \
+			--exclude=".idea" \
+			./ root@plopix.net:/var/www/html/plopix/ganzhi/ganzhi.plopix.net/
+
+	@ssh root@plopix.net 'chown -R plopix:www-data /var/www/html/plopix/ganzhi/ganzhi.plopix.net/'
+	@ssh root@plopix.net 'chmod -R 770 /var/www/html/plopix/ganzhi/ganzhi.plopix.net/'
+	@ssh root@plopix.net 'su - plopix -c "cd /var/www/html/plopix/ganzhi/ganzhi.plopix.net && composer install"'
+	@ssh root@plopix.net 'su - plopix -c "cd /var/www/html/plopix/ganzhi/ganzhi.plopix.net && yarn install && yarn run encore prod"'

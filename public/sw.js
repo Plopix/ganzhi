@@ -1,4 +1,4 @@
-var CACHE_NAME = 'ganzhi-cache-v1.9';
+var CACHE_NAME = 'ganzhi-cache-v1.9.6';
 
 self.addEventListener('install', function (event) {
     event.waitUntil(
@@ -44,7 +44,18 @@ self.addEventListener('fetch', function (event) {
 
 
 self.addEventListener('activate', function (event) {
-    var cacheWhitelist = ['ganzhi-cache-v1.5', 'ganzhi-cache-v1.6', 'ganzhi-cache-v1.7', 'ganzhi-cache-v1.8'];
+    var cacheWhitelist = [
+        'ganzhi-cache-v1.5',
+        'ganzhi-cache-v1.6',
+        'ganzhi-cache-v1.7',
+        'ganzhi-cache-v1.8',
+        'ganzhi-cache-v1.9',
+        'ganzhi-cache-v1.9.1',
+        'ganzhi-cache-v1.9.2',
+        'ganzhi-cache-v1.9.3',
+        'ganzhi-cache-v1.9.4',
+        'ganzhi-cache-v1.9.5',
+    ];
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(

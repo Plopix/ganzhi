@@ -8,7 +8,7 @@ body {
 }
 
 .layer-container {
-    padding-top: 25px;
+    padding-top: 15px;
 
     h1 {
         text-align: center;
@@ -20,6 +20,7 @@ body {
         width: $big-wheel;
         height: $big-wheel;
         margin: 0 auto;
+        overflow: hidden;
 
         @media (max-width: $screen-maxwheel) {
             width: $small-wheel;
@@ -31,18 +32,19 @@ body {
             position: absolute;
             top: 0;
             left: 0;
-            -webkit-transition: 1s ease-in-out;
-            -moz-transition: 1s ease-in-out;
-            -o-transition: 1s ease-in-out;
-            transition: 1s ease-in-out;
+            -webkit-transition: 0.5s ease-in-out;
+            -moz-transition: 0.5s ease-in-out;
+            -o-transition: 0.5s ease-in-out;
+            transition: 0.5s ease-in-out;
         }
     }
 
     .buttons-group-options {
-        width: 300px !important;
         padding-top: 8px;
-        margin: 0 auto;
-        display: block;
+        .btn {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
     }
 }
 
@@ -78,7 +80,30 @@ body {
 
 }
 
+.jiequi-container {
+    .button-group-container {
+        width: 252px;
+        margin:0 auto;
+        label {
+            font-size: 16px !important;
+            font-weight: normal;
+            font-family: Tahoma, sans-serif;
+        }
+    }
+}
+
 .ganzhi-container {
+    .button-group-container {
+        width: 268px;
+        margin:0 auto;
+        label {
+            font-size: 16px !important;
+            font-weight: normal;
+            font-family: Tahoma, sans-serif;
+        }
+    }
+
+
     .inner {
         .position {
             position: absolute;
@@ -216,12 +241,11 @@ nav {
     }
 
     .current-header-date {
-        font-size: 10px;
         color: #fff;
         padding-top: 5px;
     }
 
-    .form-inline input  {
+    .form-inline input {
         width: 80px;
         max-width: 80px;
         text-align: center;
@@ -229,22 +253,43 @@ nav {
 }
 
 .row-year-change {
-    padding-top: 15px;
+    padding-top: 10px;
 
     .input-group {
         padding-bottom: 5px;
     }
-    input  {
+
+    input {
         text-align: center;
+    }
+
+    .btn {
+        padding: 0;
     }
 }
 
 .row-current-header-date {
     text-align: center;
-    padding-top: 10px;
-    font-size: 10px;
+    padding-top: 5px;
 }
 
+p.slider-title {
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+}
+
+.rc-slider {
+    padding-bottom: 10px;
+
+    .rc-slider-track {
+        background-color: #000;
+    }
+
+    .rc-slider-handle {
+        border-color: #ff9900;
+    }
+}
 
 footer {
     position: fixed;
