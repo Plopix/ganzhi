@@ -1,4 +1,4 @@
-var CACHE_NAME = 'ganzhi-cache-v1.9.8';
+var CACHE_NAME = 'ganzhi-cache-v2.0.0';
 
 self.addEventListener('install', function (event) {
     event.waitUntil(
@@ -51,7 +51,8 @@ self.addEventListener('activate', function (event) {
         'ganzhi-cache-v1.9.4',
         'ganzhi-cache-v1.9.5',
         'ganzhi-cache-v1.9.6',
-        'ganzhi-cache-v1.9.7'
+        'ganzhi-cache-v1.9.7',
+        'ganzhi-cache-v1.9.8'
     ];
     event.waitUntil(
         caches.keys().then(function (cacheNames) {

@@ -246,7 +246,6 @@ div.moon {
     }
 }
 
-
 nav {
     .year-change {
         padding-left: 5px;
@@ -262,26 +261,19 @@ nav {
         padding-top: 3px;
     }
 
-    .form-inline input {
-        width: 80px;
-        max-width: 80px;
-        text-align: center;
-    }
-}
-
-.row-year-change {
-    padding-top: 10px;
-
-    .input-group {
-        padding-bottom: 5px;
+    &.navbar {
+        padding: 3px 0;
+        margin: 0;
     }
 
-    input {
-        text-align: center;
+    .navbar-brand {
+        padding-left: 4px;
+        margin-right: 0;
     }
 
-    .btn {
-        padding: 0;
+    .navbar-nav .nav-link {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 }
 
