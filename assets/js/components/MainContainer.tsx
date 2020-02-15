@@ -68,7 +68,7 @@ export default function MainContainer() {
         </Navbar>
         <Container>
             <Row className="justify-content-md-center d-md-none d-lg-blockd-none row-current-header-date">
-                <Col md="1">{dateString}}</Col>
+                <Col md="1">{dateString}</Col>
             </Row>
             <Row className="justify-content-md-center">
                 <Col md="12">
