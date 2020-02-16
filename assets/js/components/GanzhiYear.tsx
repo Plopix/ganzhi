@@ -1,7 +1,7 @@
-import React from 'react';
-import { GetRank } from '../functions';
+import React, {FunctionComponent} from 'react';
+import {GetRank} from '../functions';
 
-export default function GanzhiYear ({ year, dayOfYear, isLeapYear }) {
+const GanzhiYear: FunctionComponent<{ year: number, dayOfYear: number, isLeapYear: boolean }> = ({year, dayOfYear, isLeapYear}) => {
     const rank = GetRank(year);
     const countEnergy = 6;
     const countElement = 5;
@@ -24,12 +24,14 @@ export default function GanzhiYear ({ year, dayOfYear, isLeapYear }) {
     return <div className="ganzhiyear-container layer-container">
         <h1>Gan and Zhi for year <span className="year">{year}</span></h1>
         <div className="inner">
-            <img src="/images/ganzhiyear/arrow.png" style={styles.arrow}/>
-            <img src="/images/ganzhiyear/background.png"/>
-            <img src="/images/ganzhiyear/energy.png" style={styles.energy}/>
-            <img src="/images/ganzhiyear/element.png" style={styles.element}/>
-            <img src={centerImage} className="element" style={styles.element}/>
+            <img src="/images/ganzhiyear/arrow.png" style={styles.arrow} alt=""/>
+            <img src="/images/ganzhiyear/background.png" alt=""/>
+            <img src="/images/ganzhiyear/energy.png" style={styles.energy} alt=""/>
+            <img src="/images/ganzhiyear/element.png" style={styles.element} alt=""/>
+            <img src={centerImage} className="element" style={styles.element} alt=""/>
             <span className={numberbgclass}>{rank}</span>
         </div>
     </div>
-}
+};
+
+export default GanzhiYear;

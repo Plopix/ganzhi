@@ -5,6 +5,10 @@ $small-wheel: 330px;
 body {
     font-family: Tahoma, Verdana, Segoe, sans-serif;
     background: #ddd;
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 div.moon {
@@ -257,8 +261,17 @@ nav {
 
     .current-header-date {
         color: #fff;
+        cursor: pointer;
         width: 130px;
-        padding-top: 3px;
+        padding-top: 6px;
+
+        input {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-size: 12px;
+        }
     }
 
     &.navbar {
@@ -269,6 +282,7 @@ nav {
     .navbar-brand {
         padding-left: 4px;
         margin-right: 0;
+        cursor: pointer;
     }
 
     .navbar-nav .nav-link {
@@ -280,6 +294,14 @@ nav {
 .row-current-header-date {
     text-align: center;
     padding-top: 5px;
+
+    input {
+        background-color: transparent;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+    }
+
 }
 
 p.slider-title {

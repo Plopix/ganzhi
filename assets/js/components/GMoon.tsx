@@ -1,8 +1,10 @@
-import React from "react";
+import React, {FunctionComponent} from 'react';
 import Moon from 'react-moon';
 
-export default function GMoon ({ phase, size }) {
+const GMoon: FunctionComponent<{ phase: number, size: number }> = ({phase, size}) => {
     return <div className={"moon"}>
         <Moon phase={phase.toFixed(4)} size={size} rotation='0' border="1px solid darkgrey"/>
     </div>
-}
+};
+
+export default GMoon;

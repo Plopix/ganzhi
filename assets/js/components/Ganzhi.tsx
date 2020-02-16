@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {GetRank} from '../functions';
 
 import {
@@ -6,7 +6,7 @@ import {
     ToggleButton
 } from 'react-bootstrap';
 
-export default function Ganzhi({year}) {
+const Ganzhi: FunctionComponent<{ year: number }> = ({year}) => {
     const [value, setValue] = useState([]);
     const rank = GetRank(year);
     const diff = year - 4;
@@ -39,13 +39,13 @@ export default function Ganzhi({year}) {
     return <div className="ganzhi-container layer-container">
         <h1>Gan and Zhi Cycle</h1>
         <div className="inner">
-            <img src="/images/ganzhi/arrow.png" style={styles.arrow}/>
-            <img src="/images/ganzhi/background.png"/>
-            <img src="/images/ganzhi/gan.png" style={styles.gan}/>
+            <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt=""/>
+            <img src="/images/ganzhi/background.png" alt=""/>
+            <img src="/images/ganzhi/gan.png" style={styles.gan} alt=""/>
 
-            {value.includes("servants") && <img src="/images/ganzhi/servants.png"/>}
-            {value.includes("hours") && <img src="/images/ganzhi/hours.png"/>}
-            {value.includes("zangfu") && <img src="/images/ganzhi/zangfu.png" style={styles.zangfu}/>}
+            {value.includes("servants") && <img src="/images/ganzhi/servants.png" alt=""/>}
+            {value.includes("hours") && <img src="/images/ganzhi/hours.png" alt=""/>}
+            {value.includes("zangfu") && <img src="/images/ganzhi/zangfu.png" style={styles.zangfu} alt=""/>}
             <img src={"/images/zodiac/zodiac-" + rank + ".png"}/>
             {bubles.map((value, index) => {
                 const indexPosition = (index + startNumberPosition).realModulo(12);
@@ -64,4 +64,6 @@ export default function Ganzhi({year}) {
             </ToggleButtonGroup>
         </div>
     </div>
-}
+};
+
+export default Ganzhi;

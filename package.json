@@ -11,6 +11,8 @@
         "rc-slider": "^9.2.1",
         "react": "^16.12.0",
         "react-bootstrap": "^1.0.0-beta.16",
+        "react-bootstrap-date-picker": "^5.1.0",
+        "react-datepicker": "^2.12.1",
         "react-dom": "^16.12.0",
         "react-moon": "^2.0.0",
         "regenerator-runtime": "^0.13.2",
@@ -27,5 +29,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "remove": "^0.1.5"
     }
 }

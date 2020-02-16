@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {GetRank} from "../functions";
 import {Periods} from "../periods";
 
@@ -8,7 +8,7 @@ import {
     Modal
 } from 'react-bootstrap';
 
-export default function Jiequi({year, dayOfYear, isLeapYear}) {
+const Jiequi: FunctionComponent<{ year: number, dayOfYear: number, isLeapYear: boolean }> = ({year, dayOfYear, isLeapYear}) => {
     const [value, setValue] = useState('wen');
     const [show, setShow] = useState(false);
     const rank = GetRank(year);
@@ -35,10 +35,10 @@ export default function Jiequi({year, dayOfYear, isLeapYear}) {
     return <div className="jiequi-container layer-container">
         <h1>Jieqi</h1>
         <div className="inner" onDoubleClick={handleShow}>
-            <img src="/images/jieqi/arrow.png" style={styles.arrow}/>
-            <img src="/images/jieqi/jieqi.png"/>
-            <img src={"/images/jieqi/bagua" + value + ".png"}/>
-            <img src={"/images/zodiac/zodiac-" + rank + ".png"}/>
+            <img src="/images/jieqi/arrow.png" style={styles.arrow} alt=""/>
+            <img src="/images/jieqi/jieqi.png" alt=""/>
+            <img src={"/images/jieqi/bagua" + value + ".png"} alt=""/>
+            <img src={"/images/zodiac/zodiac-" + rank + ".png"} alt=""/>
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
@@ -58,4 +58,6 @@ export default function Jiequi({year, dayOfYear, isLeapYear}) {
             </ToggleButtonGroup>
         </div>
     </div>
-}
+};
+
+export default Jiequi;
