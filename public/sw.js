@@ -1,6 +1,14 @@
-var CACHE_NAME = 'ganzhi-cache-v2.0.0';
+var CACHE_NAME = 'ganzhi-cache-v2.0.8';
+
+function log (message) {
+    if (CACHE_NAME.indexOf("debug") === 0) {
+        console.log(CACHE_NAME + ': ' + message);
+    }
+}
 
 self.addEventListener('install', function (event) {
+    log("Service Worker Install");
+    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function (cache) {
@@ -17,11 +25,13 @@ self.addEventListener('install', function (event) {
 
 
 self.addEventListener('fetch', function (event) {
+    log("Service Worker Fetch");
     event.respondWith(
         caches.match(event.request)
             .then(function (response) {
                     // Cache hit - return response
                     if (response) {
+                        // log("Hit: " + event.request.url);
                         return response;
                     }
                     return fetch(event.request).then(
@@ -32,6 +42,7 @@ self.addEventListener('fetch', function (event) {
                             var responseToCache = response.clone();
                             caches.open(CACHE_NAME)
                                 .then(function (cache) {
+                                    // log("Put " + event.request.url);
                                     cache.put(event.request, responseToCache);
                                 });
                             return response;
@@ -44,21 +55,13 @@ self.addEventListener('fetch', function (event) {
 
 
 self.addEventListener('activate', function (event) {
-    var cacheWhitelist = [
-        'ganzhi-cache-v1.9.1',
-        'ganzhi-cache-v1.9.2',
-        'ganzhi-cache-v1.9.3',
-        'ganzhi-cache-v1.9.4',
-        'ganzhi-cache-v1.9.5',
-        'ganzhi-cache-v1.9.6',
-        'ganzhi-cache-v1.9.7',
-        'ganzhi-cache-v1.9.8'
-    ];
+    log("Service Worker Activate");
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
                 cacheNames.map(function (cacheName) {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    if (CACHE_NAME.indexOf(cacheName) === -1) {
+                        log("Deleting => " + cacheName);
                         return caches.delete(cacheName);
                     }
                 })
