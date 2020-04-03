@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/png" href="./favicon-32x32.png">
 		<title>Test page for Celestial Computer</title>
+		<script type="module" src="./moonphase/MoonPhase.js"></script>
 		<script type="module" src="app.js"></script>
 		<style>
 			h1 {
@@ -71,6 +72,13 @@
 					<button onclick="compute();">Compute</button>
 				</td>
 				<td>
+					<moon-phase id="moon-phase-01"
+						title="Moon Phase"
+						width="100"
+						height="100"
+						phase="0"/>
+				</td>
+				<td valign="top">
 					<div id="moon-phase-div"></div>
 				</td>
 			</tr>
@@ -83,6 +91,18 @@
 
 	</body>
 	<script type="text/javascript">
+
+if (Math.toRadians === undefined) {
+  Math.toRadians = deg => {
+    return deg * (Math.PI / 180);
+  };
+}
+
+if (Math.toDegrees === undefined) {
+  Math.toDegrees = rad => {
+    return rad * (180 / Math.PI);
+  };
+}
 
 const DELTA_T = 69.2201;
 
@@ -132,6 +152,8 @@ function compute() {
 			console.log('Loading ', phaseImageName);
 			document.getElementById('moon-phase-div').innerHTML =
 					`<img src='${phaseImageName}' alt='${testResult.moon.phase.phaseAngle}' title='${testResult.moon.phase.phaseAngle + '&deg'}'>`;
+
+			document.getElementById('moon-phase-01').phase = testResult.moon.phase.phaseAngle;
 		}
 	} catch (oops) {
 		console.log(oops);
