@@ -17,4 +17,13 @@ final class AppController
     {
         return [];
     }
+
+    /**
+     * @Route("/source", name="source")
+     * @Template()
+     */
+    public function source(): array
+    {
+        return [];
+    }
 }
