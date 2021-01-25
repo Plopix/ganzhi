@@ -19,13 +19,12 @@ Number.prototype.realModulo = function(b: number): number {
 
 ReactDOM.render(<MainContainer/>, container);
 
-//
-// if ('serviceWorker' in navigator) {
-//     window.addEventListener('load', function() {
-//         navigator.serviceWorker.register('/sw.js').then(function(registration) {
-//             console.log('ServiceWorker registration successful with scope: ', registration.scope);
-//         }, function(err) {
-//             console.log('ServiceWorker registration failed: ', err);
-//         });
-//     });
-// }
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
