@@ -3,7 +3,6 @@ import {
     Container,
     Row,
     Col,
-    NavDropdown,
     Nav,
     Navbar,
 } from 'react-bootstrap';
@@ -34,40 +33,19 @@ const MainContainer: FunctionComponent = () => {
     const pageSwitch = () => {
         switch (page) {
             case 'energies':
-                return <GanzhiYear year={year} dayOfYear={dayOfYear} isLeapYear={isLeapYear}/>;
+                return <GanzhiYear year={year} dayOfYear={dayOfYear} isLeapYear={isLeapYear} />;
             case 'ganzhi':
-                return <Ganzhi year={year}/>;
+                return <Ganzhi year={year} />;
             case 'jieqi':
-                return <Jieqi year={year} dayOfYear={dayOfYear} isLeapYear={isLeapYear}/>;
+                return <Jieqi year={year} dayOfYear={dayOfYear} isLeapYear={isLeapYear} />;
             default:
                 return null;
         }
     };
 
-
-    const handleDay = (props) => {
-        const {value, dragging, index, ...restProps} = props;
-        if (dragging) {
-            setDayOfTheYear(value);
-        }
-        return (
-            <Slider.Handle value={value} {...restProps} />
-        );
-    };
-
     const setFromDate = (date) => {
         setYear(moment(date).year());
         setDayOfTheYear(moment(date).dayOfYear());
-    };
-
-    const handleYear = (props) => {
-        const {value, dragging, index, ...restProps} = props;
-        if (dragging) {
-            setYear(value);
-        }
-        return (
-            <Slider.Handle value={value} {...restProps} />
-        );
     };
 
     return <>
@@ -78,15 +56,15 @@ const MainContainer: FunctionComponent = () => {
                 <Nav.Link onClick={() => setPage('ganzhi')}>Ganzhi</Nav.Link>
                 <Nav.Link onClick={() => setPage('jieqi')}>Jieqi</Nav.Link>
                 <Nav.Link className="d-none d-md-block current-header-date">
-                    <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate}/>
+                    <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
                 </Nav.Link>
-                <Nav.Link className="moon-phase"><GMoon phase={+moonphase.phase} size={36}/></Nav.Link>
+                <Nav.Link className="moon-phase"><GMoon phase={+moonphase.phase} size={36} /></Nav.Link>
             </Nav>
         </Navbar>
         <Container>
             <Row className="justify-content-md-center d-md-none d-lg-blockd-none row-current-header-date">
                 <Col md="1">
-                    <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate}/>
+                    <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
@@ -98,13 +76,26 @@ const MainContainer: FunctionComponent = () => {
             <Row className="justify-content-md-center">
                 <Col md="12">
                     <p className="slider-title">Day of year: {dayOfYear}</p>
-                    <Slider min={1} max={366} defaultValue={dayOfYear} handle={handleDay}/>
+                    <Slider
+                        min={1}
+                        max={366}
+                        defaultValue={dayOfYear}
+                        onChange={(value) => {
+                            setDayOfTheYear(value);
+                        }} />
+
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
                 <Col md="12">
                     <p className="slider-title">Year: {year}</p>
-                    <Slider min={1924} max={2104} defaultValue={year} handle={handleYear}/>
+                    <Slider
+                        min={1924}
+                        max={2104}
+                        defaultValue={year}
+                        onChange={(value) => {
+                            setYear(value);
+                        }} />
                 </Col>
             </Row>
         </Container>

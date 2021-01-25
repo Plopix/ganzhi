@@ -2,6 +2,8 @@ import React, {FunctionComponent} from 'react';
 import {GetRank} from '../functions';
 
 const GanzhiYear: FunctionComponent<{ year: number, dayOfYear: number, isLeapYear: boolean }> = ({year, dayOfYear, isLeapYear}) => {
+
+
     const rank = GetRank(year);
     const countEnergy = 6;
     const countElement = 5;

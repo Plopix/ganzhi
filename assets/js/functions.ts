@@ -1,4 +1,4 @@
-export function GetRank(year: number): number {
+export const GetRank = (year: number): number => {
 
     let rank = (year - 3).realModulo(60);
 
