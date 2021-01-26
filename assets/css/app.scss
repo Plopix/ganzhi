@@ -211,8 +211,8 @@ div.moon {
                 min-height: 15px;
                 min-width: 15px;
                 text-align: center;
-                font-size: 9px;
-                line-height: 1.65;
+                font-size: 8px;
+                line-height: 1.9;
             }
             .position-0 {
                 bottom: 0;
@@ -326,7 +326,22 @@ p.slider-title {
     margin: 0;
     padding: 0;
     padding-top: 5px;
+    @media (max-width: $screen-maxwheel) {
+        font-size: 13px;
+    }
 }
+
+.mb-11px{
+    margin-bottom: 11px;
+}
+
+@media (max-width: $screen-maxwheel) {
+    p.slider-cycle {
+        font-size: 13px;
+        margin-top: -10px;
+    }
+}
+
 
 .rc-slider {
     padding-bottom: 10px;
@@ -350,6 +365,7 @@ footer {
         font-size: 10px;
         color: #aaa;
     }
+
     a {
         color: #aaa;
     }

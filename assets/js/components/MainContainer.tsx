@@ -108,7 +108,11 @@ const MainContainer: FunctionComponent = () => {
                 </Col>
             </Row>
 
+<<<<<<< Updated upstream:assets/js/components/MainContainer.tsx
             <Row className="justify-content-md-center" style={{visibility: page === 'ganzhi' ? 'hidden' : 'visible'}}>
+=======
+            <Row className="justify-content-md-center mb-11px" style={{visibility: page === Page.GANZHI ? 'hidden' : 'visible'}}>
+>>>>>>> Stashed changes:assets/js/components/App/App.tsx
                 <Col md="12">
                     <p className="slider-title">Day of year: {dayOfYear}</p>
                     <Slider
