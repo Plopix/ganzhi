@@ -114,7 +114,7 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
                 <Form.Control as="select" custom value={index} onChange={(event) => {
                     setIndex(parseInt(event.target.value))
                 }}>
-                    <option disabled value={-1}>Select a Moon to configure</option>
+                    <option disabled value={-1}>Select the Moon you want to configure</option>
                     {moons.map((date, index) => {
                         return <option key={index} value={index}>{date.format("MMMM Do")} - Moon #{index + 1}</option>
                     })}
@@ -145,7 +145,7 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
                             <Form.Control as="select" custom value={leapIndex} onChange={(event) => {
                                 setLeapIndex(parseInt(event.target.value))
                             }}>
-                                <option disabled value={-1}>Select a Moon as Leap Moon</option>
+                                <option disabled value={-1}>Select the leap Moon</option>
                                 {moons.map((date, index) => {
                                     if (index === 0) {
                                         return;
@@ -173,7 +173,7 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
                 }
 
                 if ((leapIndex === -1) && (moons.length > 12)) {
-                    errors.push('You must select the Leap Moon, as there is 13 Month in this year.');
+                    errors.push('You must select the Leap Moon, as there are 13 moons in this year.');
                 }
                 if (errors.length > 0) {
                     setError(errors);
