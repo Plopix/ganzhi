@@ -10,3 +10,17 @@ export type MoonSequenceDefinition = {
     polarity: string;
     leapIndex: number;
 }
+
+
+export const elementSequenceOrder = [
+    'earth',
+    'metal',
+    'water',
+    'wood',
+    'fire'
+];
+
+export const polaritySequenceOrder = [
+    'yang',
+    'yin',
+];

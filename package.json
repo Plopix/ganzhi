@@ -1,6 +1,7 @@
 {
     "devDependencies": {
         "@babel/preset-react": "^7.12.10",
+        "@rehooks/local-storage": "^2.4.0",
         "@symfony/webpack-encore": "^0.33.0",
         "bootstrap": "^4.4.1",
         "core-js": "^3.0.0",

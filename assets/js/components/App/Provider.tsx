@@ -14,7 +14,14 @@ import {Page} from "./Type";
 const StateContext = React.createContext<State | undefined>(undefined);
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined);
 
-const initialState = (): State => {
+const initialState = (savedState?: State): State => {
+    if (savedState !== null) {
+        return {
+            ...savedState,
+            moons: recalculateNewMoons(savedState.year)
+        };
+    }
+
     const moons = recalculateNewMoons(moment().year());
     return {
         year: moment().year(),
@@ -32,8 +39,8 @@ const initialState = (): State => {
     };
 };
 
-const Provider: FunctionComponent<{ children }> = ({children}) => {
-    const [state, dispatch] = React.useReducer(Reducer, initialState());
+const Provider: FunctionComponent<{ children, savedState?: State }> = ({children, savedState}) => {
+    const [state, dispatch] = React.useReducer(Reducer, initialState(savedState));
     return (
         <StateContext.Provider value={state}>
             <DispatchContext.Provider value={dispatch}>

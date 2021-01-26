@@ -1,6 +1,6 @@
 import {recalculateNewMoons} from "../../functions";
 import moment, {Moment} from "moment";
-import {MoonSequenceDefinition, Page} from "./Type";
+import {elementSequenceOrder, MoonSequenceDefinition, Page} from "./Type";
 
 type Action =
     | { type: 'CHANGE_YEAR'; year: number }
@@ -31,15 +31,27 @@ export type Dispatch = (action: Action) => void;
 
 export function Reducer(state: State, action: Action) {
     switch (action.type) {
+        case 'CHANGE_DATE':
         case 'CHANGE_YEAR': {
-            const date = moment().dayOfYear(state.dayOfYear).year(action.year);
-            const moons = recalculateNewMoons(action.year);
+            const newYear = action.type === 'CHANGE_DATE' ? action.date.year() : action.year;
+            const date = action.type === 'CHANGE_DATE' ? action.date : moment().year(action.year).dayOfYear(state.dayOfYear);
+            const moons = recalculateNewMoons(newYear);
+            const diff = newYear - state.year;
+            const currentElementIndex = elementSequenceOrder.indexOf(state.moonSequence.element);
+            const newElement = elementSequenceOrder[(currentElementIndex + (diff * 2)).realModulo(5)];
+
             return {
                 ...state,
-                year: action.year,
-                isLeapYear: moment([action.year]).isLeapYear(),
+                year: newYear,
+                isLeapYear: moment([newYear]).isLeapYear(),
                 moons: moons,
-                isInNewYear: date.isSameOrAfter(moons[1])
+                dayOfYear: date.dayOfYear(),
+                isInNewYear: date.isSameOrAfter(moons[1]),
+                moonSequence: {
+                    ...state.moonSequence,
+                    leapIndex: -1,
+                    element: newElement
+                }
             };
         }
         case 'CHANGE_DAY': {
@@ -54,17 +66,6 @@ export function Reducer(state: State, action: Action) {
             return {
                 ...state,
                 page: action.page
-            };
-        }
-        case 'CHANGE_DATE': {
-            const moons = recalculateNewMoons(action.date.year());
-            return {
-                ...state,
-                year: action.date.year(),
-                isLeapYear: action.date.isLeapYear(),
-                moons: moons,
-                dayOfYear: action.date.dayOfYear(),
-                isInNewYear: action.date.isSameOrAfter(moons[1])
             };
         }
         case 'CHANGE_MOON_SEQUENCE': {

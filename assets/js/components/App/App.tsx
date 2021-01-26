@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 import {
     Container,
     Row,
@@ -19,12 +19,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import {YearCycleRange} from "../../functions";
 import {Provider, useApp} from "./Provider";
 import {Page} from "./Type";
+import {writeStorage, useLocalStorage} from "@rehooks/local-storage";
 
 const MoonPhase = require('moonphase-js');
 
 const App: FunctionComponent = () => {
+    const [savedState] = useLocalStorage('state', null);
     return (
-        <Provider>
+        <Provider savedState={savedState}>
             <InnerApp />
         </Provider>
     );
@@ -38,7 +40,6 @@ const InnerApp: FunctionComponent = () => {
     const page = state.page;
     const date = moment().year(year).dayOfYear(dayOfYear);
     const moonphase = new MoonPhase(date.toDate());
-
     const handlers = useSwipeable({
         onSwipedRight: () => {
             if (page === Page.GANZHI) {
@@ -66,6 +67,11 @@ const InnerApp: FunctionComponent = () => {
         trackMouse: true
     });
 
+    useEffect(() => {
+        writeStorage('state', state)
+    }, [state]);
+
+
     const pageSwitch = () => {
         switch (page) {
             case Page.GANZHIYEAR:
@@ -78,7 +84,7 @@ const InnerApp: FunctionComponent = () => {
                 return null;
         }
     };
-    const setFromDate = (date) => dispatch.updateDate(date);
+    const setFromDate = (date) => dispatch.updateDate(moment(date));
 
     const sliderRange = YearCycleRange(year, yearCycleStep);
 

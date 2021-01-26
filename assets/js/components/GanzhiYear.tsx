@@ -2,20 +2,7 @@ import React, {FunctionComponent, useState} from 'react';
 import {GetRank} from '../functions';
 import {Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import {useApp} from "./App/Provider";
-import {MoonSequenceDefinition} from "./App/Type";
-
-const elementSequenceOrder = [
-    'earth',
-    'metal',
-    'water',
-    'wood',
-    'fire'
-];
-
-const polaritySequenceOrder = [
-    'yang',
-    'yin',
-];
+import {elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder} from "./App/Type";
 
 const GanzhiYear: FunctionComponent = () => {
     const [state, dispatch] = useApp();
