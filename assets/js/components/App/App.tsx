@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent} from 'react';
 import {
     Container,
     Row,
@@ -6,51 +6,60 @@ import {
     Nav,
     Navbar, Button,
 } from 'react-bootstrap';
-import GanzhiYear from "./GanzhiYear";
-import Ganzhi from "./Ganzhi";
-import GMoon from "./GMoon";
-import Jieqi from "./Jieqi";
+import GanzhiYear from "../GanzhiYear";
+import Ganzhi from "../Ganzhi";
+import GMoon from "../GMoon";
+import Jieqi from "../Jieqi";
 import moment from "moment";
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import {useSwipeable} from 'react-swipeable';
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
-import {recalculateNewMoons, YearCycleRange} from "../functions";
+import {YearCycleRange} from "../../functions";
+import {Provider, useApp} from "./Provider";
+import {Page} from "./Type";
 
 const MoonPhase = require('moonphase-js');
 
-const MainContainer: FunctionComponent = () => {
-    const [year, setYear] = useState(+(new Date().getFullYear()));
+const App: FunctionComponent = () => {
+    return (
+        <Provider>
+            <InnerApp />
+        </Provider>
+    );
+}
+
+const InnerApp: FunctionComponent = () => {
+    const [state, dispatch] = useApp();
+    const year = state.year;
+    const dayOfYear = state.dayOfYear;
     const yearCycleStep = 60;
-    const [newMoons, setNewMoons] = useState(recalculateNewMoons(year));
-    const [dayOfYear, setDayOfTheYear] = useState(moment().dayOfYear());
-    const [page, setPage] = useState('ganzhi');
-    const isLeapYear = (year % 4) === 0;
-    const date = moment().dayOfYear(dayOfYear).year(year);
+    const page = state.page;
+    const date = moment().year(year).dayOfYear(dayOfYear);
     const moonphase = new MoonPhase(date.toDate());
+
     const handlers = useSwipeable({
-        onSwipedLeft: () => {
-            if (page === 'ganzhi') {
-                setPage('energies');
+        onSwipedRight: () => {
+            if (page === Page.GANZHI) {
+                dispatch.updatePage(Page.GANZHIYEAR);
             }
-            if (page === 'jieqi') {
-                setPage('ganzhi');
+            if (page === Page.JIEQI) {
+                dispatch.updatePage(Page.GANZHI);
             }
-            if (page === 'energies') {
-                setPage('jieqi');
+            if (page === Page.GANZHIYEAR) {
+                dispatch.updatePage(Page.JIEQI);
             }
         },
-        onSwipedRight: () => {
-            if (page === 'ganzhi') {
-                setPage('jieqi');
+        onSwipedLeft: () => {
+            if (page === Page.GANZHI) {
+                dispatch.updatePage(Page.JIEQI);
             }
-            if (page === 'jieqi') {
-                setPage('energies');
+            if (page === Page.JIEQI) {
+                dispatch.updatePage(Page.GANZHIYEAR);
             }
-            if (page === 'energies') {
-                setPage('ganzhi');
+            if (page === Page.GANZHIYEAR) {
+                dispatch.updatePage(Page.GANZHI);
             }
         },
         preventDefaultTouchmoveEvent: true,
@@ -59,37 +68,29 @@ const MainContainer: FunctionComponent = () => {
 
     const pageSwitch = () => {
         switch (page) {
-            case 'energies':
-                return <GanzhiYear year={year} dayOfYear={dayOfYear} isLeapYear={isLeapYear} newMoons={newMoons} />;
-            case 'ganzhi':
-                return <Ganzhi year={year} />;
-            case 'jieqi':
-                return <Jieqi year={year} dayOfYear={dayOfYear} isLeapYear={isLeapYear} />;
+            case Page.GANZHIYEAR:
+                return <GanzhiYear />;
+            case Page.GANZHI:
+                return <Ganzhi />;
+            case Page.JIEQI:
+                return <Jieqi />;
             default:
                 return null;
         }
     };
-
-    const setFromDate = (date) => {
-        wrapSetYear(moment(date).year())
-        setNewMoons(recalculateNewMoons(moment(date).year()));
-    };
-
-
-    const wrapSetYear = (year) => {
-        setYear(year);
-        setNewMoons(recalculateNewMoons(year));
-    }
+    const setFromDate = (date) => dispatch.updateDate(date);
 
     const sliderRange = YearCycleRange(year, yearCycleStep);
 
     return <>
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand onClick={() => setFromDate(moment().toDate())}>Gan and Zhi</Navbar.Brand>
+            <Navbar.Brand onClick={() => setFromDate(moment().toDate())}>
+                <img width="30" src='/images/apple-icon.png' alt={"Gan and Zhi"} />
+            </Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link className={(page === 'energies' ? 'active' : '')} onClick={() => setPage('energies')}>Energies</Nav.Link>
-                <Nav.Link className={(page === 'ganzhi' ? 'active' : '')} onClick={() => setPage('ganzhi')}>Ganzhi</Nav.Link>
-                <Nav.Link className={(page === 'jieqi' ? 'active' : '')} onClick={() => setPage('jieqi')}>Jieqi</Nav.Link>
+                <Nav.Link className={(page === Page.GANZHIYEAR ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHIYEAR)}>Energies</Nav.Link>
+                <Nav.Link className={(page === Page.GANZHI ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHI)}>Ganzhi</Nav.Link>
+                <Nav.Link className={(page === Page.JIEQI ? 'active' : '')} onClick={() => dispatch.updatePage(Page.JIEQI)}>Jieqi</Nav.Link>
                 <Nav.Link className="d-none d-md-block current-header-date">
                     <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
                 </Nav.Link>
@@ -108,15 +109,15 @@ const MainContainer: FunctionComponent = () => {
                 </Col>
             </Row>
 
-            <Row className="justify-content-md-center" style={{visibility: page === 'ganzhi' ? 'hidden' : 'visible'}}>
+            <Row className="justify-content-md-center" style={{visibility: page === Page.GANZHI ? 'hidden' : 'visible'}}>
                 <Col md="12">
-                    <p className="slider-title">Day of year: {dayOfYear}</p>
+                    <p className="slider-title">Day of year: {dayOfYear} - {date.format("MMMM Do")}</p>
                     <Slider
                         min={1}
-                        max={366}
+                        max={state.isLeapYear ? 366 : 365}
                         defaultValue={dayOfYear}
                         onChange={(value) => {
-                            setDayOfTheYear(value);
+                            dispatch.updateDayOfYear(value);
                         }} />
 
                 </Col>
@@ -127,23 +128,23 @@ const MainContainer: FunctionComponent = () => {
                         Cycles: <Button
                         variant={'outline-dark'}
                         onClick={() => {
-                            wrapSetYear(year - yearCycleStep);
+                            dispatch.updateYear(year - yearCycleStep);
                         }}
                         size={'sm'}>&lt;</Button>
                         <Button
                             variant={'outline-dark'}
                             onClick={() => {
-                                wrapSetYear(year + yearCycleStep);
+                                dispatch.updateYear(year + yearCycleStep);
                             }}
                             size={'sm'}>&gt;</Button>
                     </p>
-                    <p className="slider-title">Year: {year}</p>
+                    <p className="slider-title">Year: {year} - Astrological Year: {state.isInNewYear ? state.year : state.year - 1}</p>
                     <Slider
                         min={sliderRange.min}
                         max={sliderRange.max}
                         value={year}
                         onChange={(value) => {
-                            wrapSetYear(value);
+                            dispatch.updateYear(value);
                         }} />
                 </Col>
             </Row>
@@ -151,4 +152,4 @@ const MainContainer: FunctionComponent = () => {
     </>;
 };
 
-export default MainContainer;
+export default App;

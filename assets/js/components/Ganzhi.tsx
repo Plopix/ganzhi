@@ -5,11 +5,13 @@ import {
     ToggleButtonGroup,
     ToggleButton
 } from 'react-bootstrap';
+import {useApp} from "./App/Provider";
 
-const Ganzhi: FunctionComponent<{ year: number }> = ({year}) => {
+const Ganzhi: FunctionComponent = () => {
+    const [state] = useApp();
     const [value, setValue] = useState([]);
-    const rank = GetRank(year);
-    const diff = year - 4;
+    const rank = GetRank(state.isInNewYear ? state.year : state.year - 1);
+    const diff = state.year - 4;
     const cycle = Math.floor(diff / 10).realModulo(6);
     const countGanZangfu = 6;
     const countYear = 12;
@@ -39,14 +41,14 @@ const Ganzhi: FunctionComponent<{ year: number }> = ({year}) => {
     return <div className="ganzhi-container layer-container">
         <h1>Gan and Zhi Cycle</h1>
         <div className="inner">
-            <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt=""/>
-            <img src="/images/ganzhi/background.png" alt=""/>
-            <img src="/images/ganzhi/gan.png" style={styles.gan} alt=""/>
+            <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt="" />
+            <img src="/images/ganzhi/background.png" alt="" />
+            <img src="/images/ganzhi/gan.png" style={styles.gan} alt="" />
 
-            {value.includes("servants") && <img src="/images/ganzhi/servants.png" alt=""/>}
-            {value.includes("hours") && <img src="/images/ganzhi/hours.png" alt=""/>}
-            {value.includes("zangfu") && <img src="/images/ganzhi/zangfu.png" style={styles.zangfu} alt=""/>}
-            <img src={"/images/zodiac/zodiac-" + rank + ".png"}/>
+            {value.includes("servants") && <img src="/images/ganzhi/servants.png" alt="" />}
+            {value.includes("hours") && <img src="/images/ganzhi/hours.png" alt="" />}
+            {value.includes("zangfu") && <img src="/images/ganzhi/zangfu.png" style={styles.zangfu} alt="" />}
+            <img src={"/images/zodiac/zodiac-" + rank + ".png"} />
             {bubles.map((value, index) => {
                 const indexPosition = (index + startNumberPosition).realModulo(12);
                 let computedValue = value;

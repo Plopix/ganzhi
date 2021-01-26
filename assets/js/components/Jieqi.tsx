@@ -7,13 +7,16 @@ import {
     ToggleButton,
     Modal
 } from 'react-bootstrap';
+import {useApp} from "./App/Provider";
 
-const Jiequi: FunctionComponent<{ year: number, dayOfYear: number, isLeapYear: boolean }> = ({year, dayOfYear, isLeapYear}) => {
+const Jiequi: FunctionComponent = () => {
+    const [state] = useApp();
+
     const [value, setValue] = useState('wen');
     const [show, setShow] = useState(false);
-    const rank = GetRank(year);
-    const startingPoint = isLeapYear ? 81 : 80;
-    const angle = (dayOfYear - startingPoint) * (360 / (isLeapYear ? 366 : 365));
+    const rank = GetRank(state.isInNewYear ? state.year : state.year - 1);
+    const startingPoint = state.isLeapYear ? 81 : 80;
+    const angle = (state.dayOfYear - startingPoint) * (360 / (state.isLeapYear ? 366 : 365));
     const styles = {
         arrow: {
             transform: "rotate(" + angle + "deg)"

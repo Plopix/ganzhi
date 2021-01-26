@@ -1,5 +1,5 @@
 const MoonPhase = require('moonphase-js');
-import moment from "moment";
+import moment, {Moment} from "moment";
 
 export const GetRank = (year: number): number => {
 
@@ -17,11 +17,11 @@ export const GetRank = (year: number): number => {
 }
 
 export const YearCycleRange = (year: number, step: number): { min, max } => {
-    const min = Math.floor(year / step)*step;
+    const min = year - (year - 1984).realModulo(60);
     return {min, max: min + step-1}
 }
 
-export const recalculateNewMoons = (year: number): any[] => {
+export const recalculateNewMoons = (year: number): Moment[] => {
     const days = (year % 4) === 0 ? 366 : 365;
     let moons = [];
     let last = null;

@@ -1,6 +1,8 @@
 import React, {FunctionComponent, useState} from 'react';
 import {GetRank} from '../functions';
 import {Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import {useApp} from "./App/Provider";
+import {MoonSequenceDefinition} from "./App/Type";
 
 const elementSequenceOrder = [
     'earth',
@@ -15,23 +17,17 @@ const polaritySequenceOrder = [
     'yin',
 ];
 
-// Energies
-const GanzhiYear: FunctionComponent<{ year: number, dayOfYear: number, isLeapYear: boolean, newMoons: any[] }> = ({
-                                                                                                                      year,
-                                                                                                                      dayOfYear,
-                                                                                                                      isLeapYear,
-                                                                                                                      newMoons
-                                                                                                                  }) => {
+const GanzhiYear: FunctionComponent = () => {
+    const [state, dispatch] = useApp();
     const [show, setShow] = useState(false);
-    const [moonSequenceDefinition, setMoonSequenceDefinition] = useState({
-        index: -1,
-        element: '',
-        polarity: '',
-        leapIndex: -1,
-    });
-
     const countEnergy = 6;
     const countElement = 5;
+    const isLeapYear = state.isLeapYear;
+    const year = state.year;
+    const dayOfYear = state.dayOfYear;
+    const moons = state.moons;
+    const moonSequence = state.moonSequence;
+
     const startingPoint = isLeapYear ? 81 : 80;
     const centerImage = year.realModulo(2) === 0 ? "/images/ganzhiyear/yangyear.png" : "/images/ganzhiyear/yinyear.png";
     const numberbgclass = year.realModulo(2) === 0 ? "center-number white" : "center-number black";
@@ -59,21 +55,21 @@ const GanzhiYear: FunctionComponent<{ year: number, dayOfYear: number, isLeapYea
             <img src="/images/ganzhiyear/energy.png" style={styles.energy} alt="" />
             <img src="/images/ganzhiyear/element.png" style={styles.element} alt="" />
 
-            {newMoons.map((date, index) => {
+            {moons.map((date, index) => {
                 const style = {
                     transform: "rotate(" + (90 + date.dayOfYear() - startingPoint) * (360 / (isLeapYear ? 366 : 365)) + "deg)",
                 };
-                if (moonSequenceDefinition.index === -1) {
+                if (moonSequence.index === -1) {
                     return <img key={'moon' + index} src="/images/moons/default.png" style={style} alt="" />
                 }
 
-                const elementSequenceIndexStart = elementSequenceOrder.indexOf(moonSequenceDefinition.element);
-                const polarityStart = polaritySequenceOrder.indexOf(moonSequenceDefinition.polarity);
+                const elementSequenceIndexStart = elementSequenceOrder.indexOf(moonSequence.element);
+                const polarityStart = polaritySequenceOrder.indexOf(moonSequence.polarity);
 
                 let eIndex: number = +(elementSequenceIndexStart + index);
                 let pIndex: number = +(polarityStart + index);
 
-                if (index >= moonSequenceDefinition.leapIndex) {
+                if (index >= moonSequence.leapIndex) {
                     eIndex--;
                     pIndex--;
                 }
@@ -90,10 +86,10 @@ const GanzhiYear: FunctionComponent<{ year: number, dayOfYear: number, isLeapYea
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Moons Year {year}</Modal.Title>
+                    <Modal.Title>Moons - Year {year}</Modal.Title>
                 </Modal.Header>
-                <MoonConfig moons={newMoons} defaultsMoonDefinition={moonSequenceDefinition} onClose={() => setShow(false)} onSave={(index, element, polarity, leapIndex) => {
-                    setMoonSequenceDefinition({
+                <MoonConfig moons={moons} defaultsMoonDefinition={moonSequence} onClose={() => setShow(false)} onSave={(index, element, polarity, leapIndex) => {
+                    dispatch.updateMoonSequence({
                         index: index,
                         element: element,
                         polarity: polarity,
@@ -105,12 +101,12 @@ const GanzhiYear: FunctionComponent<{ year: number, dayOfYear: number, isLeapYea
     </div>
 };
 
-const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: any, onSave: Function, onClose: Function }> = ({
-                                                                                                                               onSave,
-                                                                                                                               defaultsMoonDefinition,
-                                                                                                                               onClose,
-                                                                                                                               moons
-                                                                                                                           }) => {
+const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: MoonSequenceDefinition, onSave: Function, onClose: Function }> = ({
+                                                                                                                                                  onSave,
+                                                                                                                                                  defaultsMoonDefinition,
+                                                                                                                                                  onClose,
+                                                                                                                                                  moons
+                                                                                                                                              }) => {
     const [index, setIndex] = useState(defaultsMoonDefinition.index);
     const [polarity, setPolarity] = useState(defaultsMoonDefinition.polarity);
     const [element, setElement] = useState(defaultsMoonDefinition.element);
@@ -131,27 +127,26 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: any,
                 <Form.Control as="select" custom value={index} onChange={(event) => {
                     setIndex(parseInt(event.target.value))
                 }}>
-                    <option disabled selected value={-1}>Select a Moon to configure</option>
+                    <option disabled value={-1}>Select a Moon to configure</option>
                     {moons.map((date, index) => {
                         return <option key={index} value={index}>{date.format("MMMM Do")} - Moon #{index + 1}</option>
                     })}
                 </Form.Control>
                 <hr />
-                <div className={'d-flex flex-row'}>
-                    <div className="button-group-container m-auto">
-                        <ToggleButtonGroup type="radio" name="element" value={element} onChange={value => setElement(value)} className="buttons-group-options">
-                            {elementSequenceOrder.map(value => {
-                                return <ToggleButton key={value} variant="outline-dark" value={value}>{value}</ToggleButton>
-                            })}
-                        </ToggleButtonGroup>
-                    </div>
-                    <div className="button-group-container m-auto">
-                        <ToggleButtonGroup type="radio" name="polarity" value={polarity} onChange={value => setPolarity(value)} className="buttons-group-options">
-                            {polaritySequenceOrder.map(value => {
-                                return <ToggleButton key={value} variant="outline-dark" value={value}>{value}</ToggleButton>
-                            })}
-                        </ToggleButtonGroup>
-                    </div>
+                <div className="button-group-container m-auto">
+                    <ToggleButtonGroup type="radio" name="element" value={element} onChange={value => setElement(value)} className="buttons-group-options">
+                        {elementSequenceOrder.map(value => {
+                            return <ToggleButton key={value} variant="outline-dark" value={value}>{value}</ToggleButton>
+                        })}
+                    </ToggleButtonGroup>
+                </div>
+                <hr />
+                <div className="button-group-container m-auto">
+                    <ToggleButtonGroup type="radio" name="polarity" value={polarity} onChange={value => setPolarity(value)} className="buttons-group-options">
+                        {polaritySequenceOrder.map(value => {
+                            return <ToggleButton key={value} variant="outline-dark" value={value}>{value}</ToggleButton>
+                        })}
+                    </ToggleButtonGroup>
                 </div>
                 {moons.length > 12 && (
                     <>
@@ -163,7 +158,7 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: any,
                             <Form.Control as="select" custom value={leapIndex} onChange={(event) => {
                                 setLeapIndex(parseInt(event.target.value))
                             }}>
-                                <option disabled selected value={-1}>Select a Moon as Leap Moon</option>
+                                <option disabled value={-1}>Select a Moon as Leap Moon</option>
                                 {moons.map((date, index) => {
                                     if (index === 0) {
                                         return;

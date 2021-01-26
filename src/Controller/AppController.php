@@ -10,6 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 final class AppController
 {
     /**
+     * @Route("/sources", name="sources")
+     * @Template()
+     */
+    public function sources(): array
+    {
+        return [];
+    }
+
+    /**
      * @Route("/", name="home")
      * @Template()
      */
@@ -18,12 +27,5 @@ final class AppController
         return [];
     }
 
-    /**
-     * @Route("/source", name="source")
-     * @Template()
-     */
-    public function source(): array
-    {
-        return [];
-    }
+
 }
