@@ -67,13 +67,18 @@ div.moon {
         position: absolute;
         font-weight: bold;
         display: block;
-        width: 20px;
         text-align: center;
         margin: 0 auto;
         font-size: 18px;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+        line-height: 1.63;
 
-        top: ($big-wheel/2)-12;
-        left: ($big-wheel/2)-11;
+
+        top: ($big-wheel/2)-15;
+        left: ($big-wheel/2)-15;
 
         &.white {
             color: #000;
@@ -86,9 +91,14 @@ div.moon {
 
     @media (max-width: $screen-maxwheel) {
         .center-number {
-            top: ($small-wheel/2)-6;
-            left: ($small-wheel/2)-9;
-            font-size: 9px
+            top: ($small-wheel/2)-7.7;
+            left: ($small-wheel/2)-7.7;
+            font-size: 9px;
+            line-height: 1.69;
+            width: 15px;
+            height: 15px;
+            min-width: 15px;
+            min-height: 15px;
         }
     }
 
@@ -124,125 +134,133 @@ div.moon {
         .position {
             position: absolute;
             display: block;
-            width: 20px;
+            width: 30px;
+            height: 30px;
+            min-height: 30px;
+            min-width: 30px;
             text-align: center;
+            line-height: 1.85;
         }
 
         .position-0 {
-            bottom: 5px;
-            left: ($big-wheel/2)-7;
+            bottom: 2px;
+            left: ($big-wheel/2)-15;
         }
 
         .position-1 {
-            bottom: ($big-wheel/16)+6;
-            left: ($big-wheel/4)+2;
+            bottom: ($big-wheel/16)+4;
+            left: ($big-wheel/4) - 6;
         }
 
         .position-2 {
-            bottom: ($big-wheel/4)-5;
-            left: ($big-wheel/12)-5;
+            bottom: ($big-wheel/4) - 7;
+            left: ($big-wheel/12) - 11;
         }
 
         .position-3 {
-            top: ($big-wheel/2)-11;
-            left: 6px;
+            top: ($big-wheel/2)-14;
+            left: 2px;
         }
 
         .position-4 {
-            top: ($big-wheel/4)-2;
-            left: ($big-wheel/12)-6;
+            top: ($big-wheel/4) - 6;
+            left: ($big-wheel/12)-10;
         }
 
         .position-5 {
-            top: ($big-wheel/16)+5;
-            left: ($big-wheel/4)-1;
+            top: ($big-wheel/16)+3;
+            left: ($big-wheel/4)-7;
         }
 
         .position-6 {
-            top: 5px;
-            left: ($big-wheel/2)-7;
+            top: 3px;
+            left: ($big-wheel/2)-14;
         }
 
         .position-7 {
-            top: ($big-wheel/16)+5;
-            right: ($big-wheel/4)-3;
+            top: ($big-wheel/16)+2;
+            right: ($big-wheel/4)-8;
         }
 
         .position-8 {
-            top: ($big-wheel/4)-2;
-            right: ($big-wheel/12)-7;
+            top: ($big-wheel/4)-6;
+            right: ($big-wheel/12)-12;
         }
 
         .position-9 {
-            top: ($big-wheel/2)-12;
-            right: 8px;
+            top: ($big-wheel/2)-15;
+            right: 2px;
         }
 
         .position-10 {
-            bottom: ($big-wheel/4)-4;
-            right: ($big-wheel/12)-7;
+            bottom: ($big-wheel/4)-6;
+            right: ($big-wheel/12)-12;
         }
 
         .position-11 {
-            bottom: ($big-wheel/16)+6;
-            right: ($big-wheel/4)-3;
+            bottom: ($big-wheel/16)+3;
+            right: ($big-wheel/4)-6;
         }
 
         @media (max-width: $screen-maxwheel) {
             .position {
                 position: absolute;
                 display: block;
-                width: 10px;
+                width: 15px;
+                height: 15px;
+                min-height: 15px;
+                min-width: 15px;
                 text-align: center;
                 font-size: 9px;
+                line-height: 1.65;
             }
             .position-0 {
-                bottom: 2px;
-                left: ($small-wheel/2)-4;
+                bottom: 0;
+                left: ($small-wheel/2)-7;
             }
             .position-1 {
-                bottom: ($small-wheel/16)+2;
-                left: ($small-wheel/4);
+                bottom: ($small-wheel/16);
+                left: ($small-wheel/4)-3;
             }
             .position-2 {
-                bottom: ($small-wheel/4)-2;
-                left: ($small-wheel/12)-3;
+                bottom: ($small-wheel/4)-4;
+                left: ($small-wheel/12)-6;
             }
             .position-3 {
-                top: ($small-wheel/2)-6;
-                left: 3px;
+                top: ($small-wheel/2)-7;
+                left: 0;
             }
             .position-4 {
-                top: ($small-wheel/4)-2;
-                left: ($small-wheel/12)-3;
+                top: ($small-wheel/4)-3;
+                left: ($small-wheel/12)-6;
             }
             .position-5 {
-                top: ($small-wheel/16)+2;
-                left: ($small-wheel/4)-1;
+                top: ($small-wheel/16)+1;
+                left: ($small-wheel/4)-3;
             }
             .position-6 {
-                top: 2px;
-                left: ($small-wheel/2)-4;
+                top: 1px;
+                left: ($small-wheel/2)-7;
             }
             .position-7 {
-                top: ($small-wheel/16)+2;
-                right: ($small-wheel/4)-1;
+                top: ($small-wheel/16)+1;
+                right: ($small-wheel/4)-4;
             }
             .position-8 {
                 top: ($small-wheel/4)-3;
-                right: ($small-wheel/12)-4;
+                right: ($small-wheel/12)-6;
             }
             .position-9 {
-                top: ($small-wheel/2)-6;
-                right: 3px;
+                top: ($small-wheel/2)-7;
+                right: 1px;
             }
             .position-10 {
-                bottom: ($small-wheel/4)-2;
-                right: ($small-wheel/12)-4;
+                bottom: ($small-wheel/4)-4;
+                right: ($small-wheel/12)-6;
             }
             .position-11 {
-                bottom: ($small-wheel/16)+2;
-                right: ($small-wheel/4)-1;
+                bottom: ($small-wheel/16);
+                right: ($small-wheel/4)-3;
             }
         }
 
