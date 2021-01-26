@@ -115,7 +115,7 @@ const InnerApp: FunctionComponent = () => {
                 </Col>
             </Row>
 
-            <Row className="justify-content-md-center" style={{visibility: page === Page.GANZHI ? 'hidden' : 'visible'}}>
+            <Row className="justify-content-md-center mb-11px" style={{visibility: page === Page.GANZHI ? 'hidden' : 'visible'}}>
                 <Col md="12">
                     <p className="slider-title">Day of year: {dayOfYear} - {date.format("MMMM Do")}</p>
                     <Slider
