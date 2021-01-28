@@ -15,21 +15,23 @@ const GanzhiYear: FunctionComponent = () => {
     const moons = state.moons;
     const moonSequence = state.moonSequence;
 
+    const adjustedRank = (dayOfYear < 20 ? GetRank(year - 1) : GetRank(year));
     const startingPoint = isLeapYear ? 81 : 80;
     const centerImage = year.realModulo(2) === 0 ? "/images/ganzhiyear/yangyear.png" : "/images/ganzhiyear/yinyear.png";
     const numberbgclass = year.realModulo(2) === 0 ? "center-number white" : "center-number black";
 
     const styles = {
         energy: {
-            transform: "rotate(" + ((dayOfYear < 20 ? GetRank(year - 1) : GetRank(year)) * -(360 / countEnergy)) + "deg)"
+            transform: "rotate(" + (adjustedRank * -(360 / countEnergy)) + "deg)"
         },
         element: {
-            transform: "rotate(" + ((dayOfYear < 36 ? GetRank(year - 1) : GetRank(year)) * -(360 / countElement)) + "deg)"
+            transform: "rotate(" + (adjustedRank * -(360 / countElement)) + "deg)"
         },
         arrow: {
             transform: "rotate(" + (dayOfYear - startingPoint) * (360 / (isLeapYear ? 366 : 365)) + "deg)"
         }
     };
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -41,6 +43,7 @@ const GanzhiYear: FunctionComponent = () => {
             <img src="/images/ganzhiyear/background.png" alt="" />
             <img src="/images/ganzhiyear/energy.png" style={styles.energy} alt="" />
             <img src="/images/ganzhiyear/element.png" style={styles.element} alt="" />
+            <img src={'/images/ganzhiyear/arrows/arrow-' + adjustedRank + '.png'} alt="" />
 
             {moons.map((date, index) => {
                 const style = {
@@ -56,7 +59,7 @@ const GanzhiYear: FunctionComponent = () => {
                 let eIndex: number = +(elementSequenceIndexStart + index);
                 let pIndex: number = +(polarityStart + index);
 
-                if (index >= moonSequence.leapIndex) {
+                if (index >= moonSequence.leapIndex && moonSequence.leapIndex !== -1) {
                     eIndex--;
                     pIndex--;
                 }

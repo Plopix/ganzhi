@@ -121,7 +121,7 @@ const InnerApp: FunctionComponent = () => {
                     <Slider
                         min={1}
                         max={state.isLeapYear ? 366 : 365}
-                        defaultValue={dayOfYear}
+                        value={dayOfYear}
                         onChange={(value) => {
                             dispatch.updateDayOfYear(value);
                         }} />
