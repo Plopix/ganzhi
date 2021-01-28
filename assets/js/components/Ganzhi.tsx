@@ -6,6 +6,7 @@ import {
     ToggleButton
 } from 'react-bootstrap';
 import {useApp} from "./App/Provider";
+import {translator} from "../Translator";
 
 const Ganzhi: FunctionComponent = () => {
     const [state] = useApp();
@@ -39,7 +40,7 @@ const Ganzhi: FunctionComponent = () => {
     const handleChange = val => setValue(val);
 
     return <div className="ganzhi-container layer-container">
-        <h1>Gan and Zhi Cycle</h1>
+        <h1>{translator.t('ganzhi.title')}</h1>
         <div className="inner">
             <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt="" />
             <img src="/images/ganzhi/background.png" alt="" />
@@ -60,9 +61,9 @@ const Ganzhi: FunctionComponent = () => {
         </div>
         <div className="button-group-container">
             <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} className="buttons-group-options">
-                <ToggleButton variant="outline-dark" value={"servants"}>Serviteurs</ToggleButton>
-                <ToggleButton variant="outline-dark" value={"hours"}>Méridiens</ToggleButton>
-                <ToggleButton variant="outline-dark" value={"zangfu"}>Zangfu</ToggleButton>
+                <ToggleButton variant="outline-dark" value={"servants"}>{translator.t('servants')}</ToggleButton>
+                <ToggleButton variant="outline-dark" value={"hours"}>{translator.t('meridians')}</ToggleButton>
+                <ToggleButton variant="outline-dark" value={"zangfu"}>{translator.t('zangfu')}</ToggleButton>
             </ToggleButtonGroup>
         </div>
     </div>

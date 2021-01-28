@@ -1,0 +1,33 @@
+servants: Servants
+meridians: Meridians
+zangfu: Zangfu
+leapmoon: Leap Moon
+fuxi: Fuxi <br/> Earlier Heaven
+wen: King Wen <br/> Later Heaven
+
+ganzhi.title: Gan and Zhi Cycle
+ganzhiyear.title: Gan and Zhi
+jieqi.title: Jieqi
+
+year: Year
+astro.year: Astrological Year
+dayofyear: Day of Year
+
+form.error.main: Form is not correctly filled out!
+form.error.date: You must select a Date.
+form.error.element: You must select an Element.
+form.error.polarity: You must select Yang or Yin.
+form.error.leapmoon: You must select the Leap Moon, as there are 13 moons in this year.
+
+moon.select: Select the Moon you want to configure
+leapmoon.select: Select the Leap Moon
+
+close: Close
+save: Save
+moon: Moon
+
+earth: Earth
+metal: Metal
+water: Water
+wood: Wood
+fire: Fire

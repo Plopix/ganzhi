@@ -3,6 +3,7 @@ import {GetRank} from '../functions';
 import {Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 import {useApp} from "./App/Provider";
 import {elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder} from "./App/Type";
+import {translator} from "../Translator";
 
 const GanzhiYear: FunctionComponent = () => {
     const [state, dispatch] = useApp();
@@ -37,7 +38,7 @@ const GanzhiYear: FunctionComponent = () => {
     const handleShow = () => setShow(true);
 
     return <div className="ganzhiyear-container layer-container">
-        <h1>Gan and Zhi for year <span className="year">{year}</span></h1>
+        <h1>{translator.t('ganzhiyear.title')}</h1>
         <div className="inner" onDoubleClick={handleShow}>
             <img src="/images/ganzhiyear/arrow.png" style={styles.arrow} alt="" />
             <img src="/images/ganzhiyear/background.png" alt="" />
@@ -76,7 +77,7 @@ const GanzhiYear: FunctionComponent = () => {
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Moons - Year {year}</Modal.Title>
+                    <Modal.Title>{translator.t('moon')}s - {translator.t('year')} {year}</Modal.Title>
                 </Modal.Header>
                 <MoonConfig moons={moons} defaultsMoonDefinition={moonSequence} onClose={() => setShow(false)} onSave={(index, element, polarity, leapIndex) => {
                     dispatch.updateMoonSequence({
@@ -107,26 +108,26 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
         <Modal.Body>
             <div className={"moon-config d-flex flex-column justify-content-center"}>
                 {errors.length > 0 && <Alert variant="danger" onClose={() => setError([])} dismissible>
-                    <Alert.Heading>Form is not correctly filled out!</Alert.Heading>
+                    <Alert.Heading>{translator.t('form.error.main')}</Alert.Heading>
                     <ul>
                         {errors.map((error, index) => {
-                            return <li key={index}>{error}</li>
+                            return <li key={index}>{translator.t(error)}</li>
                         })}
                     </ul>
                 </Alert>}
                 <Form.Control as="select" custom value={index} onChange={(event) => {
                     setIndex(parseInt(event.target.value))
                 }}>
-                    <option disabled value={-1}>Select the Moon you want to configure</option>
+                    <option disabled value={-1}>{translator.t('moon.select')}</option>
                     {moons.map((date, index) => {
-                        return <option key={index} value={index}>{date.format("MMMM Do")} - Moon #{index + 1}</option>
+                        return <option key={index} value={index}>{date.format("LL")} - {translator.t('moon')} #{index + 1}</option>
                     })}
                 </Form.Control>
                 <hr />
                 <div className="button-group-container m-auto">
                     <ToggleButtonGroup type="radio" name="element" value={element} onChange={value => setElement(value)} className="buttons-group-options">
                         {elementSequenceOrder.map(value => {
-                            return <ToggleButton key={value} variant="outline-dark" value={value}>{value}</ToggleButton>
+                            return <ToggleButton key={value} variant="outline-dark" value={value}>{translator.t(value)}</ToggleButton>
                         })}
                     </ToggleButtonGroup>
                 </div>
@@ -143,17 +144,17 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
                         <hr />
                         <div className={'d-flex flex-row'}>
                             <div>
-                                <p>Leap Moon</p>
+                                <p>{translator.t('leapmoon')}</p>
                             </div>
                             <Form.Control as="select" custom value={leapIndex} onChange={(event) => {
                                 setLeapIndex(parseInt(event.target.value))
                             }}>
-                                <option disabled value={-1}>Select the leap Moon</option>
+                                <option disabled value={-1}>{translator.t('leapmoon.select')}</option>
                                 {moons.map((date, index) => {
                                     if (index === 0) {
                                         return;
                                     }
-                                    return <option key={index} value={index}>{date.format("MMMM Do")} - Moon #{index + 1}</option>
+                                    return <option key={index} value={index}>{date.format("LL")} - {translator.t('moon')} #{index + 1}</option>
                                 })}
                             </Form.Control>
                         </div>
@@ -162,21 +163,21 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
             </div>
         </Modal.Body>
         <Modal.Footer>
-            <Button variant="secondary" onClick={() => onClose()}>Close</Button>
+            <Button variant="secondary" onClick={() => onClose()}>{translator.t('close')}</Button>
             <Button variant="dark" onClick={() => {
                 let errors = [];
                 if (index === -1) {
-                    errors.push('You must select a Date.');
+                    errors.push('form.error.date');
                 }
                 if (element === '') {
-                    errors.push('You must select an Element.');
+                    errors.push('form.error.element');
                 }
                 if (polarity === '') {
-                    errors.push('You must select Yang or Yin.');
+                    errors.push('form.error.polarity');
                 }
 
                 if ((leapIndex === -1) && (moons.length > 12)) {
-                    errors.push('You must select the Leap Moon, as there are 13 moons in this year.');
+                    errors.push('form.error.leapmoon');
                 }
                 if (errors.length > 0) {
                     setError(errors);

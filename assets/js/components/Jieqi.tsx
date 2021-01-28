@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import {useApp} from "./App/Provider";
 import moment from "moment";
+import {translator} from "../Translator";
 
 const Jiequi: FunctionComponent = () => {
     const [state] = useApp();
@@ -34,7 +35,7 @@ const Jiequi: FunctionComponent = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const periods = Periods[index];
+    const periods = Periods[translator.locale][index];
 
     const celebrations = [
         state.moons[1].dayOfYear(), // +0d apres la 2elune ON NEW YEAR
@@ -53,7 +54,7 @@ const Jiequi: FunctionComponent = () => {
     const celebrationDay = celebrations.indexOf(state.dayOfYear) + 1;
 
     return <div className="jiequi-container layer-container">
-        <h1>Jieqi</h1>
+        <h1>{translator.t('jieqi.title')}</h1>
         <div className="inner" onDoubleClick={handleShow}>
             {celebrationDay > 0 && <img src="/images/jieqi/background.png" alt="" />}
             <img src="/images/jieqi/jieqi.png" alt="" />
@@ -75,8 +76,8 @@ const Jiequi: FunctionComponent = () => {
         </div>
         <div className="button-group-container">
             <ToggleButtonGroup type="radio" name="bagua" value={value} onChange={handleChange} className="buttons-group-options">
-                <ToggleButton variant="outline-dark" value={"fuxi"}>Ciel antérieur <br /> Fuxi</ToggleButton>
-                <ToggleButton variant="outline-dark" value={"wen"}>Ciel postérieur <br /> Roi Wen</ToggleButton>
+                <ToggleButton variant="outline-dark" value={"fuxi"}><span dangerouslySetInnerHTML={{__html: translator.t('fuxi')}} /></ToggleButton>
+                <ToggleButton variant="outline-dark" value={"wen"}><span dangerouslySetInnerHTML={{__html: translator.t('wen')}} /></ToggleButton>
             </ToggleButtonGroup>
         </div>
     </div>

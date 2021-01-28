@@ -1,7 +1,8 @@
 export enum Page {
-    GANZHI = 'ganzhi',
-    GANZHIYEAR = 'ganzhiyear',
-    JIEQI = 'jieqi',
+    GANZHI = '/ganzhi',
+    GANZHIYEAR = '/ganzhiyear',
+    JIEQI = '/jieqi',
+    SOURCES = '/sources',
 }
 
 export type MoonSequenceDefinition = {

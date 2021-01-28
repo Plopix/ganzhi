@@ -28,7 +28,6 @@ const initialState = (savedState?: State): State => {
         isLeapYear: moment().year() % 4 === 0,
         dayOfYear: moment().dayOfYear(),
         moons: moons,
-        page: Page.GANZHI,
         moonSequence: {
             index: -1,
             element: '',

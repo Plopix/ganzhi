@@ -6,29 +6,36 @@ import {
     Nav,
     Navbar, Button,
 } from 'react-bootstrap';
-import GanzhiYear from "../GanzhiYear";
-import Ganzhi from "../Ganzhi";
 import GMoon from "../GMoon";
-import Jieqi from "../Jieqi";
 import moment from "moment";
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import {useSwipeable} from 'react-swipeable';
-import DatePicker from "react-datepicker";
+import DatePicker, {registerLocale} from "react-datepicker";
+import fr from "date-fns/locale/fr";
+import en from "date-fns/locale/en-US";
+
 import "react-datepicker/dist/react-datepicker.css";
 import {YearCycleRange} from "../../functions";
 import {Provider, useApp} from "./Provider";
 import {Page} from "./Type";
 import {writeStorage, useLocalStorage} from "@rehooks/local-storage";
+import {BrowserRouter as Router, Switch, Route, Link, useLocation, NavLink, useHistory} from 'react-router-dom';
+import Routes from "./Routing";
+import {translator} from "../../Translator";
 
 const MoonPhase = require('moonphase-js');
 
+registerLocale("fr",fr);
+registerLocale("en",en);
 const App: FunctionComponent = () => {
     const [savedState] = useLocalStorage('state', null);
     return (
-        <Provider savedState={savedState}>
-            <InnerApp />
-        </Provider>
+        <Router>
+            <Provider savedState={savedState}>
+                <InnerApp />
+            </Provider>
+        </Router>
     );
 }
 
@@ -37,31 +44,33 @@ const InnerApp: FunctionComponent = () => {
     const year = state.year;
     const dayOfYear = state.dayOfYear;
     const yearCycleStep = 60;
-    const page = state.page;
     const date = moment().year(year).dayOfYear(dayOfYear);
     const moonphase = new MoonPhase(date.toDate());
+    const location = useLocation();
+    const history = useHistory();
+
     const handlers = useSwipeable({
         onSwipedRight: () => {
-            if (page === Page.GANZHI) {
-                dispatch.updatePage(Page.JIEQI);
+            if (location.pathname === Page.GANZHI) {
+                history.push(Page.JIEQI);
             }
-            if (page === Page.GANZHIYEAR) {
-                dispatch.updatePage(Page.GANZHI);
+            if (location.pathname === Page.GANZHIYEAR) {
+                history.push(Page.GANZHI);
             }
-            if (page === Page.JIEQI) {
-                dispatch.updatePage(Page.GANZHIYEAR);
+            if (location.pathname === Page.JIEQI) {
+                history.push(Page.GANZHIYEAR);
             }
 
         },
         onSwipedLeft: () => {
-            if (page === Page.GANZHI) {
-                dispatch.updatePage(Page.GANZHIYEAR);
+            if (location.pathname === Page.GANZHI) {
+                history.push(Page.GANZHIYEAR);
             }
-            if (page === Page.GANZHIYEAR) {
-                dispatch.updatePage(Page.JIEQI);
+            if (location.pathname === Page.GANZHIYEAR) {
+                history.push(Page.JIEQI);
             }
-            if (page === Page.JIEQI) {
-                dispatch.updatePage(Page.GANZHI);
+            if (location.pathname === Page.JIEQI) {
+                history.push(Page.GANZHI);
             }
 
         },
@@ -73,21 +82,7 @@ const InnerApp: FunctionComponent = () => {
         writeStorage('state', state)
     }, [state]);
 
-
-    const pageSwitch = () => {
-        switch (page) {
-            case Page.GANZHIYEAR:
-                return <GanzhiYear />;
-            case Page.GANZHI:
-                return <Ganzhi />;
-            case Page.JIEQI:
-                return <Jieqi />;
-            default:
-                return null;
-        }
-    };
     const setFromDate = (date) => dispatch.updateDate(moment(date));
-
     const sliderRange = YearCycleRange(year, yearCycleStep);
 
     return <>
@@ -96,11 +91,11 @@ const InnerApp: FunctionComponent = () => {
                 <img width="30" src='/images/apple-icon.png' alt={"Gan and Zhi"} />
             </Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link className={(page === Page.GANZHI ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHI)}>Ganzhi</Nav.Link>
-                <Nav.Link className={(page === Page.GANZHIYEAR ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHIYEAR)}>Energies</Nav.Link>
-                <Nav.Link className={(page === Page.JIEQI ? 'active' : '')} onClick={() => dispatch.updatePage(Page.JIEQI)}>Jieqi</Nav.Link>
+                <Nav.Link as={NavLink} to={Page.GANZHI}>Ganzhi</Nav.Link>
+                <Nav.Link as={NavLink} to={Page.GANZHIYEAR}>Energies</Nav.Link>
+                <Nav.Link as={NavLink} to={Page.JIEQI}>Jieqi</Nav.Link>
                 <Nav.Link className="d-none d-md-block current-header-date">
-                    <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
+                    <DatePicker locale={translator.locale} showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
                 </Nav.Link>
                 <Nav.Link className="moon-phase"><GMoon phase={+moonphase.phase} size={36} /></Nav.Link>
             </Nav>
@@ -108,18 +103,23 @@ const InnerApp: FunctionComponent = () => {
         <Container>
             <Row className="justify-content-md-center d-md-none d-lg-blockd-none row-current-header-date">
                 <Col md="1">
-                    <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
+                    <DatePicker locale={translator.locale} showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
                 <Col md="12" {...handlers}>
-                    {pageSwitch()}
+                    <Switch>
+                        {Routes.map((route) => (
+                            <Route key={route.path} path={route.path} exact={route.exact} component={route.main} />
+                        ))}
+                    </Switch>
                 </Col>
             </Row>
 
-            <Row className="justify-content-md-center mb-11px" style={{visibility: page === Page.GANZHI ? 'hidden' : 'visible'}}>
+            {location.pathname !== Page.SOURCES &&
+            <Row className="justify-content-md-center mb-11px" style={{visibility: location.pathname === Page.GANZHI ? 'hidden' : 'visible'}}>
                 <Col md="12">
-                    <p className="slider-title">Day of year: {dayOfYear} - {date.format("MMMM Do")}</p>
+                    <p className="slider-title">{translator.t('dayofyear')}: {dayOfYear} - {date.format("LL")}</p>
                     <Slider
                         min={1}
                         max={state.isLeapYear ? 366 : 365}
@@ -129,7 +129,8 @@ const InnerApp: FunctionComponent = () => {
                         }} />
 
                 </Col>
-            </Row>
+            </Row>}
+            {location.pathname !== Page.SOURCES &&
             <Row className="justify-content-md-center">
                 <Col md="12">
                     <p className="slider-cycle float-right">
@@ -146,7 +147,7 @@ const InnerApp: FunctionComponent = () => {
                             }}
                             size={'sm'}>&gt;</Button>
                     </p>
-                    <p className="slider-title">Year: {year} - Astrological Year: {state.isInNewYear ? state.year : state.year - 1}</p>
+                    <p className="slider-title">{translator.t('year')}: {year} - {translator.t('astro.year')}: {state.isInNewYear ? state.year : state.year - 1}</p>
                     <Slider
                         min={sliderRange.min}
                         max={sliderRange.max}
@@ -155,8 +156,13 @@ const InnerApp: FunctionComponent = () => {
                             dispatch.updateYear(value);
                         }} />
                 </Col>
-            </Row>
+            </Row>}
         </Container>
+        <footer>
+            <p><i className="fas fa-code" /> with <i className="fas fa-heart" /> by Plopix.</p>
+            <p>Designed and propulsed by Guillaume Sor and Plopix in California</p>
+            <p><Link to={Page.SOURCES}>Sources</Link></p>
+        </footer>
     </>;
 };
 

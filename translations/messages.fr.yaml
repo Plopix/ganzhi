@@ -1,0 +1,32 @@
+servants: Serviteurs
+meridians: Méridiens
+zangfu: Zangfu
+leapmoon: Lune intercalaire
+fuxi: Ciel antérieur <br/> Fuxi
+wen: Ciel postérieur <br/> Roi Wen
+
+ganzhi.title: Gan et Zhi Cycle
+ganzhiyear.title: Gan et Zhi
+jieqi.title: Jieqi
+year: Année
+astro.year: Année Astronomique
+dayofyear: Jour de l'année
+
+form.error.main: Le formulaire n'est pas correctement rempli !
+form.error.date: Vous devez sélectionner une date.
+form.error.element: Vous devez sélectionner un élément.
+form.error.polarity: Vous devez sélectionner Yang ou Yin.
+form.error.leapmoon: You must select the Leap Moon, as there are 13 moons in this year.
+
+moon.select: Selectionnez la Lune que vous voulez configurer
+leapmoon.select: Selectionnez la Lune intercalaire
+
+close: Fermer
+save: Enregistrer
+moon: Lune
+
+earth: Terre
+metal: Metal
+water: Eau
+wood: Bois
+fire: Feu

@@ -10,16 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 final class AppController
 {
     /**
-     * @Route("/sources", name="sources")
-     * @Template()
-     */
-    public function sources(): array
-    {
-        return [];
-    }
-
-    /**
      * @Route("/", name="home")
+     * @Route("/{reactRouting}", requirements={"reactRouting":".+"})
      * @Template()
      */
     public function index(): array
