@@ -43,25 +43,27 @@ const InnerApp: FunctionComponent = () => {
     const handlers = useSwipeable({
         onSwipedRight: () => {
             if (page === Page.GANZHI) {
-                dispatch.updatePage(Page.GANZHIYEAR);
-            }
-            if (page === Page.JIEQI) {
-                dispatch.updatePage(Page.GANZHI);
-            }
-            if (page === Page.GANZHIYEAR) {
                 dispatch.updatePage(Page.JIEQI);
             }
+            if (page === Page.GANZHIYEAR) {
+                dispatch.updatePage(Page.GANZHI);
+            }
+            if (page === Page.JIEQI) {
+                dispatch.updatePage(Page.GANZHIYEAR);
+            }
+
         },
         onSwipedLeft: () => {
             if (page === Page.GANZHI) {
-                dispatch.updatePage(Page.JIEQI);
-            }
-            if (page === Page.JIEQI) {
                 dispatch.updatePage(Page.GANZHIYEAR);
             }
             if (page === Page.GANZHIYEAR) {
+                dispatch.updatePage(Page.JIEQI);
+            }
+            if (page === Page.JIEQI) {
                 dispatch.updatePage(Page.GANZHI);
             }
+
         },
         preventDefaultTouchmoveEvent: true,
         trackMouse: true
@@ -94,8 +96,8 @@ const InnerApp: FunctionComponent = () => {
                 <img width="30" src='/images/apple-icon.png' alt={"Gan and Zhi"} />
             </Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link className={(page === Page.GANZHIYEAR ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHIYEAR)}>Energies</Nav.Link>
                 <Nav.Link className={(page === Page.GANZHI ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHI)}>Ganzhi</Nav.Link>
+                <Nav.Link className={(page === Page.GANZHIYEAR ? 'active' : '')} onClick={() => dispatch.updatePage(Page.GANZHIYEAR)}>Energies</Nav.Link>
                 <Nav.Link className={(page === Page.JIEQI ? 'active' : '')} onClick={() => dispatch.updatePage(Page.JIEQI)}>Jieqi</Nav.Link>
                 <Nav.Link className="d-none d-md-block current-header-date">
                     <DatePicker showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
