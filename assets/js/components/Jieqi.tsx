@@ -65,7 +65,7 @@ const Jiequi: FunctionComponent = () => {
             {celebrationDay > 0 && <img src={'/images/fetes/fete-' + celebrationDay + '.png'} alt="" />}
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Period</Modal.Title>
+                    <Modal.Title>{translator.t('solar.period')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <ul>

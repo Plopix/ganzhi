@@ -65,4 +65,5 @@ deploy:
 	@ssh root@plopix.net 'chown -R plopix:www-data /var/www/html/plopix/ganzhi/ganzhi.plopix.net/'
 	@ssh root@plopix.net 'chmod -R 770 /var/www/html/plopix/ganzhi/ganzhi.plopix.net/'
 	@ssh root@plopix.net 'su - plopix -c "cd /var/www/html/plopix/ganzhi/ganzhi.plopix.net && composer install"'
+	@ssh root@plopix.net 'su - plopix -c "cd /var/www/html/plopix/ganzhi/ganzhi.plopix.net && rm -rf var/cache"'
 	@ssh root@plopix.net 'su - plopix -c "cd /var/www/html/plopix/ganzhi/ganzhi.plopix.net && yarn install && yarn run encore prod"'
