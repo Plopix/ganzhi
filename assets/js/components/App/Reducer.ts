@@ -1,18 +1,20 @@
 import {recalculateNewMoons} from "../../functions";
 import moment, {Moment} from "moment";
-import {elementSequenceOrder, MoonSequenceDefinition} from "./Type";
+import {elementSequenceOrder, Journal, MoonSequenceDefinition} from "./Type";
 
 type Action =
     | { type: 'CHANGE_YEAR'; year: number }
     | { type: 'CHANGE_DAY'; dayOfYear: number }
     | { type: 'CHANGE_DATE'; date: Moment }
     | { type: 'CHANGE_MOON_SEQUENCE'; sequence: MoonSequenceDefinition }
+    | { type: 'SAVE_NOTE'; year: number, text: string }
 
 export type Actions = {
     updateDayOfYear: (day: number) => void;
     updateYear: (year: number) => void;
     updateDate: (date: Moment) => void;
     updateMoonSequence: (sequence: MoonSequenceDefinition) => void;
+    saveNote: (year: number, text: string) => void;
 };
 
 export type State = {
@@ -22,6 +24,7 @@ export type State = {
     isLeapYear: boolean;
     moonSequence: MoonSequenceDefinition,
     isInNewYear: boolean,
+    journal: Journal
 };
 
 export type Dispatch = (action: Action) => void;
@@ -65,6 +68,15 @@ export function Reducer(state: State, action: Action) {
                 moonSequence: action.sequence
             };
         }
+        case 'SAVE_NOTE': {
+            return {
+                ...state,
+                journal: {
+                    ...state.journal,
+                    [action.year]: action.text
+                }
+            };
+        }
         default: {
             throw new Error('Unhandled action type');
         }
@@ -77,5 +89,6 @@ export function mapToReducerActions(dispatch: Dispatch): Actions {
         updateYear: (year: number) => dispatch({type: 'CHANGE_YEAR', year}),
         updateDate: (date: Moment) => dispatch({type: 'CHANGE_DATE', date}),
         updateMoonSequence: (sequence: MoonSequenceDefinition) => dispatch({type: 'CHANGE_MOON_SEQUENCE', sequence}),
-    };
+        saveNote: (year: number, text: string) => dispatch({type: 'SAVE_NOTE', year, text})
+    }
 }

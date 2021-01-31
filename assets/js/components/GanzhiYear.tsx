@@ -4,10 +4,12 @@ import {Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup} from "react
 import {useApp} from "./App/Provider";
 import {elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder} from "./App/Type";
 import {translator} from "../Translator";
+import Journal from "./Journal";
 
 const GanzhiYear: FunctionComponent = () => {
     const [state, dispatch] = useApp();
-    const [show, setShow] = useState(false);
+    const [moonConfigVisible, setMoonConfigVisible] = useState(false);
+    const [journalVisible, setJournalVisible] = useState(false);
     const countEnergy = 6;
     const countElement = 5;
     const isLeapYear = state.isLeapYear;
@@ -34,12 +36,21 @@ const GanzhiYear: FunctionComponent = () => {
     };
 
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
     return <div className="ganzhiyear-container layer-container">
+        <button className={'journal-opener'} onClick={() => {
+            if (moonConfigVisible) {
+                return;
+            }
+            setJournalVisible(true)
+        }}>
+            <i className="fas fa-journal-whills fa-3x" /></button>
         <h1>{translator.t('ganzhiyear.title')}</h1>
-        <div className="inner" onDoubleClick={handleShow}>
+        <div className="inner" onDoubleClick={() => {
+            if (journalVisible) {
+                return;
+            }
+            setMoonConfigVisible(true)
+        }}>
             <img src="/images/ganzhiyear/arrow.png" style={styles.arrow} alt="" />
             <img src="/images/ganzhiyear/background.png" alt="" />
             <img src="/images/ganzhiyear/energy.png" style={styles.energy} alt="" />
@@ -75,11 +86,11 @@ const GanzhiYear: FunctionComponent = () => {
             <img src={centerImage} className="element" style={styles.element} alt="" />
             <span className={numberbgclass}>{(dayOfYear < 20 ? GetRank(year - 1) : GetRank(year))}</span>
 
-            <Modal show={show} onHide={handleClose} centered>
+            <Modal show={moonConfigVisible} onHide={() => setMoonConfigVisible(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>{translator.t('moon')}s - {translator.t('year')} {year}</Modal.Title>
                 </Modal.Header>
-                <MoonConfig moons={moons} defaultsMoonDefinition={moonSequence} onClose={() => setShow(false)} onSave={(index, element, polarity, leapIndex) => {
+                <MoonConfig moons={moons} defaultsMoonDefinition={moonSequence} onClose={() => setMoonConfigVisible(false)} onSave={(index, element, polarity, leapIndex) => {
                     dispatch.updateMoonSequence({
                         index: index,
                         element: element,
@@ -87,6 +98,13 @@ const GanzhiYear: FunctionComponent = () => {
                         leapIndex: leapIndex,
                     })
                 }} />
+            </Modal>
+
+            <Modal show={journalVisible} onHide={() => setJournalVisible(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Notes</Modal.Title>
+                </Modal.Header>
+                <Journal onClose={() => setJournalVisible(false)} />
             </Modal>
         </div>
     </div>

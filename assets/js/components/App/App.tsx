@@ -92,7 +92,7 @@ const InnerApp: FunctionComponent = () => {
             </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to={Page.GANZHI}>Ganzhi</Nav.Link>
-                <Nav.Link as={NavLink} to={Page.GANZHIYEAR}>Energies</Nav.Link>
+                <Nav.Link as={NavLink} to={Page.GANZHIYEAR}>Énergies</Nav.Link>
                 <Nav.Link as={NavLink} to={Page.JIEQI}>Jieqi</Nav.Link>
                 <Nav.Link className="d-none d-md-block current-header-date">
                     <DatePicker locale={translator.locale} showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />

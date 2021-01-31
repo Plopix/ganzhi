@@ -25,3 +25,7 @@ export const polaritySequenceOrder = [
     'yang',
     'yin',
 ];
+
+export type Journal = {
+    [indexer: number]: string;
+}
