@@ -9,7 +9,6 @@ import {
 } from './Reducer';
 import moment from "moment";
 import {recalculateNewMoons} from "../../functions";
-import {Page} from "./Type";
 
 const StateContext = React.createContext<State | undefined>(undefined);
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined);
@@ -17,6 +16,7 @@ const DispatchContext = React.createContext<Dispatch | undefined>(undefined);
 const initialState = (savedState?: State): State => {
     if (savedState !== null) {
         return {
+            journal: {},
             ...savedState,
             moons: recalculateNewMoons(savedState.year)
         };
@@ -34,7 +34,8 @@ const initialState = (savedState?: State): State => {
             polarity: '',
             leapIndex: -1,
         },
-        isInNewYear: moment().isSameOrAfter(moons[1])
+        isInNewYear: moment().isSameOrAfter(moons[1]),
+        journal: {}
     };
 };
 

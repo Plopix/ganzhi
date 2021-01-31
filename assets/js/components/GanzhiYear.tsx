@@ -37,13 +37,6 @@ const GanzhiYear: FunctionComponent = () => {
 
 
     return <div className="ganzhiyear-container layer-container">
-        <button className={'journal-opener'} onClick={() => {
-            if (moonConfigVisible) {
-                return;
-            }
-            setJournalVisible(true)
-        }}>
-            <i className="fas fa-journal-whills fa-3x" /></button>
         <h1>{translator.t('ganzhiyear.title')}</h1>
         <div className="inner" onDoubleClick={() => {
             if (journalVisible) {
@@ -102,11 +95,19 @@ const GanzhiYear: FunctionComponent = () => {
 
             <Modal show={journalVisible} onHide={() => setJournalVisible(false)} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Notes</Modal.Title>
+                    <Modal.Title>Notes {state.year}</Modal.Title>
                 </Modal.Header>
                 <Journal onClose={() => setJournalVisible(false)} />
             </Modal>
         </div>
+        <button className={'journal-opener'} onClick={() => {
+            if (moonConfigVisible) {
+                return;
+            }
+            setJournalVisible(true)
+        }}>
+            <i className="fas fa-clipboard fa-2x" />
+        </button>
     </div>
 };
 

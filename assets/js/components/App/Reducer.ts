@@ -7,14 +7,14 @@ type Action =
     | { type: 'CHANGE_DAY'; dayOfYear: number }
     | { type: 'CHANGE_DATE'; date: Moment }
     | { type: 'CHANGE_MOON_SEQUENCE'; sequence: MoonSequenceDefinition }
-    | { type: 'SAVE_NOTE'; year: number, text: string }
+    | { type: 'SAVE_NOTE'; text: string }
 
 export type Actions = {
     updateDayOfYear: (day: number) => void;
     updateYear: (year: number) => void;
     updateDate: (date: Moment) => void;
     updateMoonSequence: (sequence: MoonSequenceDefinition) => void;
-    saveNote: (year: number, text: string) => void;
+    saveNote: (text: string) => void;
 };
 
 export type State = {
@@ -73,7 +73,7 @@ export function Reducer(state: State, action: Action) {
                 ...state,
                 journal: {
                     ...state.journal,
-                    [action.year]: action.text
+                    [state.year]: action.text
                 }
             };
         }
@@ -89,6 +89,6 @@ export function mapToReducerActions(dispatch: Dispatch): Actions {
         updateYear: (year: number) => dispatch({type: 'CHANGE_YEAR', year}),
         updateDate: (date: Moment) => dispatch({type: 'CHANGE_DATE', date}),
         updateMoonSequence: (sequence: MoonSequenceDefinition) => dispatch({type: 'CHANGE_MOON_SEQUENCE', sequence}),
-        saveNote: (year: number, text: string) => dispatch({type: 'SAVE_NOTE', year, text})
+        saveNote: (text: string) => dispatch({type: 'SAVE_NOTE', text})
     }
 }
