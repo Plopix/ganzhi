@@ -3,6 +3,7 @@ export enum Page {
     GANZHIYEAR = '/ganzhiyear',
     JIEQI = '/jieqi',
     SOURCES = '/sources',
+    GUIDE = '/guide',
 }
 
 export type MoonSequenceDefinition = {

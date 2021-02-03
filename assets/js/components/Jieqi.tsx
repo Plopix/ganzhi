@@ -1,21 +1,22 @@
-import React, {FunctionComponent, useState} from 'react';
-import {GetRank} from "../functions";
-import {Periods} from "../periods";
+import React, { FunctionComponent, useState } from 'react';
+import { GetRank } from "../functions";
+import { Periods } from "../periods";
 
 import {
     ToggleButtonGroup,
     ToggleButton,
     Modal
 } from 'react-bootstrap';
-import {useApp} from "./App/Provider";
+import { useApp } from "./App/Provider";
 import moment from "moment";
-import {translator} from "../Translator";
+import { translator } from "../Translator";
 
 const Jiequi: FunctionComponent = () => {
-    const [state] = useApp();
-
+    const [state, dispatch] = useApp();
     const [value, setValue] = useState('wen');
-    const [show, setShow] = useState(false);
+    const [periodVisible, setPeriodVisible] = useState(false);
+    const [celebrationVisible, setCelebrationVisible] = useState(false);
+
     const rank = GetRank(state.isInNewYear ? state.year : state.year - 1);
     const startingPoint = state.isLeapYear ? 81 : 80;
     const angle = (state.dayOfYear - startingPoint) * (360 / (state.isLeapYear ? 366 : 365));
@@ -30,10 +31,6 @@ const Jiequi: FunctionComponent = () => {
         index = 72 + index;
     }
     index = (index + 18) % 72;
-
-    const handleChange = val => setValue(val);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const periods = Periods[translator.locale][index];
 
@@ -55,15 +52,16 @@ const Jiequi: FunctionComponent = () => {
 
     return <div className="jiequi-container layer-container">
         <h1>{translator.t('jieqi.title')}</h1>
-        <div className="inner" onDoubleClick={handleShow}>
-            {celebrationDay > 0 && <img src="/images/jieqi/background.png" alt="" />}
+        <div className="inner" onDoubleClick={() => setPeriodVisible(true)}>
             <img src="/images/jieqi/jieqi.png" alt="" />
             <img src={"/images/jieqi/bagua" + value + ".png"} alt="" />
+            {celebrationDay > 0 && <img src="/images/jieqi/background.png" alt="" />}
             {celebrationDay > 0 && <img src="/images/jieqi/front-clouds.png" alt="" />}
             <img src={"/images/zodiac/zodiac-" + rank + ".png"} alt="" />
-            <img src="/images/jieqi/arrow.png" style={styles.arrow} alt="" />
+            {celebrationDay > 0 ? <img src="/images/jieqi/arrow-festival.png" style={styles.arrow} alt="" /> :
+                <img src="/images/jieqi/arrow.png" style={styles.arrow} alt="" />}
             {celebrationDay > 0 && <img src={'/images/fetes/fete-' + celebrationDay + '.png'} alt="" />}
-            <Modal show={show} onHide={handleClose} centered>
+            <Modal show={periodVisible} onHide={() => setPeriodVisible(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>{translator.t('solar.period')}</Modal.Title>
                 </Modal.Header>
@@ -73,13 +71,43 @@ const Jiequi: FunctionComponent = () => {
                     </ul>
                 </Modal.Body>
             </Modal>
+            <Modal show={celebrationVisible} onHide={() => setCelebrationVisible(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>{translator.t('celebrations')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ul className={'list-group'}>
+                        {celebrations.map((celebrationDay, index) => {
+                            const celebration = moment().year(state.year).dayOfYear(celebrationDay);
+                            return <li key={index} className={'list-group-item text-center'}>
+                                {translator.t('celebration.'+index, 'celebrations')}<br />
+                                <button
+                                    className={'btn btn-danger'}
+                                    onClick={()=>{
+                                        dispatch.updateDayOfYear(celebrationDay);
+                                        setCelebrationVisible(false);
+                                    }}
+                                >{celebration.format("LL")}</button>
+                            </li>
+                        })}
+                    </ul>
+                </Modal.Body>
+            </Modal>
         </div>
         <div className="button-group-container">
-            <ToggleButtonGroup type="radio" name="bagua" value={value} onChange={handleChange} className="buttons-group-options">
-                <ToggleButton variant="outline-dark" value={"fuxi"}><span dangerouslySetInnerHTML={{__html: translator.t('fuxi')}} /></ToggleButton>
-                <ToggleButton variant="outline-dark" value={"wen"}><span dangerouslySetInnerHTML={{__html: translator.t('wen')}} /></ToggleButton>
+            <ToggleButtonGroup type="radio" name="bagua" value={value} onChange={(value) => setValue(value)} className="buttons-group-options">
+                <ToggleButton variant="outline-dark" value={"fuxi"}><span dangerouslySetInnerHTML={{ __html: translator.t('fuxi') }} /></ToggleButton>
+                <ToggleButton variant="outline-dark" value={"wen"}><span dangerouslySetInnerHTML={{ __html: translator.t('wen') }} /></ToggleButton>
             </ToggleButtonGroup>
         </div>
+        <button className={'celebration-opener'} title={translator.t('celebrations')} onClick={() => {
+            if (periodVisible) {
+                return;
+            }
+            setCelebrationVisible(true)
+        }}>
+            <i className="fas fa-star-and-crescent fa-2x" />
+        </button>
     </div>
 };
 

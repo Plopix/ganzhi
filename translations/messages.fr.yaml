@@ -5,12 +5,13 @@ leapmoon: Lune intercalaire
 fuxi: Ciel antérieur <br/> Fuxi
 wen: Ciel postérieur <br/> Roi Wen
 
-ganzhi.title: Gan et Zhi Cycle
-ganzhiyear.title: Gan et Zhi
+ganzhi.title: Cycle des Ganzhi
+ganzhiyear.title: Ganzhi de l'année
 jieqi.title: Jieqi
 year: Année
-astro.year: Année Astronomique
+astro.year: Année Astrologique
 dayofyear: Jour de l'année
+column.punct: ' : '
 
 form.error.main: Le formulaire n'est pas correctement rempli !
 form.error.date: Vous devez sélectionner une date.
@@ -31,4 +32,6 @@ water: Eau
 wood: Bois
 fire: Feu
 
-solar.period: Periode Solaire
+solar.period: Période Solaire
+
+celebrations: Fêtes

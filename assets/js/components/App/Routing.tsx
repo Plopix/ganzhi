@@ -5,6 +5,7 @@ import GanzhiYear from "../GanzhiYear";
 import Sources from "../Sources";
 import Jieqi from "../Jieqi";
 import {Redirect} from 'react-router-dom';
+import Guide from '../Guide';
 
 const Routes = [
     {
@@ -31,6 +32,11 @@ const Routes = [
         path: Page.SOURCES,
         exact: true,
         main: () => <Sources />
+    },
+    {
+        path: Page.GUIDE,
+        exact: true,
+        main: () => <Guide />
     },
     {
         path: '*',

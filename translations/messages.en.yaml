@@ -5,13 +5,14 @@ leapmoon: Leap Moon
 fuxi: Fuxi <br/> Earlier Heaven
 wen: King Wen <br/> Later Heaven
 
-ganzhi.title: Gan and Zhi Cycle
-ganzhiyear.title: Gan and Zhi
+ganzhi.title: Ganzhi Cycle
+ganzhiyear.title: Ganzhi's Year
 jieqi.title: Jieqi
 
 year: Year
 astro.year: Astrological Year
 dayofyear: Day of Year
+column.punct: ': '
 
 form.error.main: Form is not correctly filled out!
 form.error.date: You must select a Date.
@@ -33,3 +34,5 @@ wood: Wood
 fire: Fire
 
 solar.period: Solar Period
+
+celebrations: Festivals

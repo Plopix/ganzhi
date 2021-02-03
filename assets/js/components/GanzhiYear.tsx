@@ -1,9 +1,9 @@
-import React, {FunctionComponent, useState} from 'react';
-import {GetRank} from '../functions';
-import {Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
-import {useApp} from "./App/Provider";
-import {elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder} from "./App/Type";
-import {translator} from "../Translator";
+import React, { FunctionComponent, useState } from 'react';
+import { GetRank } from '../functions';
+import { Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { useApp } from "./App/Provider";
+import { elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder } from "./App/Type";
+import { translator } from "../Translator";
 import Journal from "./Journal";
 
 const GanzhiYear: FunctionComponent = () => {
@@ -100,7 +100,7 @@ const GanzhiYear: FunctionComponent = () => {
                 <Journal onClose={() => setJournalVisible(false)} />
             </Modal>
         </div>
-        <button className={'journal-opener'} onClick={() => {
+        <button className={'journal-opener'} title={'Notes' + state.year} onClick={() => {
             if (moonConfigVisible) {
                 return;
             }
@@ -112,11 +112,11 @@ const GanzhiYear: FunctionComponent = () => {
 };
 
 const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: MoonSequenceDefinition, onSave: Function, onClose: Function }> = ({
-                                                                                                                                                  onSave,
-                                                                                                                                                  defaultsMoonDefinition,
-                                                                                                                                                  onClose,
-                                                                                                                                                  moons
-                                                                                                                                              }) => {
+    onSave,
+    defaultsMoonDefinition,
+    onClose,
+    moons
+}) => {
     const [index, setIndex] = useState(defaultsMoonDefinition.index);
     const [polarity, setPolarity] = useState(defaultsMoonDefinition.polarity);
     const [element, setElement] = useState(defaultsMoonDefinition.element);

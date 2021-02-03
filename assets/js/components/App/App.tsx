@@ -116,10 +116,10 @@ const InnerApp: FunctionComponent = () => {
                 </Col>
             </Row>
 
-            {location.pathname !== Page.SOURCES &&
+            {![Page.SOURCES, Page.GUIDE].includes(location.pathname) &&
             <Row className="justify-content-md-center mb-11px" style={{visibility: location.pathname === Page.GANZHI ? 'hidden' : 'visible'}}>
                 <Col md="12">
-                    <p className="slider-title">{translator.t('dayofyear')}: {dayOfYear} - {date.format("LL")}</p>
+                    <p className="slider-title">{translator.t('dayofyear')}{translator.t('column.punct')}{dayOfYear} - {date.format("LL")}</p>
                     <Slider
                         min={1}
                         max={state.isLeapYear ? 366 : 365}
@@ -130,11 +130,11 @@ const InnerApp: FunctionComponent = () => {
 
                 </Col>
             </Row>}
-            {location.pathname !== Page.SOURCES &&
+            {![Page.SOURCES, Page.GUIDE].includes(location.pathname) &&
             <Row className="justify-content-md-center">
                 <Col md="12">
                     <p className="slider-cycle float-right">
-                        Cycles: <Button
+                        Cycles{translator.t('column.punct')}<Button
                         variant={'outline-dark'}
                         onClick={() => {
                             dispatch.updateYear(year - yearCycleStep);
@@ -147,7 +147,7 @@ const InnerApp: FunctionComponent = () => {
                             }}
                             size={'sm'}>&gt;</Button>
                     </p>
-                    <p className="slider-title">{translator.t('year')}: {year} - {translator.t('astro.year')}: {state.isInNewYear ? state.year : state.year - 1}</p>
+                    <p className="slider-title">{translator.t('year')}{translator.t('column.punct')}{year} - {translator.t('astro.year')}{translator.t('column.punct')}{state.isInNewYear ? state.year : state.year - 1}</p>
                     <Slider
                         min={sliderRange.min}
                         max={sliderRange.max}
@@ -161,7 +161,7 @@ const InnerApp: FunctionComponent = () => {
         <footer>
             <p><i className="fas fa-code" /> with <i className="fas fa-heart" /> by Plopix.</p>
             <p>Designed and propulsed by Guillaume Sor and Plopix in California</p>
-            <p><Link to={Page.SOURCES}>Sources</Link></p>
+            <p><Link to={Page.SOURCES}>Sources</Link> - <Link to={Page.GUIDE}>Guide</Link></p>
         </footer>
     </>;
 };
