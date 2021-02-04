@@ -79,15 +79,43 @@ const Jiequi: FunctionComponent = () => {
                     <ul className={'list-group'}>
                         {celebrations.map((celebrationDay, index) => {
                             const celebration = moment().year(state.year).dayOfYear(celebrationDay);
-                            return <li key={index} className={'list-group-item text-center'}>
-                                {translator.t('celebration.'+index, 'celebrations')}<br />
-                                <button
-                                    className={'btn btn-danger'}
-                                    onClick={()=>{
-                                        dispatch.updateDayOfYear(celebrationDay);
-                                        setCelebrationVisible(false);
-                                    }}
-                                >{celebration.format("LL")}</button>
+                            const [fr, ch, pin] = translator.t('celebration.' + index, 'celebrations').split('-');
+                            let extraButtons = [];
+                            if (index >= 2 && index <= 4) {
+                                if (index === 2) {
+                                    extraButtons.push(<button
+                                        key={index + 1}
+                                        className={'btn btn-sm btn-danger mb-1'}
+                                        onClick={() => {
+                                            dispatch.updateDayOfYear(celebrationDay + 1);
+                                            setCelebrationVisible(false);
+                                        }}
+                                    >{moment().year(state.year).dayOfYear(celebrationDay + 1).format("LL")}</button>)
+                                    extraButtons.push(<button
+                                        key={index + 2}
+                                        className={'btn btn-sm btn-danger'}
+                                        onClick={() => {
+                                            dispatch.updateDayOfYear(celebrationDay + 2);
+                                            setCelebrationVisible(false);
+                                        }}
+                                    >{moment().year(state.year).dayOfYear(celebrationDay + 2).format("LL")}</button>)
+                                }
+                            }
+                            return <li key={index} className={'list-group-item d-flex flex-row justify-content-between'}>
+                                <div>
+                                    {fr.trim()}<br />
+                                    {ch.trim()}{' '}{pin.trim()}
+                                </div>
+                                <div className={'d-flex flex-column'}>
+                                    <button
+                                        className={'btn btn-sm btn-danger mb-1'}
+                                        onClick={() => {
+                                            dispatch.updateDayOfYear(celebrationDay);
+                                            setCelebrationVisible(false);
+                                        }}
+                                    >{celebration.format("LL")}</button>
+                                    {extraButtons.map(button => button)}
+                                </div>
                             </li>
                         })}
                     </ul>
@@ -106,7 +134,7 @@ const Jiequi: FunctionComponent = () => {
             }
             setCelebrationVisible(true)
         }}>
-            <i className="fas fa-star-and-crescent fa-2x" />
+            <img src="/images/festivals.png" alt={translator.t('celebrations')} />
         </button>
     </div>
 };

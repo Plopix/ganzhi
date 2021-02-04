@@ -18,7 +18,7 @@ const Journal: FunctionComponent<{ onClose: Function }> = ({onClose}) => {
             <Button variant="dark" onClick={() => {
                 dispatch.saveNote(filledText);
                 onClose();
-            }}>Save changes</Button>
+            }}>{translator.t('save')}</Button>
         </Modal.Footer>
     </>
 }

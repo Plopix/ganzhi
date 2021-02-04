@@ -106,7 +106,7 @@ const GanzhiYear: FunctionComponent = () => {
             }
             setJournalVisible(true)
         }}>
-            <i className="fas fa-clipboard fa-2x" />
+            <img src="/images/notes.png" alt="Notes" />
         </button>
     </div>
 };
@@ -204,7 +204,7 @@ const MoonConfig: FunctionComponent<{ moons: any[], defaultsMoonDefinition: Moon
                     onSave(index, element, polarity, leapIndex)
                     onClose()
                 }
-            }}>Save changes</Button>
+            }}>{translator.t('save')}</Button>
         </Modal.Footer>
     </>
 };
