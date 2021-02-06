@@ -1,4 +1,4 @@
-var CACHE_NAME = 'ganzhi-cache-v3.0.4.0';
+var CACHE_NAME = 'ganzhi-cache-v3.0.5.0';
 
 function log (message) {
     if (CACHE_NAME.indexOf("debug") === 0) {

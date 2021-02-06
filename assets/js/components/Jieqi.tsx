@@ -34,9 +34,11 @@ const Jiequi: FunctionComponent = () => {
 
     const periods = Periods[translator.locale][index];
 
+    // +0d apres la 2elune ON NEW YEAR OR if >50 then we fallback on first moon
+    const newYear = state.moons[1].dayOfYear() > 50 ? state.moons[0] : state.moons[1];
     const celebrations = [
-        state.moons[1].dayOfYear(), // +0d apres la 2elune ON NEW YEAR
-        state.moons[1].clone().add(14, 'days').dayOfYear(), //+14d 2 apres la 2lune new year si 10 fevrier alors 24 pour le nouveau
+        newYear.dayOfYear(),
+        newYear.clone().add(14, 'days').dayOfYear(), //+14d 2 apres la 2lune new year si 10 fevrier alors 24 pour le nouveau
         moment([state.year, 3, 4]).dayOfYear(), // 4 april
         moment([state.year, 3, 5]).dayOfYear(), // 5 april
         moment([state.year, 3, 6]).dayOfYear(), // 6 april
@@ -99,6 +101,9 @@ const Jiequi: FunctionComponent = () => {
                                             setCelebrationVisible(false);
                                         }}
                                     >{moment().year(state.year).dayOfYear(celebrationDay + 2).format("LL")}</button>)
+                                }
+                                if (index > 2) {
+                                    return null;
                                 }
                             }
                             return <li key={index} className={'list-group-item d-flex flex-row justify-content-between'}>

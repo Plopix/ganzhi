@@ -33,7 +33,7 @@ export const recalculateNewMoons = (year: number): Moment[] => {
             .dayOfYear(day + 1)
             .year(year)
         const moonphase = new MoonPhase(date.toDate());
-        if ((moonphase.phase > 0 && moonphase.phase < 0.09) && ((date.diff(last, 'days') > 5) || last === null)) {
+        if ((moonphase.phase >= 0.98 || moonphase.phase < 0.09) && ((date.diff(last, 'days') > 5) || last === null)) {
             last = date;
             moons.push(date);
         }

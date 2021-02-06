@@ -1,6 +1,6 @@
-import {recalculateNewMoons} from "../../functions";
-import moment, {Moment} from "moment";
-import {elementSequenceOrder, Journal, MoonSequenceDefinition} from "./Type";
+import { recalculateNewMoons } from "../../functions";
+import moment, { Moment } from "moment";
+import { elementSequenceOrder, Journal, MoonSequenceDefinition } from "./Type";
 
 type Action =
     | { type: 'CHANGE_YEAR'; year: number }
@@ -40,13 +40,15 @@ export function Reducer(state: State, action: Action) {
             const currentElementIndex = elementSequenceOrder.indexOf(state.moonSequence.element);
             const newElement = elementSequenceOrder[(currentElementIndex + (diff * 2)).realModulo(5)];
 
+            const moonLimit = moons[1].dayOfYear() > 50 ? moons[0] : moons[1];
+
             return {
                 ...state,
                 year: newYear,
                 isLeapYear: moment([newYear]).isLeapYear(),
                 moons: moons,
                 dayOfYear: date.dayOfYear(),
-                isInNewYear: date.isSameOrAfter(moons[1]),
+                isInNewYear: date.isSameOrAfter(moonLimit),
                 moonSequence: {
                     ...state.moonSequence,
                     leapIndex: -1,
@@ -56,10 +58,11 @@ export function Reducer(state: State, action: Action) {
         }
         case 'CHANGE_DAY': {
             const date = moment().year(state.year).dayOfYear(action.dayOfYear);
+            const moonLimit = state.moons[1].dayOfYear() > 50 ? state.moons[0] : state.moons[1];
             return {
                 ...state,
                 dayOfYear: action.dayOfYear,
-                isInNewYear: date.isSameOrAfter(state.moons[1])
+                isInNewYear: date.isSameOrAfter(moonLimit),
             };
         }
         case 'CHANGE_MOON_SEQUENCE': {
@@ -85,10 +88,10 @@ export function Reducer(state: State, action: Action) {
 
 export function mapToReducerActions(dispatch: Dispatch): Actions {
     return {
-        updateDayOfYear: (dayOfYear: number) => dispatch({type: 'CHANGE_DAY', dayOfYear}),
-        updateYear: (year: number) => dispatch({type: 'CHANGE_YEAR', year}),
-        updateDate: (date: Moment) => dispatch({type: 'CHANGE_DATE', date}),
-        updateMoonSequence: (sequence: MoonSequenceDefinition) => dispatch({type: 'CHANGE_MOON_SEQUENCE', sequence}),
-        saveNote: (text: string) => dispatch({type: 'SAVE_NOTE', text})
+        updateDayOfYear: (dayOfYear: number) => dispatch({ type: 'CHANGE_DAY', dayOfYear }),
+        updateYear: (year: number) => dispatch({ type: 'CHANGE_YEAR', year }),
+        updateDate: (date: Moment) => dispatch({ type: 'CHANGE_DATE', date }),
+        updateMoonSequence: (sequence: MoonSequenceDefinition) => dispatch({ type: 'CHANGE_MOON_SEQUENCE', sequence }),
+        saveNote: (text: string) => dispatch({ type: 'SAVE_NOTE', text })
     }
 }
