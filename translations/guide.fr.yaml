@@ -1,10 +1,14 @@
 title: Conseils
 text: |
-
+    <h2>Général</h2>
     <p>[icône en haut à gauche] : cliquer pour réinitialiser à la date du jour.</p>
     <p>[date en haut au centre] : cliquer pour afficher le calendrier et configurer une date spécifique.</p>
-    <p>[Énergies - image centrale] : double-cliquer pour configurer les lunes.</p>
-    <p>[Énergies - icône en bas à droite] : cliquer pour faire apparaître et compléter les notes de l'année sélectionnée.</p>
-    <p>[Énergies - Cycles] : cliquer sur les flèches pour changer de cycle sexagésimal.</p>
-    </p>[Jieqi - image centrale] : double-cliquer pour faire apparaître la période solaire de la date sélectionnée.</p>
-
+    <br />
+    <h2>Énergies</h2>
+    <p>[image centrale] : double-cliquer pour configurer les lunes.</p>
+    <p>[icône en bas à droite] : cliquer pour afficher et compléter les notes de l'année sélectionnée.</p>
+    <p>[Cycles] : cliquer sur les flèches pour changer de cycle sexagésimal.</p>
+    <br />
+    <h2>Jieqi</h2>
+    <p>[image centrale] : double-cliquer pour afficher la période solaire de la date sélectionnée.</p>
+    <p>[icône en bas à droite] : cliquer pour afficher la liste des fêtes de l'année sélectionnée.</p>
