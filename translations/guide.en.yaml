@@ -1,9 +1,15 @@
 title: Tips
 text: |
+    <h2>General</h2>
     <p>[top left icon]: click to reset the current date.</p>
     <p>[top center date]: click to diplay calendar et set up a date.</p>
-    <p>[Energies - main image]: double-click to set up the moons.</p>
-    <p>[Energies - bottom right icon]: cliquer to diplay and fill out the selected year notes.</p>
-    <p>[Energies - Cycles]: click on the arrows to switch sexagenary cycles.</p>
-    <p>[Jieqi - main image]: double-click to display the selected date solar term.</p>
+    <br />
+    <h2>Energies</h2>
+    <p>[main image]: double-click to set up the moons.</p>
+    <p>[bottom right icon]: cliquer to diplay and fill out the selected year notes.</p>
+    <p>[Cycles]: click on the arrows to switch sexagenary cycles.</p>
+    <br />
+    <h2>Jieqi</h2>
+    <p>[main image]: double-click to display the selected date solar term.</p>
+    <p>[bottom right icon]: click to display the selected year festivals.</p>
 
