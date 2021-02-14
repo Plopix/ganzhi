@@ -6,6 +6,7 @@ import Sources from "../Sources";
 import Jieqi from "../Jieqi";
 import {Redirect} from 'react-router-dom';
 import Guide from '../Guide';
+import Notes from '../Notes';
 
 const Routes = [
     {
@@ -37,6 +38,11 @@ const Routes = [
         path: Page.GUIDE,
         exact: true,
         main: () => <Guide />
+    },
+    {
+        path: Page.NOTES,
+        exact: true,
+        main: () => <Notes />
     },
     {
         path: '*',

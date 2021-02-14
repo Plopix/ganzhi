@@ -11,6 +11,8 @@ body {
     user-select: none;
 }
 
+
+
 div.moon {
     display: block;
     float: right;
@@ -18,6 +20,7 @@ div.moon {
     height: 24px;
     padding: 0;
     margin: 0;
+    cursor: pointer;
 }
 
 .layer-container {
@@ -301,10 +304,6 @@ nav {
         padding-left: 5px;
     }
 
-    a.moon-phase {
-        margin-top: -6px;
-    }
-
     .current-header-date {
         color: #fff;
         cursor: pointer;
@@ -334,6 +333,26 @@ nav {
     .navbar-nav .nav-link {
         padding-left: 2px;
         padding-right: 2px;
+    }
+
+    .help-dropdown {
+        margin-right:15px;
+        button {
+            background-color: #DDDDDD;
+            border-color: #DDDDDD;
+        }
+
+        button:hover, button:active, button:focus {
+            background-color: #999999;
+            border-color: #999999;
+        }
+
+
+
+        .dropleft .dropdown-toggle::before {
+            color: #000;
+        }
+
     }
 }
 

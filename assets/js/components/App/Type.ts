@@ -4,6 +4,7 @@ export enum Page {
     JIEQI = '/jieqi',
     SOURCES = '/sources',
     GUIDE = '/guide',
+    NOTES = '/notes',
 }
 
 export type MoonSequenceDefinition = {
