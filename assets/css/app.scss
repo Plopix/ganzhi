@@ -12,7 +12,6 @@ body {
 }
 
 
-
 div.moon {
     display: block;
     float: right;
@@ -75,8 +74,14 @@ div.moon {
         img {
             width: 40px;
         }
-
     }
+
+    @media (max-width: $screen-maxwheel) {
+        button.journal-opener, button.celebration-opener {
+            right: 0;
+        }
+    }
+
 }
 
 .journal {
@@ -336,7 +341,9 @@ nav {
     }
 
     .help-dropdown {
-        margin-right:15px;
+        margin-right: 15px;
+        margin-top: 4px;
+
         button {
             background-color: #DDDDDD;
             border-color: #DDDDDD;
@@ -348,11 +355,14 @@ nav {
         }
 
 
-
         .dropleft .dropdown-toggle::before {
             color: #000;
         }
 
+    }
+
+    .moon-dropdown .dropdown-toggle::before {
+        display: none;
     }
 }
 
@@ -382,10 +392,36 @@ p.slider-title {
     margin-bottom: 11px;
 }
 
+p.slider-cycle {
+    text-align: center;
+    padding-top: 5px;
+
+}
+
 @media (max-width: $screen-maxwheel) {
     p.slider-cycle {
         font-size: 13px;
         margin-top: -10px;
+        padding-top: 10px;
+    }
+}
+
+
+
+.row.row-slider {
+    button {
+    }
+}
+
+@media (max-width: $screen-maxwheel) {
+    .row.row-slider {
+        button {
+            font-size: 11px;
+        }
+
+        .right-button button {
+            margin-right: 8px;
+        }
     }
 }
 

@@ -98,7 +98,7 @@ const InnerApp: FunctionComponent = () => {
                     <Nav.Link className="d-none d-md-block current-header-date">
                         <DatePicker locale={translator.locale} showYearDropdown scrollableYearDropdown showMonthDropdown selected={date.toDate()} dateFormat={"MMMM dd, yyyy"} onChange={setFromDate} />
                     </Nav.Link>
-                    <Dropdown as={NavItem}>
+                    <Dropdown className={'moon-dropdown'} as={NavItem} drop={'left'}>
                         <Dropdown.Toggle variant={'secondary'} size={'sm'} as={'div'}>
                             <div className="moon-phase"><GMoon phase={+moonphase.phase} size={36} /></div>
                         </Dropdown.Toggle>
@@ -137,7 +137,7 @@ const InnerApp: FunctionComponent = () => {
             </Row>
 
             {![Page.SOURCES, Page.GUIDE, Page.NOTES].includes(location.pathname) &&
-            <Row className="justify-content-md-center mb-11px" style={{ visibility: location.pathname === Page.GANZHI ? 'hidden' : 'visible' }}>
+            <Row className="justify-content-md-center mb-11px row-slider" style={{ visibility: location.pathname === Page.GANZHI ? 'hidden' : 'visible' }}>
                 <Col xs={1} md={1} className={'d-flex align-self-center justify-content-center'}>
                     <Button
                         variant={'outline-dark'}
@@ -146,7 +146,7 @@ const InnerApp: FunctionComponent = () => {
                                 dispatch.updateDayOfYear(dayOfYear - 1);
                             }
                         }}
-                        size={'sm'}>&lt;</Button>
+                        size={'sm'}>-1</Button>
                 </Col>
                 <Col xs={10} md={10}>
                     <p className="slider-title">{translator.t('dayofyear')}{translator.t('column.punct')}{dayOfYear} - {date.format("LL")}</p>
@@ -159,7 +159,7 @@ const InnerApp: FunctionComponent = () => {
                         }} />
 
                 </Col>
-                <Col xs={1} md={1} className={'d-flex align-self-center justify-content-center'}>
+                <Col xs={1} md={1} className={'d-flex align-self-center justify-content-center right-button'}>
                     <Button
                         variant={'outline-dark'}
                         onClick={() => {
@@ -167,34 +167,20 @@ const InnerApp: FunctionComponent = () => {
                                 dispatch.updateDayOfYear(dayOfYear + 1);
                             }
                         }}
-                        size={'sm'}>&gt;</Button>
+                        size={'sm'}>+1</Button>
                 </Col>
             </Row>}
             {![Page.SOURCES, Page.GUIDE, Page.NOTES].includes(location.pathname) &&
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center row-slider">
                 <Col xs={1} md={1} className={'d-flex align-self-center justify-content-center'}>
                     <Button
                         variant={'outline-dark'}
                         onClick={() => {
                             dispatch.updateYear(year - 1);
                         }}
-                        size={'sm'}>&lt;</Button>
+                        size={'sm'}>-1</Button>
                 </Col>
                 <Col xs={10} md={10}>
-                    <p className="slider-cycle float-right">
-                        Cycles{translator.t('column.punct')}<Button
-                        variant={'outline-dark'}
-                        onClick={() => {
-                            dispatch.updateYear(year - yearCycleStep);
-                        }}
-                        size={'sm'}>&lt;</Button>
-                        <Button
-                            variant={'outline-dark'}
-                            onClick={() => {
-                                dispatch.updateYear(year + yearCycleStep);
-                            }}
-                            size={'sm'}>&gt;</Button>
-                    </p>
                     <p className="slider-title">{translator.t('year')}{translator.t('column.punct')}{year} - {translator.t('astro.year')}{translator.t('column.punct')}{state.isInNewYear ? state.year : state.year - 1}</p>
                     <Slider
                         min={sliderRange.min}
@@ -203,14 +189,29 @@ const InnerApp: FunctionComponent = () => {
                         onChange={(value) => {
                             dispatch.updateYear(value);
                         }} />
+                    <p className="slider-cycle">
+                        <Button
+                        variant={'outline-dark'}
+                        onClick={() => {
+                            dispatch.updateYear(year - yearCycleStep);
+                        }}
+                        size={'sm'}>&lt;</Button>
+                        {' '}Cycles{' '}
+                        <Button
+                            variant={'outline-dark'}
+                            onClick={() => {
+                                dispatch.updateYear(year + yearCycleStep);
+                            }}
+                            size={'sm'}>&gt;</Button>
+                    </p>
                 </Col>
-                <Col xs={1} md={1} className={'d-flex align-self-center justify-content-center'}>
+                <Col xs={1} md={1} className={'d-flex align-self-center justify-content-center right-button'}>
                     <Button
                         variant={'outline-dark'}
                         onClick={() => {
                             dispatch.updateYear(year + 1);
                         }}
-                        size={'sm'}>&gt;</Button>
+                        size={'sm'}>+1</Button>
                 </Col>
             </Row>}
         </Container>

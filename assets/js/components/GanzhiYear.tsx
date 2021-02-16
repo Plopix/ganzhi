@@ -51,7 +51,8 @@ const GanzhiYear: FunctionComponent = () => {
             <img src="/images/ganzhiyear/element.png" style={styles.element} alt="" />
             <img src={'/images/ganzhiyear/arrows/arrow-' + adjustedRankEnergy + '.png'} alt="" />
 
-            {moons.map((date, index) => {
+            {moons.map((date, wIndex) => {
+                const index = wIndex - moonSequence.index;
                 const style = {
                     transform: "rotate(" + (90 + date.dayOfYear() - startingPoint) * (360 / (isLeapYear ? 366 : 365)) + "deg)",
                 };
@@ -96,18 +97,18 @@ const GanzhiYear: FunctionComponent = () => {
 
             <Modal show={journalVisible} onHide={() => setJournalVisible(false)} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Notes {state.year}</Modal.Title>
+                    <Modal.Title>Journal {state.year}</Modal.Title>
                 </Modal.Header>
                 <Journal onClose={() => setJournalVisible(false)} />
             </Modal>
         </div>
-        <button className={'journal-opener'} title={'Notes' + state.year} onClick={() => {
+        <button className={'journal-opener'} title={'Journal' + state.year} onClick={() => {
             if (moonConfigVisible) {
                 return;
             }
             setJournalVisible(true)
         }}>
-            <img src="/images/notes.png" alt="Notes" />
+            <img src="/images/notes.png" alt="Journal" />
         </button>
     </div>
 };
