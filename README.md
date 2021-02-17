@@ -1,4 +1,4 @@
-# Gan and Zhi
+# Ganzhi
 
 ## Working on the project
 

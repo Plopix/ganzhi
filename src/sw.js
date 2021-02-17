@@ -1,4 +1,4 @@
-var CACHE_NAME = 'ganzhi-cache-v3.0.6.3';
+var CACHE_NAME = 'ganzhi-cache-v' + '##__PACKAGEVERSION__##';
 
 function log (message) {
     if (CACHE_NAME.indexOf("debug") === 0) {
@@ -12,7 +12,7 @@ self.addEventListener('install', function (event) {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function (cache) {
-                fetch("/build/manifest.json")
+                fetch("/bmanifest.json")
                     .then(response => {
                         return response.json()
                     })

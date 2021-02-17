@@ -35,15 +35,9 @@
     <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <script src="https://kit.fontawesome.com/3540dd2536.js" crossorigin="anonymous"></script>
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
     <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-{% block body %}{% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
+    <div id="ganzhi-app"></div>
 </body>
 </html>
