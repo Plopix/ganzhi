@@ -1,6 +1,6 @@
 # Ganzhi
 
-## Working on the project
+## Working on the project - Test
 
 Server side part is using Symfony 5 but it does not do anything. 1 Controller 1 action and then everything in React.js
 
