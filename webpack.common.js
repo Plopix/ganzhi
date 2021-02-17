@@ -43,7 +43,8 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: "src/images", to: "images" },
-                { from: "src/*.{js,txt,json,xml}", to: "[name].[ext]" }
+                { from: "src/*.{js,txt,json,xml}", to: "[name].[ext]" },
+                { from: "netlify.toml", to: "netlify.toml"}
             ],
         }),
         new DefinePlugin((() => {
@@ -79,6 +80,7 @@ module.exports = {
             filter: (file) => {
                 return ![
                     'index.html',
+                    'netlify.toml',
                     'src/manifest.json',
                     'src/robots.txt',
                     'src/browserconfig.xml',
