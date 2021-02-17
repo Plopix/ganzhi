@@ -3,15 +3,15 @@ import '../css/app.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./components/App/App";
-import {translator} from "./Translator";
-import moment from "moment";
+import App from './components/App/App';
+import { translator } from './Translator';
+import moment from 'moment';
 
 const container = document.getElementById('ganzhi-app');
 
 declare global {
     interface Number {
-        realModulo: (b: Number) => number;
+        realModulo: (b: number) => number;
     }
 }
 
@@ -27,13 +27,15 @@ if (container !== null) {
     ReactDOM.render(<App />, container);
 }
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').then(
+            function (registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            },
+            function (err) {
+                console.log('ServiceWorker registration failed: ', err);
+            }
+        );
     });
 }
-

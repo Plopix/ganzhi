@@ -10,6 +10,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
 const uuid = require("uuid")
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -19,8 +20,11 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                loader: 'ts-loader',
                 exclude: /node_modules/,
+                options: {
+                    transpileOnly: true
+                }
             },
             {
                 test: /\.(scss|css)$/,
@@ -44,9 +48,10 @@ module.exports = {
             patterns: [
                 { from: "src/images", to: "images" },
                 { from: "src/*.{js,txt,json,xml}", to: "[name].[ext]" },
-                { from: "netlify.toml", to: "netlify.toml"}
+                { from: "netlify.toml", to: "netlify.toml" }
             ],
         }),
+        new ForkTsCheckerWebpackPlugin(),
         new DefinePlugin((() => {
             let translations = {};
             glob.sync([

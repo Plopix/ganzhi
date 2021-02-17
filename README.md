@@ -1,65 +1,37 @@
 # Ganzhi
 
-## Working on the project - Test
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3a46586a-1917-41af-9395-ba45d425dc03/deploy-status)](https://app.netlify.com/sites/brave-haibt-e62e2f/deploys)
 
-Server side part is using Symfony 5 but it does not do anything. 1 Controller 1 action and then everything in React.js
 
-Don't forget to run `make watch`, that will re-transcompile on the fly when you change JS files. (so you can reload the page and see your changes).
+## Working on the project
 
-Also that's a PWA, there is a Service Worker file (sw.js), you could then have weird cache issues as the Service Worker will install stuff. 
+### Requirements
 
-> you can disable it in `assets/js/app.tsx`
-
-## Requirements
-
-- PHP 7.2+ (application engine)
-- Symfony CLI (web server)
 - Yarn
-- make (optional but you'll have to run target manually, @see Makefile)
 
-### PHP
-
-#### Mac OSX
-
-Use `brew`
-
-#### Linux
-
-Use `apt-get` or any package manager.
-
-### Symfony CLI
+### Local install
 
 ```bash
-curl -sS https://get.symfony.com/cli/installer | bash
+yarn install
 ```
 
-And the follow the instructions for certificates (HTTPS)
-
-### Yarn
-
-Use `apt-get` or any package manager.
-
-## Local install
+### Run the project
 
 ```bash
-make install
+yarn start
 ```
 
-## Run the project
+## Contribution
 
-```bash
-make serve
-```
+This project comes with Coding Standards and Tests.
+To help you contribute a Makefile is available to simplify the actions.
 
-You should be able to reach the project: https://127.0.0.1:14080
+Please comply with `yarn lint-check` using `yarn lint` before to push, your PR won't be merged otherwise.
 
-## Makefile
 
-```bash
-make
-```
+## Licensing
 
-You'll get the list of available target.
+Project under the [MIT License (MIT)](LICENSE)
 
 
 

@@ -1,6 +1,7 @@
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -17,6 +18,12 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[id].css',
         }),
+        new StyleLintPlugin({
+            configFile: '.stylelintrc.json',
+            context: 'src',
+            files: '**/*.{css,sass,scss,sss}',
+            syntax: 'scss'
+        })
     ],
     devtool: 'eval-source-map',
     devServer: {

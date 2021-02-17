@@ -4,7 +4,7 @@ export enum Page {
     JIEQI = '/jieqi',
     SOURCES = '/sources',
     GUIDE = '/guide',
-    NOTES = '/notes',
+    NOTES = '/notes'
 }
 
 export type MoonSequenceDefinition = {
@@ -12,22 +12,12 @@ export type MoonSequenceDefinition = {
     element: string;
     polarity: string;
     leapIndex: number;
-}
+};
 
+export const elementSequenceOrder = ['earth', 'metal', 'water', 'wood', 'fire'];
 
-export const elementSequenceOrder = [
-    'earth',
-    'metal',
-    'water',
-    'wood',
-    'fire'
-];
-
-export const polaritySequenceOrder = [
-    'yang',
-    'yin',
-];
+export const polaritySequenceOrder = ['yang', 'yin'];
 
 export type Journal = {
     [indexer: number]: string;
-}
+};

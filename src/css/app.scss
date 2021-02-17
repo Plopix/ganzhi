@@ -47,10 +47,10 @@ div.moon {
             position: absolute;
             top: 0;
             left: 0;
-            -webkit-transition: 0.5s ease-in-out;
-            -moz-transition: 0.5s ease-in-out;
-            -o-transition: 0.5s ease-in-out;
-            transition: 0.5s ease-in-out;
+            -webkit-transition: .5s ease-in-out;
+            -moz-transition: .5s ease-in-out;
+            -o-transition: .5s ease-in-out;
+            transition: .5s ease-in-out;
         }
     }
 
@@ -345,13 +345,13 @@ nav {
         margin-top: 4px;
 
         button {
-            background-color: #DDDDDD;
-            border-color: #DDDDDD;
+            background-color: #ddd;
+            border-color: #ddd;
         }
 
         button:hover, button:active, button:focus {
-            background-color: #999999;
-            border-color: #999999;
+            background-color: #999;
+            border-color: #999;
         }
 
 
@@ -407,12 +407,6 @@ p.slider-cycle {
 }
 
 
-
-.row.row-slider {
-    button {
-    }
-}
-
 @media (max-width: $screen-maxwheel) {
     .row.row-slider {
         button {
@@ -433,7 +427,7 @@ p.slider-cycle {
     }
 
     .rc-slider-handle {
-        border-color: #ff9900;
+        border-color: #f90;
     }
 }
 

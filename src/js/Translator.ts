@@ -3,9 +3,6 @@ declare let __TRANSLATIONS__: any;
 class Translator {
     #locale: string;
 
-    constructor() {
-    }
-
     set locale(locale: string) {
         this.#locale = locale;
     }

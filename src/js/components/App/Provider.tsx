@@ -1,14 +1,8 @@
 import * as React from 'react';
-import {FunctionComponent} from 'react';
-import {
-    Actions,
-    Dispatch,
-    mapToReducerActions,
-    Reducer,
-    State
-} from './Reducer';
-import moment from "moment";
-import {recalculateNewMoons} from "../../functions";
+import { FunctionComponent } from 'react';
+import { Actions, Dispatch, mapToReducerActions, Reducer, State } from './Reducer';
+import moment from 'moment';
+import { recalculateNewMoons } from '../../functions';
 
 const StateContext = React.createContext<State | undefined>(undefined);
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined);
@@ -32,20 +26,18 @@ const initialState = (savedState?: State): State => {
             index: -1,
             element: '',
             polarity: '',
-            leapIndex: -1,
+            leapIndex: -1
         },
         isInNewYear: moment().isSameOrAfter(moons[1]),
         journal: {}
     };
 };
 
-const Provider: FunctionComponent<{ children, savedState?: State }> = ({children, savedState}) => {
+const Provider: FunctionComponent<{ children; savedState?: State }> = ({ children, savedState }) => {
     const [state, dispatch] = React.useReducer(Reducer, initialState(savedState));
     return (
         <StateContext.Provider value={state}>
-            <DispatchContext.Provider value={dispatch}>
-                {children}
-            </DispatchContext.Provider>
+            <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
         </StateContext.Provider>
     );
 };
@@ -71,4 +63,4 @@ function useApp(): [State, Actions] {
     return [useState(), actions];
 }
 
-export {Provider, useApp};
+export { Provider, useApp };

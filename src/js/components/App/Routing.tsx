@@ -1,10 +1,10 @@
 import React from 'react';
-import {Page} from "./Type";
-import Ganzhi from "../Ganzhi";
-import GanzhiYear from "../GanzhiYear";
-import Sources from "../Sources";
-import Jieqi from "../Jieqi";
-import {Redirect} from 'react-router-dom';
+import { Page } from './Type';
+import Ganzhi from '../Ganzhi';
+import GanzhiYear from '../GanzhiYear';
+import Sources from '../Sources';
+import Jieqi from '../Jieqi';
+import { Redirect } from 'react-router-dom';
 import Guide from '../Guide';
 import Notes from '../Notes';
 
