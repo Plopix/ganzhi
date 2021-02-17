@@ -8,8 +8,8 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var version = require('./package.json').version;
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
+const uuid = require("uuid")
 
 module.exports = {
     entry: {
@@ -62,8 +62,7 @@ module.exports = {
                 translations[locale][domain] = yaml.load(fs.readFileSync(file, 'utf8'));
             });
             return {
-                __TRANSLATIONS__: JSON.stringify(translations),
-                __PACKAGEVERSION__: JSON.stringify(version),
+                __TRANSLATIONS__: JSON.stringify(translations)
             };
         })()),
         new ReplaceInFileWebpackPlugin([{
@@ -71,7 +70,7 @@ module.exports = {
             files: ['sw.js'],
             rules: [{
                 search: '##__PACKAGEVERSION__##',
-                replace: version
+                replace: uuid.v4()
             }]
         }]),
         new WebpackManifestPlugin({
