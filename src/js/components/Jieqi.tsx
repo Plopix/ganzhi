@@ -9,13 +9,13 @@ import { translator } from '../Translator';
 
 const Jiequi: FunctionComponent = () => {
     const [state, dispatch] = useApp();
-    const [value, setValue] = useState('wen');
-    const [periodVisible, setPeriodVisible] = useState(false);
-    const [celebrationVisible, setCelebrationVisible] = useState(false);
+    const [value, setValue] = useState<string>('wen');
+    const [periodVisible, setPeriodVisible] = useState<boolean>(false);
+    const [celebrationVisible, setCelebrationVisible] = useState<boolean>(false);
 
-    const rank = GetRank(state.isInNewYear ? state.year : state.year - 1);
-    const startingPoint = state.isLeapYear ? 81 : 80;
-    const angle = (state.dayOfYear - startingPoint) * (360 / (state.isLeapYear ? 366 : 365));
+    const rank: number = GetRank(state.isInNewYear ? state.year : state.year - 1);
+    const startingPoint: number = state.isLeapYear ? 81 : 80;
+    const angle: number = (state.dayOfYear - startingPoint) * (360 / (state.isLeapYear ? 366 : 365));
     const styles = {
         arrow: {
             transform: 'rotate(' + angle + 'deg)'
@@ -46,7 +46,7 @@ const Jiequi: FunctionComponent = () => {
         moment([state.year, 11, 21]).dayOfYear() // 21 decembre
     ];
 
-    const celebrationDay = celebrations.indexOf(state.dayOfYear) + 1;
+    const celebrationDay: number = celebrations.indexOf(state.dayOfYear) + 1;
 
     return (
         <div className="jiequi-container layer-container">

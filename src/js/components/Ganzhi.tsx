@@ -8,13 +8,13 @@ import { translator } from '../Translator';
 const Ganzhi: FunctionComponent = () => {
     const [state] = useApp();
     const [value, setValue] = useState([]);
-    const rank = GetRank(state.isInNewYear ? state.year : state.year - 1);
-    const diff = state.year - 4;
-    const cycle = Math.floor(diff / 10).realModulo(6);
+    const rank: number = GetRank(state.isInNewYear ? state.year : state.year - 1);
+    const diff: number = state.year - 4;
+    const cycle: number = Math.floor(diff / 10).realModulo(6);
     const countGanZangfu = 6;
     const countYear = 12;
-    const firstEmpty = 12 - 2 * (1 + cycle);
-    const startNumberPosition = (firstEmpty + 2).realModulo(12);
+    const firstEmpty: number = 12 - 2 * (1 + cycle);
+    const startNumberPosition: number = (firstEmpty + 2).realModulo(12);
 
     const styles = {
         gan: {
@@ -28,8 +28,8 @@ const Ganzhi: FunctionComponent = () => {
         }
     };
 
-    const bubles = [];
-    const startCount = cycle * 10 + 1;
+    const bubles: number[] = [];
+    const startCount: number = cycle * 10 + 1;
     for (let i = 0; i < 12; i++) {
         bubles.push(startCount + i);
     }
@@ -52,11 +52,11 @@ const Ganzhi: FunctionComponent = () => {
                     const indexPosition = (index + startNumberPosition).realModulo(12);
                     let computedValue = value;
                     if (indexPosition === firstEmpty || indexPosition === firstEmpty + 1) {
-                        computedValue = '';
+                        computedValue = 0;
                     }
                     return (
                         <span key={index} className={'position position-' + indexPosition}>
-                            {computedValue}
+                            {computedValue === 0 ? '' : computedValue}
                         </span>
                     );
                 })}

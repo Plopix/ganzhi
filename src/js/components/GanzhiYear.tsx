@@ -5,24 +5,26 @@ import { useApp } from './App/Provider';
 import { elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder } from './App/Type';
 import { translator } from '../Translator';
 import Journal from './Journal';
+import { Moment } from 'moment';
 
 const GanzhiYear: FunctionComponent = () => {
     const [state, dispatch] = useApp();
-    const [moonConfigVisible, setMoonConfigVisible] = useState(false);
-    const [journalVisible, setJournalVisible] = useState(false);
+    const [moonConfigVisible, setMoonConfigVisible] = useState<boolean>(false);
+    const [journalVisible, setJournalVisible] = useState<boolean>(false);
     const countEnergy = 6;
     const countElement = 5;
-    const isLeapYear = state.isLeapYear;
-    const year = state.year;
-    const dayOfYear = state.dayOfYear;
-    const moons = state.moons;
-    const moonSequence = state.moonSequence;
+    const isLeapYear: boolean = state.isLeapYear;
+    const year: number = state.year;
+    const dayOfYear: number = state.dayOfYear;
+    const moons: Moment[] = state.moons;
+    const moonSequence: MoonSequenceDefinition = state.moonSequence;
 
-    const adjustedRankEnergy = dayOfYear < 20 ? GetRank(year - 1) : GetRank(year);
-    const adjustedRankElement = dayOfYear < 36 ? GetRank(year - 1) : GetRank(year);
-    const startingPoint = isLeapYear ? 81 : 80;
-    const centerImage = year.realModulo(2) === 0 ? '/images/ganzhiyear/yangyear.png' : '/images/ganzhiyear/yinyear.png';
-    const numberbgclass = year.realModulo(2) === 0 ? 'center-number white' : 'center-number black';
+    const adjustedRankEnergy: number = dayOfYear < 20 ? GetRank(year - 1) : GetRank(year);
+    const adjustedRankElement: number = dayOfYear < 36 ? GetRank(year - 1) : GetRank(year);
+    const startingPoint: number = isLeapYear ? 81 : 80;
+    const centerImage: string =
+        year.realModulo(2) === 0 ? '/images/ganzhiyear/yangyear.png' : '/images/ganzhiyear/yinyear.png';
+    const numberbgclass: string = year.realModulo(2) === 0 ? 'center-number white' : 'center-number black';
 
     const styles = {
         energy: {

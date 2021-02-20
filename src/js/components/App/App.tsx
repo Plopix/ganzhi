@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { Container, Row, Col, Nav, Navbar, Button, Dropdown, NavItem } from 'react-bootstrap';
 import GMoon from '../GMoon';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import { useSwipeable } from 'react-swipeable';
@@ -34,11 +34,11 @@ const App: FunctionComponent = () => {
 
 const InnerApp: FunctionComponent = () => {
     const [state, dispatch] = useApp();
-    const year = state.year;
-    const dayOfYear = state.dayOfYear;
+    const year: number = state.year;
+    const dayOfYear: number = state.dayOfYear;
     const yearCycleStep = 60;
-    const date = moment().year(year).dayOfYear(dayOfYear);
-    const moonphase = new MoonPhase(date.toDate());
+    const date: Moment = moment().year(year).dayOfYear(dayOfYear);
+    const moonphase: MoonPhase = new MoonPhase(date.toDate());
     const location = useLocation();
     const history = useHistory();
 

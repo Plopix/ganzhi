@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { Actions, Dispatch, mapToReducerActions, Reducer, State } from './Reducer';
 import moment from 'moment';
-import { recalculateNewMoons } from '../../functions';
+import { RecalculateNewMoons } from '../../functions';
 
 const StateContext = React.createContext<State | undefined>(undefined);
 const DispatchContext = React.createContext<Dispatch | undefined>(undefined);
@@ -12,11 +12,11 @@ const initialState = (savedState?: State): State => {
         return {
             journal: {},
             ...savedState,
-            moons: recalculateNewMoons(savedState.year)
+            moons: RecalculateNewMoons(savedState.year)
         };
     }
 
-    const moons = recalculateNewMoons(moment().year());
+    const moons = RecalculateNewMoons(moment().year());
     return {
         year: moment().year(),
         isLeapYear: moment().year() % 4 === 0,

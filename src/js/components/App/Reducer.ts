@@ -1,4 +1,4 @@
-import { recalculateNewMoons } from '../../functions';
+import { RecalculateNewMoons } from '../../functions';
 import moment, { Moment } from 'moment';
 import { elementSequenceOrder, Journal, MoonSequenceDefinition } from './Type';
 
@@ -36,7 +36,7 @@ export function Reducer(state: State, action: Action) {
             const newYear = action.type === 'CHANGE_DATE' ? action.date.year() : action.year;
             const date =
                 action.type === 'CHANGE_DATE' ? action.date : moment().year(action.year).dayOfYear(state.dayOfYear);
-            const moons = recalculateNewMoons(newYear);
+            const moons = RecalculateNewMoons(newYear);
             const diff = newYear - state.year;
             const currentElementIndex = elementSequenceOrder.indexOf(state.moonSequence.element);
             const newElement = elementSequenceOrder[(currentElementIndex + diff * 2).realModulo(5)];
