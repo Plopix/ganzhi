@@ -23,6 +23,25 @@ registerLocale('fr', fr);
 registerLocale('en', en);
 const App: FunctionComponent = () => {
     const [savedState] = useLocalStorage('state', null);
+    const hostname = location.hostname;
+    if (hostname === 'ganzhi.plopix.net') {
+        return (
+            <Container>
+                <Row className="justify-content-md-center">
+                    <Col className={'text-center mt-5'}>
+                        <h1>{translator.t('title', 'migration')}</h1>
+                        <a href={'https://ganzhi.io'}>
+                            <img width="120" src="/images/apple-icon.png" alt={'Gan and Zhi'} />
+                        </a>
+                        <h2>
+                            <a href={'https://ganzhi.io'}>https://ganzhi.io</a>
+                        </h2>
+                        <p>{translator.t('description', 'migration')}</p>
+                    </Col>
+                </Row>
+            </Container>
+        );
+    }
     return (
         <Router>
             <Provider savedState={savedState}>
@@ -124,13 +143,17 @@ const InnerApp: FunctionComponent = () => {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item as={NavLink} to={Page.SOURCES}>
-                                    Sources
+                                    <i className="fas fa-quote-right" /> Sources
                                 </Dropdown.Item>
                                 <Dropdown.Item as={NavLink} to={Page.GUIDE}>
-                                    Guide
+                                    <i className={'fas fa-map-signs'} /> Guide
                                 </Dropdown.Item>
                                 <Dropdown.Item as={NavLink} to={Page.NOTES}>
-                                    Notes
+                                    <i className={'fas fa-info-circle'} /> Notes
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item as={'a'} target={'_blank'} href={'https://github.com/plopix/ganzhi'}>
+                                    <i className={'fab fa-github'} /> Contribute on Github
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -246,8 +269,8 @@ const InnerApp: FunctionComponent = () => {
                                     }}
                                     size={'sm'}
                                 >
-                                    &lt;
-                                </Button>
+                                    <i className={'fas fa-angle-double-left'} />
+                                </Button>{' '}
                                 Cycles{' '}
                                 <Button
                                     variant={'outline-dark'}
@@ -256,7 +279,7 @@ const InnerApp: FunctionComponent = () => {
                                     }}
                                     size={'sm'}
                                 >
-                                    &gt;
+                                    <i className={'fas fa-angle-double-right'} />
                                 </Button>
                             </p>
                         </Col>
@@ -281,7 +304,10 @@ const InnerApp: FunctionComponent = () => {
                 <p>Designed and propulsed by Guillaume Sor and Plopix in California</p>
                 <p>
                     <Link to={Page.SOURCES}>Sources</Link> - <Link to={Page.GUIDE}>Guide</Link> -{' '}
-                    <Link to={Page.NOTES}>Notes</Link>
+                    <Link to={Page.NOTES}>Notes</Link> -{' '}
+                    <a href={'https://github.com/plopix/ganzhi'} target={'_blank'} rel="noreferrer">
+                        Github
+                    </a>
                 </p>
             </footer>
         </>
