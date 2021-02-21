@@ -1,7 +1,7 @@
 # Ganzhi
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3a46586a-1917-41af-9395-ba45d425dc03/deploy-status)](https://app.netlify.com/sites/brave-haibt-e62e2f/deploys)
-
+![Main CI](https://github.com/plopix/ganzhi/actions/workflows/main-ci.yaml/badge.svg)
 
 ## Working on the project
 
