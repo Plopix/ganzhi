@@ -65,7 +65,11 @@ describe('Functions', function () {
                 const expectedMoonDayOfYear: number[] = set[1] as number[];
                 const moons: Moment[] = RecalculateNewMoons(year);
                 moons.map((moon: Moment, index: number) => {
-                    expect(moon.dayOfYear()).to.be.equal(expectedMoonDayOfYear[index]);
+                    // depends on the timezone
+                    expect(moon.dayOfYear()).to.be.within(
+                        expectedMoonDayOfYear[index] - 1,
+                        expectedMoonDayOfYear[index] + 1
+                    );
                 });
             });
         });
