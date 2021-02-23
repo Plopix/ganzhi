@@ -4,6 +4,7 @@ import { GetRank } from '../functions';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { useApp } from './App/Provider';
 import { translator } from '../Translator';
+import { Helmet } from 'react-helmet';
 
 const Ganzhi: FunctionComponent = () => {
     const [state] = useApp();
@@ -38,6 +39,9 @@ const Ganzhi: FunctionComponent = () => {
 
     return (
         <div className="ganzhi-container layer-container">
+            <Helmet>
+                <title>{translator.t('ganzhi.title')} - Ganzhi App</title>
+            </Helmet>
             <h1>{translator.t('ganzhi.title')}</h1>
             <div className="inner">
                 <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt="" />

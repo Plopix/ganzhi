@@ -8,6 +8,7 @@ import moment from 'moment';
 import { translator } from '../Translator';
 import CelebrationDaysModal from './shared/CelebrationDaysModal';
 import PeriodModal from './shared/PeriodModal';
+import { Helmet } from 'react-helmet';
 
 const Jiequi: FunctionComponent = () => {
     const [state] = useApp();
@@ -52,6 +53,9 @@ const Jiequi: FunctionComponent = () => {
 
     return (
         <div className="jiequi-container layer-container">
+            <Helmet>
+                <title>{translator.t('jieqi.title')} - Ganzhi App</title>
+            </Helmet>
             <h1>{translator.t('jieqi.title')}</h1>
             <div className="inner" onDoubleClick={() => setPeriodVisible(true)}>
                 <img src="/images/jieqi/jieqi.png" alt="" />

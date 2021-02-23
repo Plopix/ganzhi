@@ -7,6 +7,7 @@ import { translator } from '../Translator';
 import JournalModal from './shared/JournalModal';
 import { Moment } from 'moment';
 import MoonConfigModal from './shared/MoonConfigModal';
+import { Helmet } from 'react-helmet';
 
 const GanzhiYear: FunctionComponent = () => {
     const [state, dispatch] = useApp();
@@ -41,6 +42,9 @@ const GanzhiYear: FunctionComponent = () => {
 
     return (
         <div className="ganzhiyear-container layer-container">
+            <Helmet>
+                <title>{translator.t('ganzhiyear.title')} - Ganzhi App</title>
+            </Helmet>
             <h1>{translator.t('ganzhiyear.title')}</h1>
             <div
                 className="inner"
