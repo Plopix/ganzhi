@@ -7,6 +7,8 @@ export enum Page {
     NOTES = '/notes'
 }
 
+export const SimplePages = [Page.NOTES, Page.GUIDE, Page.SOURCES];
+
 export type MoonSequenceDefinition = {
     index: number;
     element: string;

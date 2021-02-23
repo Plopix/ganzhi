@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { translator } from '../Translator';
+import { translator } from '../../Translator';
 import { Button, Modal } from 'react-bootstrap';
-import { useApp } from './App/Provider';
+import { useApp } from '../App/Provider';
 
-const Journal: FunctionComponent<{ onClose: Function }> = ({ onClose }) => {
+const JournalModal: FunctionComponent<{ onClose: Function }> = ({ onClose }) => {
     const [state, dispatch] = useApp();
     const [filledText, setFilledText] = useState(state.journal[state.year] || '');
     useEffect(() => {
@@ -32,4 +32,4 @@ const Journal: FunctionComponent<{ onClose: Function }> = ({ onClose }) => {
     );
 };
 
-export default Journal;
+export default JournalModal;

@@ -6,9 +6,11 @@ import { ToggleButtonGroup, ToggleButton, Modal } from 'react-bootstrap';
 import { useApp } from './App/Provider';
 import moment from 'moment';
 import { translator } from '../Translator';
+import CelebrationDaysModal from './shared/CelebrationDaysModal';
+import PeriodModal from './shared/PeriodModal';
 
 const Jiequi: FunctionComponent = () => {
-    const [state, dispatch] = useApp();
+    const [state] = useApp();
     const [value, setValue] = useState<string>('wen');
     const [periodVisible, setPeriodVisible] = useState<boolean>(false);
     const [celebrationVisible, setCelebrationVisible] = useState<boolean>(false);
@@ -28,7 +30,7 @@ const Jiequi: FunctionComponent = () => {
     }
     index = (index + 18) % 72;
 
-    const periods = Periods[translator.locale][index];
+    const periodLines = Periods[translator.locale][index];
 
     // +0d apres la 2elune ON NEW YEAR OR if >50 then we fallback on first moon
     const newYear = state.moons[1].dayOfYear() > 50 ? state.moons[0] : state.moons[1];
@@ -67,88 +69,13 @@ const Jiequi: FunctionComponent = () => {
                     <Modal.Header closeButton>
                         <Modal.Title>{translator.t('solar.period')}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        <ul>
-                            {periods.map((line, index) => (
-                                <li key={index}>{line}</li>
-                            ))}
-                        </ul>
-                    </Modal.Body>
+                    <PeriodModal lines={periodLines} />
                 </Modal>
                 <Modal show={celebrationVisible} onHide={() => setCelebrationVisible(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>{translator.t('celebrations')}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        <ul className={'list-group'}>
-                            {celebrations.map((celebrationDay, index) => {
-                                const celebration = moment().year(state.year).dayOfYear(celebrationDay);
-                                const [fr, ch, pin] = translator.t('celebration.' + index, 'celebrations').split('-');
-                                const extraButtons = [];
-                                if (index >= 2 && index <= 4) {
-                                    if (index === 2) {
-                                        extraButtons.push(
-                                            <button
-                                                key={index + 1}
-                                                className={'btn btn-sm btn-danger mb-1'}
-                                                onClick={() => {
-                                                    dispatch.updateDayOfYear(celebrationDay + 1);
-                                                    setCelebrationVisible(false);
-                                                }}
-                                            >
-                                                {moment()
-                                                    .year(state.year)
-                                                    .dayOfYear(celebrationDay + 1)
-                                                    .format('LL')}
-                                            </button>
-                                        );
-                                        extraButtons.push(
-                                            <button
-                                                key={index + 2}
-                                                className={'btn btn-sm btn-danger'}
-                                                onClick={() => {
-                                                    dispatch.updateDayOfYear(celebrationDay + 2);
-                                                    setCelebrationVisible(false);
-                                                }}
-                                            >
-                                                {moment()
-                                                    .year(state.year)
-                                                    .dayOfYear(celebrationDay + 2)
-                                                    .format('LL')}
-                                            </button>
-                                        );
-                                    }
-                                    if (index > 2) {
-                                        return null;
-                                    }
-                                }
-                                return (
-                                    <li
-                                        key={index}
-                                        className={'list-group-item d-flex flex-row justify-content-between'}
-                                    >
-                                        <div>
-                                            {fr.trim()}
-                                            <br />
-                                            {ch.trim()} {pin.trim()}
-                                        </div>
-                                        <div className={'d-flex flex-column'}>
-                                            <button
-                                                className={'btn btn-sm btn-danger mb-1'}
-                                                onClick={() => {
-                                                    dispatch.updateDayOfYear(celebrationDay);
-                                                    setCelebrationVisible(false);
-                                                }}
-                                            >
-                                                {celebration.format('LL')}
-                                            </button>
-                                            {extraButtons.map((button) => button)}
-                                        </div>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </Modal.Body>
+                    <CelebrationDaysModal celebrations={celebrations} setCelebrationVisible={setCelebrationVisible} />
                 </Modal>
             </div>
             <div className="button-group-container">

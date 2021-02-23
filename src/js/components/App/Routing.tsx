@@ -2,11 +2,9 @@ import React from 'react';
 import { Page } from './Type';
 import Ganzhi from '../Ganzhi';
 import GanzhiYear from '../GanzhiYear';
-import Sources from '../Sources';
 import Jieqi from '../Jieqi';
 import { Redirect } from 'react-router-dom';
-import Guide from '../Guide';
-import Notes from '../Notes';
+import SimplePage from '../SimplePage';
 
 const Routes = [
     {
@@ -32,17 +30,17 @@ const Routes = [
     {
         path: Page.SOURCES,
         exact: true,
-        main: () => <Sources />
+        main: () => <SimplePage page={'thankyou'} />
     },
     {
         path: Page.GUIDE,
         exact: true,
-        main: () => <Guide />
+        main: () => <SimplePage page={'guide'} />
     },
     {
         path: Page.NOTES,
         exact: true,
-        main: () => <Notes />
+        main: () => <SimplePage page={'notes'} />
     },
     {
         path: '*',
