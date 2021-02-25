@@ -27,7 +27,8 @@ const GanzhiSymbolsModal: FunctionComponent = () => {
                 <p className={'text-center'}>
                     <strong>{translator.t('symbol')}</strong>
                     <br />
-                    {map.symbols[rankIndex.realModulo(map.symbols.length)]}
+                    {map.symbols[rankIndex.realModulo(map.symbols.length)][0]}{' '}
+                    {map.symbols[rankIndex.realModulo(map.symbols.length)][1]}
                 </p>
             </Modal.Body>
         </>
