@@ -20,14 +20,16 @@ const GanzhiSymbolsModal: FunctionComponent = () => {
             <Modal.Body className={'ganzhi-symbols'}>
                 <p className={'text-center'}>
                     {map.gan[rankIndex.realModulo(map.gan.length)][0]}{' '}
-                    {map.zhi[rankIndex.realModulo(map.zhi.length)][0]} <br />
+                    {map.zhi[rankIndex.realModulo(map.zhi.length)][0]}
+                    <br />
                     {map.gan[rankIndex.realModulo(map.gan.length)][1]}{' '}
                     {map.zhi[rankIndex.realModulo(map.zhi.length)][1]}
                 </p>
                 <p className={'text-center'}>
                     <strong>{translator.t('symbol')}</strong>
                     <br />
-                    {map.symbols[rankIndex.realModulo(map.symbols.length)][0]}{' '}
+                    {map.symbols[rankIndex.realModulo(map.symbols.length)][0]}
+                    <br />
                     {map.symbols[rankIndex.realModulo(map.symbols.length)][1]}
                 </p>
             </Modal.Body>
