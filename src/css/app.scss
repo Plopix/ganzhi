@@ -31,6 +31,7 @@ div.moon {
     }
 
     .inner {
+        cursor: pointer;
         position: relative;
         width: $big-wheel;
         height: $big-wheel;
@@ -63,7 +64,7 @@ div.moon {
         }
     }
 
-    button.journal-opener, button.celebration-opener {
+    button.journal-opener, button.celebration-opener, button.symbols-opener {
         background: none;
         border: none;
         border-radius: 0;
@@ -96,6 +97,12 @@ div.moon {
         width: 100%;
         height: 200px;
     }
+}
+
+.ganzhi-symbols .row {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .ganzhiyear-container {
@@ -299,8 +306,6 @@ div.moon {
                 right: ($small-wheel/4)-3;
             }
         }
-
-
     }
 }
 

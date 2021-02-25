@@ -70,15 +70,9 @@ const Jiequi: FunctionComponent = () => {
                 )}
                 {celebrationDay > 0 && <img src={'/images/fetes/fete-' + celebrationDay + '.png'} alt="" />}
                 <Modal show={periodVisible} onHide={() => setPeriodVisible(false)} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{translator.t('solar.period')}</Modal.Title>
-                    </Modal.Header>
                     <PeriodModal lines={periodLines} />
                 </Modal>
                 <Modal show={celebrationVisible} onHide={() => setCelebrationVisible(false)} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{translator.t('celebrations')}</Modal.Title>
-                    </Modal.Header>
                     <CelebrationDaysModal celebrations={celebrations} setCelebrationVisible={setCelebrationVisible} />
                 </Modal>
             </div>

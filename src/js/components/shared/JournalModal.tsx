@@ -11,6 +11,9 @@ const JournalModal: FunctionComponent<{ onClose: Function }> = ({ onClose }) => 
     }, [state.year]);
     return (
         <>
+            <Modal.Header closeButton>
+                <Modal.Title>Journal {state.year}</Modal.Title>
+            </Modal.Header>
             <Modal.Body className={'journal'}>
                 <textarea value={filledText} onChange={(event) => setFilledText(event.target.value)} />
             </Modal.Body>

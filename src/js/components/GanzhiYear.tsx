@@ -101,12 +101,8 @@ const GanzhiYear: FunctionComponent = () => {
                 <span className={numberbgclass}>{dayOfYear < 20 ? GetRank(year - 1) : GetRank(year)}</span>
 
                 <Modal show={moonConfigVisible} onHide={() => setMoonConfigVisible(false)} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>
-                            {translator.t('moon')}s - {translator.t('year')} {year}
-                        </Modal.Title>
-                    </Modal.Header>
                     <MoonConfigModal
+                        year={year}
                         moons={moons}
                         defaultsMoonDefinition={moonSequence}
                         onClose={() => setMoonConfigVisible(false)}
@@ -122,9 +118,6 @@ const GanzhiYear: FunctionComponent = () => {
                 </Modal>
 
                 <Modal show={journalVisible} onHide={() => setJournalVisible(false)} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Journal {state.year}</Modal.Title>
-                    </Modal.Header>
                     <JournalModal onClose={() => setJournalVisible(false)} />
                 </Modal>
             </div>

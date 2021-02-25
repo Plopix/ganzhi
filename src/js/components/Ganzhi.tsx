@@ -1,14 +1,19 @@
 import React, { FunctionComponent, useState } from 'react';
 import { GetRank } from '../functions';
 
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, Modal } from 'react-bootstrap';
 import { useApp } from './App/Provider';
 import { translator } from '../Translator';
 import { Helmet } from 'react-helmet';
+import GanzhiSymbolsModal from './shared/GhanziSymbolsModal';
+import GhanziSymbolsYinYangModal from './shared/GhanziSymbolsYiniYangModal';
 
 const Ganzhi: FunctionComponent = () => {
     const [state] = useApp();
     const [value, setValue] = useState([]);
+    const [symbolsVisible, setSymbolsVisible] = useState<boolean>(false);
+    const [symbolsYinYang, setSymbolsYinYang] = useState<boolean>(false);
+
     const rank: number = GetRank(state.isInNewYear ? state.year : state.year - 1);
     const diff: number = state.year - 4;
     const cycle: number = Math.floor(diff / 10).realModulo(6);
@@ -43,7 +48,15 @@ const Ganzhi: FunctionComponent = () => {
                 <title>{translator.t('ganzhi.title')} - Ganzhi App</title>
             </Helmet>
             <h1>{translator.t('ganzhi.title')}</h1>
-            <div className="inner">
+            <div
+                className="inner"
+                onDoubleClick={() => {
+                    if (symbolsYinYang) {
+                        return;
+                    }
+                    setSymbolsVisible(true);
+                }}
+            >
                 <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt="" />
                 <img src="/images/ganzhi/background.png" alt="" />
                 <img src="/images/ganzhi/gan.png" style={styles.gan} alt="" />
@@ -64,6 +77,12 @@ const Ganzhi: FunctionComponent = () => {
                         </span>
                     );
                 })}
+                <Modal show={symbolsVisible} onHide={() => setSymbolsVisible(false)} centered>
+                    <GanzhiSymbolsModal />
+                </Modal>
+                <Modal show={symbolsYinYang} onHide={() => setSymbolsYinYang(false)} centered>
+                    <GhanziSymbolsYinYangModal />
+                </Modal>
             </div>
             <div className="button-group-container">
                 <ToggleButtonGroup
@@ -83,6 +102,18 @@ const Ganzhi: FunctionComponent = () => {
                     </ToggleButton>
                 </ToggleButtonGroup>
             </div>
+            <button
+                className={'symbols-opener'}
+                title={translator.t('symbol')}
+                onClick={() => {
+                    if (symbolsVisible) {
+                        return;
+                    }
+                    setSymbolsYinYang(true);
+                }}
+            >
+                <img src="/images/yinyang.png" alt={translator.t('symbl')} />
+            </button>
         </div>
     );
 };

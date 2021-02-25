@@ -8,7 +8,8 @@ const MoonConfigModal: FunctionComponent<{
     defaultsMoonDefinition: MoonSequenceDefinition;
     onSave: Function;
     onClose: Function;
-}> = ({ onSave, defaultsMoonDefinition, onClose, moons }) => {
+    year: number;
+}> = ({ onSave, defaultsMoonDefinition, onClose, moons, year }) => {
     const [index, setIndex] = useState(defaultsMoonDefinition.index);
     const [polarity, setPolarity] = useState(defaultsMoonDefinition.polarity);
     const [element, setElement] = useState(defaultsMoonDefinition.element);
@@ -17,6 +18,11 @@ const MoonConfigModal: FunctionComponent<{
 
     return (
         <>
+            <Modal.Header closeButton>
+                <Modal.Title>
+                    {translator.t('moon')}s - {translator.t('year')} {year}
+                </Modal.Title>
+            </Modal.Header>
             <Modal.Body>
                 <div className={'moon-config d-flex flex-column justify-content-center'}>
                     {errors.length > 0 && (
