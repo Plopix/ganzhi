@@ -3,12 +3,17 @@ text: |
     <br />
     <h2>Général</h2>
     <p>[icône en haut à gauche] : cliquer pour réinitialiser à la date du jour.</p>
+    <p>[icône Lune] : cliquer pour afficher l'avancement de la lune en cours.</p>    
     <p>[date en haut au centre] : cliquer pour afficher le calendrier et configurer une date spécifique.</p>
+    <p>[Cycles] : cliquer sur les flèches pour changer de cycle sexagésimal.</p>
+    <br />
+    <h2>Ganzhi</h2>
+    <p>[image centrale] : double-cliquer pour afficher le symbole associé au ganzhi de l'année sélectionnée.</p>
+    <p>[icône en bas à droite] : cliquer pour afficher les caractéristiques de l'année sélectionnée.</p>
     <br />
     <h2>Énergies</h2>
     <p>[image centrale] : double-cliquer pour configurer les lunes.</p>
     <p>[icône en bas à droite] : cliquer pour afficher et compléter les notes de l'année sélectionnée.</p>
-    <p>[Cycles] : cliquer sur les flèches pour changer de cycle sexagésimal.</p>
     <br />
     <h2>Jieqi</h2>
     <p>[image centrale] : double-cliquer pour afficher la période solaire de la date sélectionnée.</p>
