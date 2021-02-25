@@ -6,8 +6,8 @@ import { ToggleButtonGroup, ToggleButton, Modal } from 'react-bootstrap';
 import { useApp } from './App/Provider';
 import moment from 'moment';
 import { translator } from '../Translator';
-import CelebrationDaysModal from './shared/CelebrationDaysModal';
-import PeriodModal from './shared/PeriodModal';
+import CelebrationDaysModal from './shared/Modals/CelebrationDaysModal';
+import PeriodModal from './shared/Modals/PeriodModal';
 import { Helmet } from 'react-helmet';
 
 const Jiequi: FunctionComponent = () => {

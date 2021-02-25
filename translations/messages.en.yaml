@@ -46,3 +46,8 @@ symbol.astro.sign: Astrological Sign
 symbol.element: Element
 symbol.orientation: Orientation
 symbol.by: by
+
+
+import.data.description: In order to import your data you need to upload the `.json` file
+import.invalid.file: Uploaded file is invalid, you cannot save
+import.valid.file: Uploaded file is valid, you can now save

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { useApp } from '../App/Provider';
+import { useApp } from '../../App/Provider';
 import { Col, Container, Modal, Row } from 'react-bootstrap';
-import { translator } from '../../Translator';
-import { GetRank } from '../../functions';
-import { SymbolsMap, symbolsmap } from '../../symbolsmap';
+import { translator } from '../../../Translator';
+import { GetRank } from '../../../functions';
+import { SymbolsMap, symbolsmap } from '../../../symbolsmap';
 
 const GhanziSymbolsYinYangModal: FunctionComponent = () => {
     const [state] = useApp();

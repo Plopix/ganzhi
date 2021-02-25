@@ -7,7 +7,8 @@ type Action =
     | { type: 'CHANGE_DAY'; dayOfYear: number }
     | { type: 'CHANGE_DATE'; date: Moment }
     | { type: 'CHANGE_MOON_SEQUENCE'; sequence: MoonSequenceDefinition }
-    | { type: 'SAVE_NOTE'; text: string };
+    | { type: 'SAVE_NOTE'; text: string }
+    | { type: 'UPDATE_STATE'; state: State };
 
 export type Actions = {
     updateDayOfYear: (day: number) => void;
@@ -15,6 +16,7 @@ export type Actions = {
     updateDate: (date: Moment) => void;
     updateMoonSequence: (sequence: MoonSequenceDefinition) => void;
     saveNote: (text: string) => void;
+    updateState: (state: State) => void;
 };
 
 export type State = {
@@ -81,6 +83,13 @@ export function Reducer(state: State, action: Action) {
                 }
             };
         }
+        case 'UPDATE_STATE': {
+            const moons = RecalculateNewMoons(action.state.year);
+            return {
+                ...action.state,
+                moons: moons
+            };
+        }
         default: {
             throw new Error('Unhandled action type');
         }
@@ -93,6 +102,7 @@ export function mapToReducerActions(dispatch: Dispatch): Actions {
         updateYear: (year: number) => dispatch({ type: 'CHANGE_YEAR', year }),
         updateDate: (date: Moment) => dispatch({ type: 'CHANGE_DATE', date }),
         updateMoonSequence: (sequence: MoonSequenceDefinition) => dispatch({ type: 'CHANGE_MOON_SEQUENCE', sequence }),
-        saveNote: (text: string) => dispatch({ type: 'SAVE_NOTE', text })
+        saveNote: (text: string) => dispatch({ type: 'SAVE_NOTE', text }),
+        updateState: (state: State) => dispatch({ type: 'UPDATE_STATE', state })
     };
 }

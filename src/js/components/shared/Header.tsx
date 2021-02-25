@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { Dropdown, Nav, Navbar, NavItem } from 'react-bootstrap';
+import React, { FunctionComponent, useState } from 'react';
+import { Dropdown, Modal, Nav, Navbar, NavItem } from 'react-bootstrap';
 import moment, { Moment } from 'moment';
 import { Page } from '../App/Type';
 import GMoon from './GMoon';
@@ -10,16 +10,29 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import en from 'date-fns/locale/en-US';
 import { translator } from '../../Translator';
+import ImportDataModal from './Modals/ImportDataModal';
+
 registerLocale('fr', fr);
 registerLocale('en', en);
 
 const Header: FunctionComponent = () => {
     const [state, dispatch] = useApp();
+    const [importModalVisible, setImportModalVisible] = useState<boolean>(false);
     const year: number = state.year;
     const dayOfYear: number = state.dayOfYear;
     const date: Moment = moment().year(year).dayOfYear(dayOfYear);
     const moonphase: MoonPhase = new MoonPhase(date.toDate());
     const setFromDate = (date) => dispatch.updateDate(moment(date));
+
+    const exportData = (event) => {
+        const myBlob = new Blob([JSON.stringify({ ...state, moons: null })], { type: 'application/json' });
+        const url = window.URL.createObjectURL(myBlob);
+        event.target.href = url;
+        event.target.download = 'ganzhidata.json';
+        setTimeout(function () {
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    };
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -29,13 +42,13 @@ const Header: FunctionComponent = () => {
             <Nav className="mr-auto d-flex flex-row flex-fill">
                 <div className={'d-flex flex-row flex-fill'}>
                     <Nav.Link as={NavLink} to={Page.GANZHI}>
-                        Ganzhi
+                        {translator.t(Page.GANZHI, 'pages')}
                     </Nav.Link>
                     <Nav.Link as={NavLink} to={Page.GANZHIYEAR}>
-                        Énergies
+                        {translator.t(Page.GANZHIYEAR, 'pages')}
                     </Nav.Link>
                     <Nav.Link as={NavLink} to={Page.JIEQI}>
-                        Jieqi
+                        {translator.t(Page.JIEQI, 'pages')}
                     </Nav.Link>
                     <Nav.Link className="d-none d-md-block current-header-date">
                         <DatePicker
@@ -68,20 +81,30 @@ const Header: FunctionComponent = () => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item as={NavLink} to={Page.SOURCES}>
-                                <i className="fas fa-quote-right" /> Sources
+                                <i className="fas fa-quote-right" /> {translator.t(Page.SOURCES, 'pages')}
                             </Dropdown.Item>
                             <Dropdown.Item as={NavLink} to={Page.GUIDE}>
-                                <i className={'fas fa-map-signs'} /> Guide
+                                <i className={'fas fa-map-signs'} /> {translator.t(Page.GUIDE, 'pages')}
                             </Dropdown.Item>
                             <Dropdown.Item as={NavLink} to={Page.NOTES}>
-                                <i className={'fas fa-info-circle'} /> Notes
+                                <i className={'fas fa-info-circle'} /> {translator.t(Page.NOTES, 'pages')}
                             </Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item as={'a'} target={'_blank'} href={'https://github.com/plopix/ganzhi'}>
-                                <i className={'fab fa-github'} /> Contribute on Github
+                            <Dropdown.Item as={'a'} href={'#'} onClick={exportData}>
+                                <i className={'fas fa-cloud-download-alt'} /> {translator.t('export', 'pages')}
+                            </Dropdown.Item>
+                            <Dropdown.Item as={'a'} href={'#'} onClick={() => setImportModalVisible(true)}>
+                                <i className={'fas fa-upload'} /> {translator.t('import', 'pages')}
+                            </Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item as={'a'} href={'https://github.com/plopix/ganzhi'}>
+                                <i className={'fab fa-github'} /> {translator.t('github', 'pages')}
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
+                    <Modal show={importModalVisible} onHide={() => setImportModalVisible(false)} centered>
+                        <ImportDataModal onClose={() => setImportModalVisible(false)} />
+                    </Modal>
                 </div>
             </Nav>
         </Navbar>

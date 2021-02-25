@@ -5,8 +5,8 @@ import { ToggleButtonGroup, ToggleButton, Modal } from 'react-bootstrap';
 import { useApp } from './App/Provider';
 import { translator } from '../Translator';
 import { Helmet } from 'react-helmet';
-import GanzhiSymbolsModal from './shared/GhanziSymbolsModal';
-import GhanziSymbolsYinYangModal from './shared/GhanziSymbolsYiniYangModal';
+import GanzhiSymbolsModal from './shared/Modals/GhanziSymbolsModal';
+import GhanziSymbolsYinYangModal from './shared/Modals/GhanziSymbolsYiniYangModal';
 
 const Ganzhi: FunctionComponent = () => {
     const [state] = useApp();

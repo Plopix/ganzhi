@@ -6,7 +6,7 @@ const SimplePage: FunctionComponent<{ page: string }> = ({ page }) => {
     return (
         <div className={'container text-justify'}>
             <Helmet>
-                <title>{translator.t('title')} - Ganzhi App</title>
+                <title>{translator.t('title', page)} - Ganzhi App</title>
             </Helmet>
             <h1 dangerouslySetInnerHTML={{ __html: translator.t('title', page) }} />
             <div dangerouslySetInnerHTML={{ __html: translator.t('text', page) }} />

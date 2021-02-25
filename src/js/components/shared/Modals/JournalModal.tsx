@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { translator } from '../../Translator';
+import { translator } from '../../../Translator';
 import { Button, Modal } from 'react-bootstrap';
-import { useApp } from '../App/Provider';
+import { useApp } from '../../App/Provider';
 
 const JournalModal: FunctionComponent<{ onClose: Function }> = ({ onClose }) => {
     const [state, dispatch] = useApp();

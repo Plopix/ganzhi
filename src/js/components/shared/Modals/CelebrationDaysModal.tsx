@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { translator } from '../../Translator';
+import { translator } from '../../../Translator';
 import { Modal } from 'react-bootstrap';
-import { useApp } from '../App/Provider';
+import { useApp } from '../../App/Provider';
 import moment from 'moment';
 
 const CelebrationDaysModal: FunctionComponent<{ celebrations: number[]; setCelebrationVisible: Function }> = ({

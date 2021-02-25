@@ -4,9 +4,9 @@ import { Modal } from 'react-bootstrap';
 import { useApp } from './App/Provider';
 import { elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder } from './App/Type';
 import { translator } from '../Translator';
-import JournalModal from './shared/JournalModal';
+import JournalModal from './shared/Modals/JournalModal';
 import { Moment } from 'moment';
-import MoonConfigModal from './shared/MoonConfigModal';
+import MoonConfigModal from './shared/Modals/MoonConfigModal';
 import { Helmet } from 'react-helmet';
 
 const GanzhiYear: FunctionComponent = () => {

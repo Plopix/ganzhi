@@ -46,3 +46,6 @@ symbol.element: Élément
 symbol.orientation: Orientation
 symbol.by: par
 
+import.data.description: Pour importer vos dónnées vous devez uploader le fichier `.json`
+import.invalid.file: Le fichier uploadé n'est pas valide, vous ne pouvez pas sauvegarder
+import.valid.file: Le fichier uploadé est valide, vous pouvez désormais sauvegarder

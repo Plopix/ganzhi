@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
-import { elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder } from '../App/Type';
+import { elementSequenceOrder, MoonSequenceDefinition, polaritySequenceOrder } from '../../App/Type';
 import { Alert, Button, Form, Modal, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { translator } from '../../Translator';
+import { translator } from '../../../Translator';
 
 const MoonConfigModal: FunctionComponent<{
     moons: any[];

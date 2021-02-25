@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Modal } from 'react-bootstrap';
-import { translator } from '../../Translator';
+import { translator } from '../../../Translator';
 
 const PeriodModal: FunctionComponent<{ lines: string[] }> = ({ lines }) => {
     return (
