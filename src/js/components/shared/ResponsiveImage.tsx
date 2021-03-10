@@ -14,7 +14,9 @@ const ResponsiveImage: FunctionComponent<{ src: string; className?: string; alt?
     const desktopPathWEBP = src.replace('/images/', '/images/desktop/webp/').replace('.png', '.webp');
     const mobilePathWEBP = src.replace('/images/', '/images/mobile/webp/').replace('.png', '.webp');
 
-    const isSafari =
+    const isSafari: boolean =
+        window.navigator.userAgent.match(/iPad/i) ||
+        window.navigator.userAgent.match(/iPhone/i) ||
         /constructor/i.test(window.HTMLElement) ||
         (function (p) {
             return p.toString() === '[object SafariRemoteNotification]';
