@@ -8,6 +8,7 @@ import JournalModal from './shared/Modals/JournalModal';
 import { Moment } from 'moment';
 import MoonConfigModal from './shared/Modals/MoonConfigModal';
 import { Helmet } from 'react-helmet';
+import ResponsiveImage from './shared/ResponsiveImage';
 
 const GanzhiYear: FunctionComponent = () => {
     const [state, dispatch] = useApp();
@@ -55,11 +56,11 @@ const GanzhiYear: FunctionComponent = () => {
                     setMoonConfigVisible(true);
                 }}
             >
-                <img src="/images/ganzhiyear/arrow.png" style={styles.arrow} alt="" />
-                <img src="/images/ganzhiyear/background.png" alt="" />
-                <img src="/images/ganzhiyear/energy.png" style={styles.energy} alt="" />
-                <img src="/images/ganzhiyear/element.png" style={styles.element} alt="" />
-                <img src={'/images/ganzhiyear/arrows/arrow-' + adjustedRankEnergy + '.png'} alt="" />
+                <ResponsiveImage src="/images/ganzhiyear/arrow.png" style={styles.arrow} />
+                <ResponsiveImage src="/images/ganzhiyear/background.png" />
+                <ResponsiveImage src="/images/ganzhiyear/energy.png" style={styles.energy} />
+                <ResponsiveImage src="/images/ganzhiyear/element.png" style={styles.element} />
+                <ResponsiveImage src={'/images/ganzhiyear/arrows/arrow-' + adjustedRankEnergy + '.png'} />
 
                 {moons.map((date, wIndex) => {
                     const index = wIndex - moonSequence.index;
@@ -70,7 +71,7 @@ const GanzhiYear: FunctionComponent = () => {
                             'deg)'
                     };
                     if (moonSequence.index === -1) {
-                        return <img key={'moon' + index} src="/images/moons/default.png" style={style} alt="" />;
+                        return <ResponsiveImage key={'moon' + index} src="/images/moons/default.png" style={style} />;
                     }
 
                     const elementSequenceIndexStart = elementSequenceOrder.indexOf(moonSequence.element);
@@ -88,16 +89,15 @@ const GanzhiYear: FunctionComponent = () => {
                     const polarity = polaritySequenceOrder[pIndex.realModulo(polaritySequenceOrder.length)];
 
                     return (
-                        <img
+                        <ResponsiveImage
                             key={'moon' + index}
                             src={'/images/moons/' + element + '-' + polarity + '.png'}
                             style={style}
-                            alt=""
                         />
                     );
                 })}
 
-                <img src={centerImage} className="element" style={styles.element} alt="" />
+                <ResponsiveImage src={centerImage} className="element" style={styles.element} />
                 <span className={numberbgclass}>{dayOfYear < 20 ? GetRank(year - 1) : GetRank(year)}</span>
 
                 <Modal show={moonConfigVisible} onHide={() => setMoonConfigVisible(false)} centered>

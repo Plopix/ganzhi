@@ -7,6 +7,7 @@ import { translator } from '../Translator';
 import { Helmet } from 'react-helmet';
 import GanzhiSymbolsModal from './shared/Modals/GhanziSymbolsModal';
 import GhanziSymbolsYinYangModal from './shared/Modals/GhanziSymbolsYiniYangModal';
+import ResponsiveImage from './shared/ResponsiveImage';
 
 const Ganzhi: FunctionComponent = () => {
     const [state] = useApp();
@@ -57,14 +58,14 @@ const Ganzhi: FunctionComponent = () => {
                     setSymbolsVisible(true);
                 }}
             >
-                <img src="/images/ganzhi/arrow.png" style={styles.arrow} alt="" />
-                <img src="/images/ganzhi/background.png" alt="" />
-                <img src="/images/ganzhi/gan.png" style={styles.gan} alt="" />
+                <ResponsiveImage src="/images/ganzhi/arrow.png" style={styles.arrow} />
+                <ResponsiveImage src="/images/ganzhi/background.png" />
+                <ResponsiveImage src="/images/ganzhi/gan.png" style={styles.gan} />
 
-                {value.includes('servants') && <img src="/images/ganzhi/servants.png" alt="" />}
-                {value.includes('hours') && <img src="/images/ganzhi/hours.png" alt="" />}
-                {value.includes('zangfu') && <img src="/images/ganzhi/zangfu.png" style={styles.zangfu} alt="" />}
-                <img src={'/images/zodiac/zodiac-' + rank + '.png'} />
+                {value.includes('servants') && <ResponsiveImage src="/images/ganzhi/servants.png" />}
+                {value.includes('hours') && <ResponsiveImage src="/images/ganzhi/hours.png" />}
+                {value.includes('zangfu') && <ResponsiveImage src="/images/ganzhi/zangfu.png" style={styles.zangfu} />}
+                <ResponsiveImage src={'/images/zodiac/zodiac-' + rank + '.png'} />
                 {bubles.map((value, index) => {
                     const indexPosition = (index + startNumberPosition).realModulo(12);
                     let computedValue = value;

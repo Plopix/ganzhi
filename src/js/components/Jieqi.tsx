@@ -9,6 +9,7 @@ import { translator } from '../Translator';
 import CelebrationDaysModal from './shared/Modals/CelebrationDaysModal';
 import PeriodModal from './shared/Modals/PeriodModal';
 import { Helmet } from 'react-helmet';
+import ResponsiveImage from './shared/ResponsiveImage';
 
 const Jiequi: FunctionComponent = () => {
     const [state] = useApp();
@@ -58,17 +59,17 @@ const Jiequi: FunctionComponent = () => {
             </Helmet>
             <h1>{translator.t('jieqi.title')}</h1>
             <div className="inner" onDoubleClick={() => setPeriodVisible(true)}>
-                <img src="/images/jieqi/jieqi.png" alt="" />
-                <img src={'/images/jieqi/bagua' + value + '.png'} alt="" />
-                {celebrationDay > 0 && <img src="/images/jieqi/background.png" alt="" />}
-                {celebrationDay > 0 && <img src="/images/jieqi/front-clouds.png" alt="" />}
-                <img src={'/images/zodiac/zodiac-' + rank + '.png'} alt="" />
+                <ResponsiveImage src="/images/jieqi/jieqi.png" />
+                <ResponsiveImage src={'/images/jieqi/bagua' + value + '.png'} />
+                {celebrationDay > 0 && <ResponsiveImage src="/images/jieqi/background.png" />}
+                {celebrationDay > 0 && <ResponsiveImage src="/images/jieqi/front-clouds.png" />}
+                <ResponsiveImage src={'/images/zodiac/zodiac-' + rank + '.png'} />
                 {celebrationDay > 0 ? (
-                    <img src="/images/jieqi/arrow-festival.png" style={styles.arrow} alt="" />
+                    <ResponsiveImage src="/images/jieqi/arrow-festival.png" style={styles.arrow} />
                 ) : (
-                    <img src="/images/jieqi/arrow.png" style={styles.arrow} alt="" />
+                    <ResponsiveImage src="/images/jieqi/arrow.png" style={styles.arrow} />
                 )}
-                {celebrationDay > 0 && <img src={'/images/fetes/fete-' + celebrationDay + '.png'} alt="" />}
+                {celebrationDay > 0 && <ResponsiveImage src={'/images/fetes/fete-' + celebrationDay + '.png'} />}
                 <Modal show={periodVisible} onHide={() => setPeriodVisible(false)} centered>
                     <PeriodModal lines={periodLines} />
                 </Modal>
