@@ -3,37 +3,52 @@ import React, { CSSProperties, FunctionComponent } from 'react';
 declare let window: any;
 declare let safari: any;
 
+const supportWebp = (() => {
+    const elem = document.createElement('canvas');
+    if (!!(elem.getContext && elem.getContext('2d'))) {
+        return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
+    } else {
+        return false;
+    }
+})();
+
+const isSafari =
+    window.navigator.userAgent.match(/iPad/i) ||
+    window.navigator.userAgent.match(/iPhone/i) ||
+    /constructor/i.test(window.HTMLElement) ||
+    (function (p) {
+        return p.toString() === '[object SafariRemoteNotification]';
+    })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+const getResponsivePath = (src: string, windowWidth: number): string => {
+    const weWantWebp = supportWebp && !isSafari;
+    if (windowWidth < 641) {
+        if (weWantWebp) {
+            return src.replace('/images/', '/images/mobile/webp/').replace('.png', '.webp');
+        }
+        return src.replace('/images/', '/images/mobile/png/');
+    }
+
+    if (weWantWebp) {
+        return src.replace('/images/', '/images/desktop/webp/').replace('.png', '.webp');
+    }
+    return src.replace('/images/', '/images/desktop/png/');
+};
+
 const ResponsiveImage: FunctionComponent<{ src: string; className?: string; alt?: string; style?: CSSProperties }> = ({
     src,
     className,
     alt,
     style
 }) => {
-    const desktopPathPNG = src.replace('/images/', '/images/desktop/png/');
-    const mobilePathPNG = src.replace('/images/', '/images/mobile/png/');
-    const desktopPathWEBP = src.replace('/images/', '/images/desktop/webp/').replace('.png', '.webp');
-    const mobilePathWEBP = src.replace('/images/', '/images/mobile/webp/').replace('.png', '.webp');
-
-    const isSafari: boolean =
-        window.navigator.userAgent.match(/iPad/i) ||
-        window.navigator.userAgent.match(/iPhone/i) ||
-        /constructor/i.test(window.HTMLElement) ||
-        (function (p) {
-            return p.toString() === '[object SafariRemoteNotification]';
-        })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-
-    const weWantWebp = false;
-
     return (
-        <picture>
-            {!isSafari && weWantWebp && <source type="image/webp" srcSet={mobilePathWEBP} media="(max-width: 640px)" />}
-            {!isSafari && weWantWebp && (
-                <source type="image/webp" srcSet={desktopPathWEBP} media="(min-width: 641px)" />
-            )}
-            <source srcSet={mobilePathPNG} media="(max-width: 640px)" />
-            <source srcSet={desktopPathPNG} media="(min-width: 641px)" />
-            <img loading="lazy" src="//:0" className={className} srcSet={mobilePathPNG} alt={alt} style={style} />
-        </picture>
+        <img
+            loading="lazy"
+            src={getResponsivePath(src, window.innerWidth)}
+            className={className}
+            alt={alt}
+            style={style}
+        />
     );
 };
 export default ResponsiveImage;
