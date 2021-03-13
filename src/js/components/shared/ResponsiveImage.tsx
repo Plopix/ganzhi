@@ -41,14 +41,6 @@ const ResponsiveImage: FunctionComponent<{ src: string; className?: string; alt?
     alt,
     style
 }) => {
-    return (
-        <img
-            loading="lazy"
-            src={getResponsivePath(src, window.innerWidth)}
-            className={className}
-            alt={alt}
-            style={style}
-        />
-    );
+    return <img src={getResponsivePath(src, window.innerWidth)} className={className} alt={alt} style={style} />;
 };
 export default ResponsiveImage;
